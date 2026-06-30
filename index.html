@@ -1,0 +1,3166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICEINMYVEIN Giveaway's</title>
+    <meta name="description" content="ICEINMYVEIN Giveaway's">
+
+    <meta property="og:title" content="ICEINMYVEIN Giveaway">
+    <meta property="og:description" content="ICEINMYVEIN Giveaway's">
+
+
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="icon" href="/favicon.png" type="image/png" sizes="any">
+
+    <style>
+        :root {
+            --bg-dark: #060b13;
+            --bg-darker: #03060b;
+            --panel-bg: rgba(10, 20, 38, 0.5);
+            --panel-border: rgba(0, 180, 255, 0.12);
+            --panel-border-hover: rgba(0, 180, 255, 0.25);
+            
+            --color-primary: #00b4ff;       /* Electric Blue */
+            --color-primary-glow: rgba(0, 180, 255, 0.25);
+            
+            --color-success: #53fc18;       /* Kick Green / Electric Emerald */
+            --color-success-glow: rgba(83, 252, 24, 0.25);
+            
+            --color-danger: #ff3366;        /* Neon Pink-Red */
+            --color-danger-glow: rgba(255, 51, 102, 0.25);
+            
+            --color-warning: #ffaa00;       /* Amber */
+            
+            --text-primary: #ffffff;
+            --text-secondary: #94a3b8;      /* Slate 400 */
+            --text-muted: #64748b;          /* Slate 500 */
+            
+            --font-sans: 'Outfit', 'Poppins', sans-serif;
+            
+            --radius-lg: 1.25rem;
+            --radius-md: 0.75rem;
+            --radius-sm: 0.5rem;
+            
+            --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+            /* Legacy fallback variables for JS compatibility */
+            --bg-color: var(--bg-darker);
+            --primary-text-color: #ffffff;
+            --secondary-text-color: var(--text-secondary);
+            --primary-color: var(--color-primary);
+            --border-color: var(--panel-border);
+            --error-color: var(--color-danger);
+            --success-color: var(--color-primary); /* Use electric blue as success label */
+            --warning-color: var(--color-warning);
+            --accent-glow: 0 0 1rem var(--color-primary-glow);
+            --accent-glow-strong: 0 0 2rem rgba(0, 180, 255, 0.6);
+        }
+
+        html {
+            font-size: 16px;
+            height: 100%;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: radial-gradient(circle at center, #0e1726 0%, #070c16 60%, #030509 100%);
+            color: var(--text-primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 1.5rem;
+            overflow-x: hidden;
+        }
+
+        #app-wrapper {
+            width: 100%;
+            max-width: 85rem;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        #app-container {
+            width: 100%;
+            background: var(--panel-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--panel-border);
+            border-radius: var(--radius-lg);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(0, 180, 255, 0.03);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: calc(100vh - 3rem);
+            max-height: 52rem;
+            min-height: 38rem;
+            transition: border var(--transition-normal);
+        }
+
+        .screen {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            min-height: 0;
+        }
+
+        /* --- LOGIN SCREEN --- */
+        #login-screen {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 3rem;
+            background: radial-gradient(circle at center, rgba(14, 23, 38, 0.8) 0%, rgba(7, 12, 22, 0.95) 70%);
+        }
+
+        .login-card {
+            background: rgba(10, 20, 38, 0.4);
+            border: 1px solid rgba(0, 180, 255, 0.15);
+            border-radius: var(--radius-lg);
+            padding: 3.5rem 3rem;
+            max-width: 28rem;
+            width: 100%;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), inset 0 0 20px rgba(0, 180, 255, 0.05);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 180, 255, 0.08) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .login-logo {
+            width: 4.5rem;
+            height: 4.5rem;
+            margin-bottom: 1.5rem;
+            filter: drop-shadow(0 0 10px rgba(0, 180, 255, 0.4));
+        }
+
+        #login-screen h1 {
+            color: var(--color-primary);
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 20px rgba(0, 180, 255, 0.4);
+            letter-spacing: -0.5px;
+        }
+
+        #login-screen p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            width: 100%;
+        }
+
+        .input-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            pointer-events: none;
+            transition: color var(--transition-fast);
+        }
+
+        .input-wrapper input[type="text"] {
+            width: 100%;
+            padding: 0.85rem 1rem 0.85rem 2.75rem;
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(0, 0, 0, 0.25);
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-family: var(--font-sans);
+            transition: all var(--transition-fast);
+        }
+
+        .input-wrapper input[type="text"]:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 15px rgba(0, 180, 255, 0.25);
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .input-wrapper input[type="text"]:focus + .input-icon {
+            color: var(--color-primary);
+        }
+
+        /* --- BUTTONS --- */
+        .btn {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            font-size: 0.95rem;
+            font-family: var(--font-sans);
+            cursor: pointer;
+            border: none;
+            transition: all var(--transition-normal);
+            width: 100%;
+        }
+
+        .btn-icon-only {
+            padding: 0.5rem;
+            width: auto;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #00b4ff 0%, #0060dd 100%);
+            color: #ffffff;
+            box-shadow: 0 4px 15px rgba(0, 180, 255, 0.3);
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 180, 255, 0.5);
+            filter: brightness(1.1);
+        }
+
+        .btn-primary:active:not(:disabled) {
+            transform: translateY(0);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #53fc18 0%, #1db902 100%);
+            color: #03060b;
+            box-shadow: 0 4px 15px rgba(83, 252, 24, 0.2);
+            text-shadow: none;
+        }
+
+        .btn-success:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(83, 252, 24, 0.4);
+            filter: brightness(1.1);
+        }
+
+        .btn-success:active:not(:disabled) {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--text-primary);
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #ff3366 0%, #c20038 100%);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(255, 51, 102, 0.2);
+        }
+
+        .btn-danger:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(255, 51, 102, 0.4);
+        }
+
+        .btn-danger-outline {
+            background: rgba(255, 51, 102, 0.05);
+            border: 1px solid rgba(255, 51, 102, 0.2);
+            color: #ff5580;
+        }
+
+        .btn-danger-outline:hover:not(:disabled) {
+            background: rgba(255, 51, 102, 0.12);
+            border-color: rgba(255, 51, 102, 0.35);
+        }
+
+        .btn:disabled {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            color: var(--text-muted);
+            box-shadow: none;
+            cursor: not-allowed;
+            transform: none !important;
+            filter: none !important;
+        }
+
+        /* --- APP HEADER --- */
+        .app-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 2rem;
+            background: rgba(10, 20, 38, 0.3);
+            border-bottom: 1px solid var(--panel-border);
+            flex-shrink: 0;
+            z-index: 10;
+        }
+
+        .brand-and-status {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .app-logo img {
+            height: 2rem;
+            display: block;
+            filter: drop-shadow(0 0 8px rgba(0, 180, 255, 0.3));
+        }
+
+        .channel-connection {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: rgba(83, 252, 24, 0.05);
+            border: 1px solid rgba(83, 252, 24, 0.15);
+            padding: 0.4rem 0.8rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.85rem;
+        }
+
+        .status-indicator-dot {
+            width: 0.5rem;
+            height: 0.5rem;
+            border-radius: 50%;
+            background-color: var(--color-success);
+            box-shadow: 0 0 8px var(--color-success);
+            animation: statusPulse 1.8s infinite ease-in-out;
+        }
+
+        .connection-label {
+            color: var(--text-secondary);
+        }
+
+        .channel-connection strong {
+            color: var(--color-success);
+            font-weight: 600;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        /* Settings Toggle Button inside header */
+        .settings-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--panel-border);
+            color: var(--text-primary);
+            padding: 0.6rem 1.1rem;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            border-radius: var(--radius-md);
+            transition: all var(--transition-fast);
+        }
+
+        .settings-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(0, 180, 255, 0.3);
+            box-shadow: 0 0 10px rgba(0, 180, 255, 0.1);
+        }
+
+        .settings-btn svg {
+            transition: transform 0.5s ease;
+        }
+
+        .settings-btn:hover svg {
+            transform: rotate(45deg);
+        }
+
+        /* --- QUICK STATUS BAR --- */
+        .quick-status-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.25rem;
+            padding: 0.75rem 2rem;
+            background: rgba(6, 11, 20, 0.35);
+            border-bottom: 1px solid var(--panel-border);
+            align-items: center;
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.8rem;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 0.25rem 0.6rem;
+            border-radius: var(--radius-sm);
+        }
+
+        .pill-label {
+            color: var(--text-muted);
+        }
+
+        .pill-val {
+            color: var(--color-primary);
+            font-weight: 600;
+        }
+
+        /* --- MAIN CONTENT LAYOUT --- */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 1.5rem;
+            padding: 1.5rem 2rem;
+            height: 100%;
+            min-height: 0;
+            flex: 1;
+        }
+
+        .dashboard-col {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            min-height: 0;
+            height: 100%;
+        }
+
+        /* --- GLASS CARDS --- */
+        .card {
+            background: rgba(13, 22, 43, 0.35);
+            border: 1px solid var(--panel-border);
+            border-radius: var(--radius-md);
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+        }
+
+        .card:hover {
+            border-color: var(--panel-border-hover);
+        }
+
+        .card-header {
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--panel-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .card-header h3 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            letter-spacing: -0.2px;
+        }
+
+        .header-with-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .counter-badge {
+            background: rgba(0, 180, 255, 0.1);
+            border: 1px solid rgba(0, 180, 255, 0.2);
+            color: var(--color-primary);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.15rem 0.5rem;
+            border-radius: 20px;
+        }
+
+        .list-container {
+            flex: 1;
+            overflow-y: auto;
+            min-height: 0;
+            background: rgba(0, 0, 0, 0.15);
+        }
+
+        /* Console/Control Card specific styles */
+        .console-card {
+            flex-shrink: 0;
+        }
+
+        .console-body {
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        #status-message {
+            font-size: 0.95rem;
+            font-weight: 500;
+            text-align: center;
+            padding: 0.75rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: var(--radius-sm);
+        }
+
+        .status-waiting {
+            color: var(--text-secondary);
+            border-left: 3px solid var(--text-muted);
+        }
+
+        .status-connected {
+            color: var(--color-success);
+            border-left: 3px solid var(--color-success);
+            background: rgba(83, 252, 24, 0.03) !important;
+        }
+
+        .status-error {
+            color: var(--color-danger);
+            border-left: 3px solid var(--color-danger);
+            background: rgba(255, 51, 102, 0.03) !important;
+        }
+
+        .console-actions {
+            margin-top: 0.25rem;
+        }
+
+        .giveaway-controls {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .giveaway-controls button {
+            flex: 1;
+        }
+
+        /* --- SETTINGS DRAWER --- */
+        .header-menu-container {
+            position: relative;
+        }
+
+        .settings-drawer {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 25rem;
+            max-width: 90vw;
+            height: 100vh;
+            background: rgba(6, 11, 22, 0.96);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-left: 1px solid var(--panel-border);
+            box-shadow: -15px 0 40px rgba(0, 0, 0, 0.6);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            transform: translateX(100%);
+            transition: transform var(--transition-normal), visibility var(--transition-normal);
+            visibility: hidden;
+        }
+
+        .settings-drawer.active {
+            transform: translateX(0);
+            visibility: visible;
+        }
+
+        /* Drawer overlay arrow placeholder removal (since it's a slide drawer) */
+        .settings-drawer::before {
+            display: none !important;
+        }
+
+        .drawer-header {
+            padding: 1.5rem 1.75rem;
+            border-bottom: 1px solid var(--panel-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .drawer-header h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .btn-close-drawer {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.4rem;
+            border-radius: 50%;
+            transition: all var(--transition-fast);
+        }
+
+        .btn-close-drawer:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .drawer-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.75rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .settings-group {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: var(--radius-md);
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.1rem;
+        }
+
+        .group-title {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .settings-row {
+            display: flex;
+            gap: 0.75rem;
+            width: 100%;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+            width: 100%;
+        }
+
+        .width-66 { flex: 2; }
+        .width-33 { flex: 1; }
+        .width-50 { flex: 1; }
+
+        .input-group label {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .input-group input[type="text"],
+        .input-group input[type="number"],
+        .input-group select {
+            width: 100%;
+            padding: 0.65rem 0.8rem;
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(0, 0, 0, 0.3);
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            font-family: var(--font-sans);
+            transition: all var(--transition-fast);
+        }
+
+        .input-group input[type="text"]:focus,
+        .input-group input[type="number"]:focus,
+        .input-group select:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 10px rgba(0, 180, 255, 0.2);
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .input-group select {
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 0.9em;
+            padding-right: 2rem;
+        }
+
+        /* --- SLIDERS --- */
+        .label-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.15rem;
+        }
+
+        .label-title {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .value-badge {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 0.1rem 0.4rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--color-primary);
+        }
+
+        input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 0.35rem;
+            border-radius: 5px;
+            background: rgba(0, 0, 0, 0.4);
+            outline: none;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 1.1rem;
+            height: 1.1rem;
+            border-radius: 50%;
+            background: var(--color-primary);
+            cursor: pointer;
+            box-shadow: 0 0 8px var(--color-primary-glow);
+            transition: transform 0.1s;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        input[type="range"]:disabled::-webkit-slider-thumb {
+            background: var(--text-muted);
+            box-shadow: none;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* --- CUSTOM TOGGLE SWITCHES --- */
+        .toggle-control {
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+
+        .toggle-label-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .toggle-text {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 2.6rem;
+            height: 1.4rem;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 34px;
+            transition: .3s;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 1rem;
+            width: 1rem;
+            left: 0.125rem;
+            bottom: 0.085rem;
+            background-color: white;
+            border-radius: 50%;
+            transition: .3s;
+        }
+
+        .toggle-switch input:checked + .toggle-slider {
+            background-color: var(--color-primary);
+            border-color: var(--color-primary);
+            box-shadow: 0 0 8px var(--color-primary-glow);
+        }
+
+        .toggle-switch input:checked + .toggle-slider:before {
+            transform: translateX(1.15rem);
+        }
+
+        .toggle-switch input:disabled + .toggle-slider {
+            background-color: rgba(255, 255, 255, 0.02);
+            border-color: rgba(255, 255, 255, 0.04);
+            cursor: not-allowed;
+            opacity: 0.55;
+        }
+
+        .toggle-switch input:disabled + .toggle-slider:before {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Drawer Footer Section */
+        .drawer-footer {
+            padding: 1.5rem 1.75rem;
+            border-top: 1px solid var(--panel-border);
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            background: rgba(4, 7, 14, 0.5);
+            flex-shrink: 0;
+        }
+
+        .btn-icon {
+            flex-shrink: 0;
+        }
+
+        /* --- STYLED LISTS --- */
+        .styled-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .styled-list li {
+            padding: 0.65rem 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: background var(--transition-fast);
+        }
+
+        .styled-list li:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        /* Participant subscriber highlight */
+        #participant-list li.subscriber {
+            color: var(--color-primary);
+            font-weight: 600;
+            background: rgba(0, 180, 255, 0.03);
+            border-left: 2px solid var(--color-primary);
+        }
+
+        /* Winners list styling */
+        #winners-list li {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid rgba(0, 180, 255, 0.05);
+            gap: 1rem;
+        }
+
+        .winner-name-span {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+        }
+
+        .winner-date-span {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+        }
+
+        #winners-list li.confirmed {
+            background: rgba(83, 252, 24, 0.03);
+            border-left: 2.5px solid var(--color-success);
+        }
+
+        #winners-list li.confirmed .winner-name-span {
+            color: #72ff44;
+        }
+
+        #winners-list li.confirmed .winner-name-span::before {
+            content: '✓ ';
+            font-weight: 800;
+        }
+
+        #winners-list li.failed {
+            background: rgba(255, 51, 102, 0.03);
+            border-left: 2.5px solid var(--color-danger);
+        }
+
+        #winners-list li.failed .winner-name-span {
+            color: #ff5e87;
+            text-decoration: line-through;
+            opacity: 0.75;
+        }
+
+        #winners-list li.failed .winner-name-span::before {
+            content: '✗ ';
+            font-weight: 800;
+        }
+
+        /* Winner Source tags */
+        .winner-source-tag {
+            font-size: 0.65rem;
+            padding: 0.15rem 0.4rem;
+            border-radius: var(--radius-sm);
+            font-weight: 700;
+            text-transform: uppercase;
+            display: inline-block;
+            margin-left: 0.5rem;
+        }
+
+        .winner-source-tag.random-org {
+            background: rgba(0, 180, 255, 0.1);
+            color: var(--color-primary);
+            border: 1px solid rgba(0, 180, 255, 0.25);
+        }
+
+        .winner-source-tag.fallback {
+            background: rgba(255, 170, 0, 0.1);
+            color: var(--color-warning);
+            border: 1px solid rgba(255, 170, 0, 0.25);
+        }
+
+        /* --- ACTIVE WINNER CLAIM CARD --- */
+        .claim-card {
+            border: 1.5px solid var(--color-warning) !important;
+            background: rgba(20, 15, 5, 0.4);
+            box-shadow: 0 10px 30px rgba(255, 170, 0, 0.08);
+            margin-bottom: 0.5rem;
+            flex-shrink: 0;
+            animation: bounceIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes bounceIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .claim-header {
+            background: rgba(255, 170, 0, 0.05);
+            border-bottom: 1px solid rgba(255, 170, 0, 0.15);
+            color: var(--color-warning);
+        }
+
+        .alert-icon-wrapper {
+            display: flex;
+            align-items: center;
+            color: var(--color-warning);
+        }
+
+        .claim-body {
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .winner-display {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 0.75rem 1rem;
+            border-radius: var(--radius-sm);
+        }
+
+        .winner-label {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .winner-display strong {
+            font-size: 1.2rem;
+            color: var(--color-primary);
+            text-shadow: 0 0 10px var(--color-primary-glow);
+        }
+
+        .claim-timer {
+            font-size: 1rem;
+            font-weight: 600;
+            text-align: center;
+            color: var(--color-warning);
+            animation: pulse 1s infinite alternate;
+        }
+
+        .chat-logs-container {
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-logs-header {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            background: rgba(0, 0, 0, 0.2);
+            padding: 0.4rem 0.75rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .chat-feed-list {
+            list-style: none;
+            height: 6rem;
+            overflow-y: auto;
+            padding: 0.5rem;
+        }
+
+        .chat-feed-list li {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            padding: 0.25rem 0.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+            word-break: break-all;
+        }
+
+        /* --- API STATUS BOX --- */
+        #api-status-box {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            background: rgba(255, 51, 102, 0.08);
+            border: 1px solid rgba(255, 51, 102, 0.25);
+            color: var(--text-primary);
+            padding: 0.6rem 1rem;
+            border-radius: var(--radius-sm);
+        }
+
+        #api-status-box.active {
+            display: flex;
+        }
+
+        #api-status-box .error-title {
+            color: var(--color-danger);
+            font-weight: 700;
+        }
+
+        /* --- DRAW ANIMATION OVERLAY MODAL --- */
+        #multi-winner-modal-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(2, 4, 8, 0.9);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2.5rem;
+            padding: 2rem;
+            z-index: 2000;
+            backdrop-filter: blur(8px);
+            overflow-y: auto;
+        }
+
+        .modal-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            width: 100%;
+            flex-wrap: wrap;
+        }
+
+        .modal-instance {
+            display: flex;
+            width: 100%;
+            max-width: 28rem;
+            min-width: 18.5rem;
+            flex-grow: 1;
+            flex-shrink: 1;
+            transition: opacity 0.3s, transform 0.3s;
+            align-items: center;
+        }
+
+        .modal-instance.is-hidden {
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(0.95);
+            pointer-events: none;
+        }
+
+        .modal-content {
+            background-color: rgba(10, 20, 38, 0.9);
+            border: 1px solid rgba(0, 180, 255, 0.3);
+            box-shadow: 0 0 40px rgba(0, 180, 255, 0.2), 0 10px 40px rgba(0, 0, 0, 0.5);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-fun-fact {
+            display: none; /* Hide clutter facts to keep overlay animation neat */
+        }
+
+        .winner-title-text {
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+        }
+
+        /* Randomness source tag inside modal */
+        .randomness-source-badge {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--panel-border);
+            border-radius: 30px;
+            padding: 0.3rem 0.8rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            margin: 0.5rem auto 0 auto;
+            width: fit-content;
+        }
+
+        .randomness-source-badge .dot {
+            width: 0.4rem;
+            height: 0.4rem;
+            border-radius: 50%;
+            background-color: var(--text-muted);
+        }
+
+        .randomness-source-badge.random-org {
+            border-color: rgba(0, 180, 255, 0.3);
+            color: var(--color-primary);
+        }
+
+        .randomness-source-badge.random-org .dot {
+            background-color: var(--color-primary);
+            box-shadow: 0 0 6px var(--color-primary);
+        }
+
+        .randomness-source-badge.fallback {
+            border-color: rgba(255, 170, 0, 0.3);
+            color: var(--color-warning);
+        }
+
+        .randomness-source-badge.fallback .dot {
+            background-color: var(--color-warning);
+            box-shadow: 0 0 6px var(--color-warning);
+        }
+
+        /* Claim verification inside modal overlay */
+        .modal-claim-container {
+            margin-top: 0.5rem;
+            padding: 1rem;
+            border: 1px solid rgba(255, 170, 0, 0.25);
+            border-radius: var(--radius-md);
+            background: rgba(255, 170, 0, 0.03);
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            align-items: center;
+        }
+
+        .modal-claim-instruction {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        .modal-claim-countdown {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--color-warning);
+        }
+
+        .modal-claim-countdown.confirmed {
+            color: var(--color-success);
+            font-size: 1.15rem;
+        }
+
+        .modal-claim-countdown.failed {
+            color: var(--color-danger);
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+
+        .modal-claim-buttons {
+            display: flex;
+            gap: 0.75rem;
+            width: 100%;
+            margin-top: 0.5rem;
+        }
+
+        .modal-claim-buttons button {
+            flex: 1;
+        }
+
+        .modal-winner-chat-log {
+            list-style: none;
+            max-height: 8rem;
+            overflow-y: auto;
+            font-size: 0.85rem;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 0.5rem;
+            border-radius: var(--radius-sm);
+            margin-top: 0.5rem;
+            display: none;
+            text-align: left;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .modal-winner-chat-log li {
+            padding: 0.25rem 0.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+            color: var(--text-secondary);
+        }
+
+        /* --- TOOLTIPS --- */
+        .info-tooltip {
+            cursor: help;
+            font-size: 0.75rem;
+            color: var(--color-primary);
+            margin-left: 0.4rem;
+            position: relative;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 1.1rem;
+            height: 1.1rem;
+            border: 1px solid rgba(0, 180, 255, 0.3);
+            border-radius: 50%;
+            background: rgba(0, 180, 255, 0.05);
+        }
+
+        .info-tooltip .tooltip-content {
+            opacity: 0;
+            visibility: hidden;
+            position: absolute;
+            bottom: 130%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 16rem;
+            background-color: #0d1527;
+            border: 1px solid var(--panel-border-hover);
+            color: var(--text-secondary);
+            padding: 0.6rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-weight: 400;
+            line-height: 1.3;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+            z-index: 1000;
+            transition: opacity 0.2s, visibility 0.2s;
+            pointer-events: none;
+        }
+
+        .info-tooltip .tooltip-content::before {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 5px;
+            border-style: solid;
+            border-color: var(--panel-border-hover) transparent transparent transparent;
+        }
+
+        .info-tooltip:hover .tooltip-content {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* --- DYNAMIC TRANSITIONS & PULSES --- */
+        @keyframes statusPulse {
+            0%, 100% { opacity: 0.5; box-shadow: 0 0 4px var(--color-success); }
+            50% { opacity: 1; box-shadow: 0 0 12px var(--color-success); }
+        }
+
+        @keyframes pulse {
+            from { opacity: 0.8; }
+            to { opacity: 1; }
+        }
+
+        /* --- SCROLLBARS --- */
+        .list-container,
+        .drawer-body,
+        .chat-feed-list,
+        .modal-winner-chat-log,
+        #multi-winner-modal-container {
+            scrollbar-width: thin;
+            scrollbar-color: var(--panel-border) transparent;
+        }
+
+        .list-container::-webkit-scrollbar,
+        .drawer-body::-webkit-scrollbar,
+        .chat-feed-list::-webkit-scrollbar,
+        .modal-winner-chat-log::-webkit-scrollbar,
+        #multi-winner-modal-container::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        .list-container::-webkit-scrollbar-track,
+        .drawer-body::-webkit-scrollbar-track,
+        .chat-feed-list::-webkit-scrollbar-track,
+        .modal-winner-chat-log::-webkit-scrollbar-track,
+        #multi-winner-modal-container::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .list-container::-webkit-scrollbar-thumb,
+        .drawer-body::-webkit-scrollbar-thumb,
+        .chat-feed-list::-webkit-scrollbar-thumb,
+        .modal-winner-chat-log::-webkit-scrollbar-thumb,
+        #multi-winner-modal-container::-webkit-scrollbar-thumb {
+            background-color: var(--panel-border);
+            border-radius: 10px;
+        }
+
+        .list-container::-webkit-scrollbar-thumb:hover,
+        .drawer-body::-webkit-scrollbar-thumb:hover,
+        .chat-feed-list::-webkit-scrollbar-thumb:hover,
+        .modal-winner-chat-log::-webkit-scrollbar-thumb:hover,
+        #multi-winner-modal-container::-webkit-scrollbar-thumb:hover {
+            background-color: var(--panel-border-hover);
+        }
+
+        /* --- OVERLAY MODE --- */
+        body.overlay-mode {
+            background: transparent !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            height: 100vh !important;
+            width: 100vw !important;
+            overflow: hidden !important;
+        }
+
+        body.overlay-mode #overlay-placeholder {
+            display: flex;
+            height: 100vh;
+            width: 100vw;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            padding: 2rem;
+            box-sizing: border-box;
+            background: radial-gradient(circle at center, #0e1726 0%, #070c16 60%, #030509 100%);
+        }
+
+        body.overlay-mode #multi-winner-modal-container {
+            background-color: rgba(2, 4, 8, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        body.overlay-mode .modal-content {
+            box-shadow: 0 0 40px rgba(0, 180, 255, 0.4);
+            border: 2px solid var(--color-primary);
+            background-color: rgba(10, 20, 38, 0.98);
+        }
+
+        body.overlay-mode .modal-instance {
+            max-width: 34rem;
+        }
+
+        /* --- RESPONSIVE LAYOUTS --- */
+        @media (max-width: 1024px) {
+            body {
+                padding: 1rem;
+            }
+
+            #app-container {
+                height: auto;
+                max-height: none;
+                min-height: 0;
+            }
+
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                padding: 1.5rem;
+                overflow-y: auto;
+            }
+
+            .dashboard-col {
+                height: auto;
+            }
+
+            .list-container {
+                max-height: 15rem;
+                min-height: 10rem;
+            }
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <div id="app-wrapper">
+
+        <div id="app-container" data-nosnippet>
+            <!-- LOGIN SCREEN -->
+            <div id="login-screen" class="screen">
+                <div class="login-card">
+                    <img src="/logo.png" alt="logo" class="login-logo" onerror="this.src='favicon.png'; this.onerror=null;">
+                    <h1 data-lang-key="loginTitle">www.iceinmyvein.com</h1>
+                    <p data-lang-key="loginPrompt">ICEINMYVEIN channel for the giveaway</p>
+                    <div class="login-form">
+                        <div class="input-wrapper">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="input-icon"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            <input type="text" id="channel-input" data-lang-key-placeholder="loginPlaceholder" placeholder="E.g., xqc">
+                        </div>
+                        <button id="connect-button" class="btn btn-primary" data-lang-key="connectButton">Connect</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MAIN APPLICATION SCREEN -->
+            <div id="main-screen" class="screen" style="display: none;">
+                <!-- Header -->
+                <header class="app-header">
+                    <div class="brand-and-status">
+                        <div class="app-logo">
+                            <img src="/logo.png" alt="logo" onerror="this.src='favicon.png'; this.onerror=null;">
+                        </div>
+                        <div class="channel-connection">
+                            <span class="status-indicator-dot"></span>
+                            <span class="connection-label" data-lang-key="connectedTo">Connected to:</span>
+                            <strong id="connected-channel-name"></strong>
+                        </div>
+                    </div>
+                    
+                    <div class="header-actions">
+                        <div id="header-menu-container" class="header-menu-container">
+                            <button id="header-menu-toggle" class="settings-btn" data-lang-key-aria-label="settingsMenuAria">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82-.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06-.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                                <span>Settings</span>
+                            </button>
+                            
+                            <!-- Slide-out Settings Drawer -->
+                            <div id="header-menu-dropdown" class="settings-drawer settings-panel">
+                                <div class="drawer-header">
+                                    <h3 data-lang-key="settingsTitle">Giveaway Settings</h3>
+                                    <button type="button" class="btn-close-drawer" id="close-drawer-btn" aria-label="Close Settings">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                    </button>
+                                </div>
+                                
+                                <div class="drawer-body settings-controls-container">
+                                    <!-- Setup Group -->
+                                    <div class="settings-group">
+                                        <div class="group-title">Raffle Setup</div>
+                                        <div class="settings-row">
+                                            <div class="input-group width-66">
+                                                <label for="keyword-input" data-lang-key="keywordLabel">Keyword (optional):</label>
+                                                <input type="text" id="keyword-input" placeholder="e.g. !win">
+                                            </div>
+                                            <div class="input-group width-33">
+                                                <label for="winner-count-input" data-lang-key="winnerCountLabel">Winners:</label>
+                                                <input type="number" id="winner-count-input" value="1" min="1" max="10">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Filters Group -->
+                                    <div class="settings-group">
+                                        <div class="group-title">Entrant Filters</div>
+                                        
+                                        <div class="toggle-control">
+                                            <label for="sub-only-checkbox" class="toggle-label-container">
+                                                <span class="toggle-text" data-lang-key="subOnlyLabel">Subscribers only</span>
+                                                <div class="toggle-switch">
+                                                    <input type="checkbox" id="sub-only-checkbox">
+                                                    <span class="toggle-slider"></span>
+                                                </div>
+                                            </label>
+                                        </div>
+                                        
+                                        <div class="input-group">
+                                            <div class="label-header">
+                                                <span class="label-title" data-lang-key="subMultiplierLabel">Subscriber Multiplier</span>
+                                                <span class="value-badge"><span id="sub-multiplier-value">1</span>x</span>
+                                            </div>
+                                            <input type="range" id="sub-multiplier-slider" min="1" max="10" value="1">
+                                        </div>
+                                        
+                                        <div class="input-group">
+                                            <div class="label-header">
+                                                <span class="label-title" data-lang-key="subLengthLabel">Subscription Duration</span>
+                                                <span class="value-badge"><span id="sub-length-value">0</span> <span data-lang-key="monthsLabel">Months</span></span>
+                                            </div>
+                                            <input type="range" id="sub-length-slider" min="0" max="60" value="0">
+                                        </div>
+                                        
+                                        <div class="input-group">
+                                            <div class="label-header">
+                                                <span class="label-title" data-lang-key="followLengthLabel">Follow Duration</span>
+                                                <span class="value-badge">
+                                                    <span id="follow-length-value" contenteditable="true" class="editable-number">0</span> <span data-lang-key="daysLabel">Days</span>
+                                                </span>
+                                                <span class="info-tooltip">?
+                                                    <span class="tooltip-content" data-lang-key="followTooltip">Filter users based on how long they have followed the channel</span>
+                                                </span>
+                                            </div>
+                                            <input type="range" id="follow-length-slider" min="0" max="365" value="0">
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Rules Group -->
+                                    <div class="settings-group">
+                                        <div class="group-title">Drawing Options</div>
+                                        
+                                        <div class="toggle-control">
+                                            <label for="winner-claim-checkbox" class="toggle-label-container">
+                                                <span class="toggle-text" data-lang-key="winnerClaimLabel">Winner confirmation</span>
+                                                <div class="toggle-switch">
+                                                    <input type="checkbox" id="winner-claim-checkbox">
+                                                    <span class="toggle-slider"></span>
+                                                </div>
+                                            </label>
+                                        </div>
+                                        
+                                        <div class="toggle-control">
+                                            <label for="repeat-winners-checkbox" class="toggle-label-container">
+                                                <span class="toggle-text">Allow repeat winners</span>
+                                                <div class="toggle-switch">
+                                                    <input type="checkbox" id="repeat-winners-checkbox">
+                                                    <span class="toggle-slider"></span>
+                                                </div>
+                                            </label>
+                                        </div>
+                                        
+                                        <div class="settings-row">
+                                            <div class="input-group width-50">
+                                                <label for="claim-duration-input" data-lang-key="claimDurationLabel">Confirm Time (s):</label>
+                                                <input type="number" id="claim-duration-input" value="30" min="10">
+                                            </div>
+                                            <div class="input-group width-50">
+                                                <label for="animation-select" data-lang-key="animationLabel">Animation:</label>
+                                                <select id="animation-select">
+                                                    <option value="wheel" selected data-lang-key="animationWheel">Wheel</option>
+                                                    <option value="slot-machine" data-lang-key="animationClassic">Classic</option>
+                                                    <option value="char-scramble" data-lang-key="animationScramble">Scramble</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="drawer-footer">
+                                    <button id="open-overlay-button" type="button" class="btn btn-secondary">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-icon"><rect x="2" y="2" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                                        Stream Overlay
+                                    </button>
+                                    <button id="change-channel-button" class="btn btn-secondary" data-lang-key="changeChannel">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-icon"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="18" y1="8" x2="23" y2="13"></line><line x1="23" y1="8" x2="18" y2="13"></line></svg>
+                                        Change Channel
+                                    </button>
+                                    <button id="clear-all-data-button" class="btn btn-danger-outline" data-lang-key="clearAllData">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-icon"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                                        Clear Data
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+
+                <!-- Quick Status Bar -->
+                <div class="quick-status-bar">
+                    <div class="status-pill">
+                        <span class="pill-label">Keyword:</span>
+                        <span id="quick-keyword" class="pill-val">None</span>
+                    </div>
+                    <div class="status-pill">
+                        <span class="pill-label">Winners:</span>
+                        <span id="quick-winners" class="pill-val">1</span>
+                    </div>
+                    <div class="status-pill">
+                        <span class="pill-label">Filters:</span>
+                        <span id="quick-filters" class="pill-val">All Chatters</span>
+                    </div>
+                    <div class="status-pill">
+                        <span class="pill-label">Confirm:</span>
+                        <span id="quick-confirm" class="pill-val">Disabled</span>
+                    </div>
+                </div>
+
+                <!-- Main Layout -->
+                <div class="main-content">
+                    <!-- Left Column: Actions and Active Entry -->
+                    <div class="dashboard-col">
+                        <!-- Control Panel Card -->
+                        <div class="card console-card">
+                            <div class="card-header">
+                                <h3 data-lang-key="settingsTitle">Raffle Control Center</h3>
+                            </div>
+                            <div class="console-body">
+                                <p id="status-message" class="status-waiting" data-lang-key="statusWaiting">Press "Start" to connect to the chat.</p>
+                                
+                                <div id="api-status-box">
+                                    <span class="error-title">API Issue:</span> <span class="error-desc">Random.org API offline, using secure local fallback.</span>
+                                </div>
+
+                                <div class="console-actions">
+                                    <button id="start-giveaway-button" class="btn btn-primary" data-lang-key="startGiveawayButton">Start Giveaway</button>
+                                    
+                                    <div class="action-buttons giveaway-controls" style="display: none;">
+                                        <button id="draw-button" class="btn btn-success" data-lang-key="drawButton">Draw Winner</button>
+                                        <button id="reset-button" class="btn btn-danger-outline" data-lang-key="resetButton">Reset</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sandbox Tool -->
+                        <div id="test-sandbox" style="display: none;" class="card sandbox-card">
+                            <div class="console-body">
+                                <button id="add-test-participants-btn" class="btn btn-secondary">Add 3 Test Participants</button>
+                            </div>
+                        </div>
+
+                        <!-- Participants Card -->
+                        <div class="card participants-card" style="flex: 1;">
+                            <div class="card-header">
+                                <div class="header-with-badge">
+                                    <h3 data-lang-key="participantsTitle">Participants</h3>
+                                    <span id="participant-count" class="counter-badge">0</span>
+                                </div>
+                            </div>
+                            <div class="list-container">
+                                <ul id="participant-list" class="styled-list"></ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Winners Log and Claim Alerts -->
+                    <div class="dashboard-col">
+                        <!-- Claim Alert Widget (shown dynamically) -->
+                        <div id="claim-section" class="card claim-card" style="display: none;">
+                            <div class="card-header claim-header">
+                                <div class="alert-icon-wrapper">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                                </div>
+                                <h3 data-lang-key="claimTitle">Awaiting Confirmation</h3>
+                            </div>
+                            <div class="claim-body">
+                                <div class="winner-display">
+                                    <span class="winner-label">Winner Selected:</span>
+                                    <strong id="claim-winner-name"></strong>
+                                </div>
+                                <p id="claim-countdown" class="claim-timer"></p>
+                                <div class="chat-logs-container">
+                                    <div class="chat-logs-header">Winner Chat Feed</div>
+                                    <ul id="claim-chat-log" class="chat-feed-list"></ul>
+                                </div>
+                                <button id="claim-confirm-button" class="btn btn-primary" data-lang-key="okButton">OK</button>
+                            </div>
+                        </div>
+
+                        <!-- Winners Log Card -->
+                        <div class="card winners-card" style="flex: 1;">
+                            <div class="card-header">
+                                <div class="header-with-badge">
+                                    <h3 data-lang-key="winnersTitle">Winners Log</h3>
+                                    <span id="winners-count" class="counter-badge">0</span>
+                                </div>
+                            </div>
+                            <div class="list-container">
+                                <ul id="winners-list" class="styled-list winners-list-ul"></ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>This App has been created by - Suchadesign 2026</p>
+        </footer>
+    </div>
+
+    <div id="multi-winner-modal-container"></div>
+
+    <div id="overlay-placeholder"
+        style="display: none; height: 100vh; width: 100vw; justify-content: center; align-items: center; flex-direction: column; text-align: center; color: var(--text-secondary); font-size: 1.5rem; padding: 2rem; box-sizing: border-box; background: radial-gradient(circle at center, #0e1726 0%, #070c16 60%, #030509 100%);">
+        <div
+            style="border: 2px dashed rgba(0, 180, 255, 0.25); padding: 4rem 2rem; border-radius: 1.5rem; max-width: 600px; width: 100%; box-shadow: inset 0 0 2rem rgba(0, 180, 255, 0.04), 0 0 2rem rgba(0,0,0,0.5);">
+            <h2
+                style="color: var(--color-primary); border: none; margin-bottom: 1rem; text-shadow: 0 0 1.25rem rgba(0, 180, 255, 0.5); font-size: 2.2rem; font-weight: 700;">
+                A Winner Will Be Drawn Shortly!</h2>
+            <p style="font-size: 1.1rem; color: var(--text-secondary);">Ready for stream capture. Waiting for
+                drawings...</p>
+        </div>
+    </div>
+
+    <div id="modal-template" style="display: none;">
+        <div class="modal-instance">
+            <div class="modal-content">
+                <p class="modal-fun-fact"
+                    style="font-size: 0.75rem; color: var(--text-secondary); margin-bottom: -0.25rem; line-height: 1.3;">
+                    Fun Fact: This bot uses a true randomly selected winner using static electricity in the environment.
+                </p>
+                <p class="winner-title-text" data-lang-key="modalDrawing">Drawing...</p>
+                <div class="winner-animation-box"></div>
+                <div class="randomness-source-badge">
+                    <span class="dot"></span>
+                    <span class="badge-text">Verifying randomness...</span>
+                </div>
+
+                <div class="modal-claim-container" style="display: none;">
+                    <p class="modal-claim-instruction">If this is you, enter something into the chat before your time
+                        runs out.</p>
+                    <p class="modal-claim-countdown">30s</p>
+                    <div class="modal-claim-buttons" style="display: none;">
+                        <button class="modal-redraw-button btn btn-secondary btn-icon-only" style="padding: 0.5rem 0.8rem; font-size: 0.8rem;">Redraw Winner</button>
+                        <button class="modal-cancel-button btn btn-danger-outline btn-icon-only" style="padding: 0.5rem 0.8rem; font-size: 0.8rem;">Cancel</button>
+                    </div>
+                </div>
+
+                <button class="modal-confirm-button btn btn-primary" data-lang-key="okButton" style="width: auto; align-self: center;">OK</button>
+                <ul class="modal-winner-chat-log"></ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const loginScreen = document.getElementById('login-screen'),
+                mainScreen = document.getElementById('main-screen'),
+                channelInput = document.getElementById('channel-input'),
+                connectButton = document.getElementById('connect-button'),
+                connectedChannelName = document.getElementById('connected-channel-name');
+
+            const headerMenuContainer = document.getElementById('header-menu-container'),
+                headerMenuToggle = document.getElementById('header-menu-toggle'),
+                headerMenuDropdown = document.getElementById('header-menu-dropdown'),
+                changeChannelButton = document.getElementById('change-channel-button'),
+                clearAllDataButton = document.getElementById('clear-all-data-button');
+
+            const settingsPanel = document.querySelector('.settings-panel'),
+                keywordInput = document.getElementById('keyword-input'),
+                winnerCountInput = document.getElementById('winner-count-input'),
+                subOnlyCheckbox = document.getElementById('sub-only-checkbox'),
+                subMultiplierSlider = document.getElementById('sub-multiplier-slider'),
+                subMultiplierValue = document.getElementById('sub-multiplier-value'),
+                winnerClaimCheckbox = document.getElementById('winner-claim-checkbox'),
+                repeatWinnersCheckbox = document.getElementById('repeat-winners-checkbox'),
+                claimDurationInput = document.getElementById('claim-duration-input'),
+                animationSelect = document.getElementById('animation-select'),
+                startGiveawayButton = document.getElementById('start-giveaway-button'),
+                statusMessage = document.getElementById('status-message');
+
+
+            const followLengthSlider = document.getElementById('follow-length-slider'),
+                followLengthValue = document.getElementById('follow-length-value'),
+                subLengthSlider = document.getElementById('sub-length-slider'),
+                subLengthValue = document.getElementById('sub-length-value');
+
+            const participantCount = document.getElementById('participant-count'),
+                participantList = document.getElementById('participant-list'),
+                drawButton = document.getElementById('draw-button'),
+                resetButton = document.getElementById('reset-button');
+
+            const winnersCount = document.getElementById('winners-count'),
+                winnersList = document.getElementById('winners-list');
+
+            const claimSection = document.getElementById('claim-section'),
+                claimWinnerName = document.getElementById('claim-winner-name'),
+                claimCountdown = document.getElementById('claim-countdown'),
+                claimChatLog = document.getElementById('claim-chat-log'),
+                claimConfirmButton = document.getElementById('claim-confirm-button');
+
+            const modalTemplate = document.getElementById('modal-template');
+            const multiWinnerModalContainer = document.getElementById('multi-winner-modal-container');
+
+            let kickChannelName = '', kickChannelSlug = '', kickChatroomId = null, channelCreationDate = null, ws = null;
+            let giveawayKeyword = '', isGiveawayRunning = false, isDrawInProgress = false;
+            let participants = new Set(), allEntries = [], winners = [];
+            let modalChatWinners = [], claimInterval = null, lastClaimWinner = null;
+            let pendingAnimationInterval = null;
+            let activeModalClaim = null;
+            let overlayWindow = null;
+
+            function safeOverlayCall(funcName, ...args) {
+                if (overlayWindow && !overlayWindow.closed) {
+                    try {
+                        if (typeof overlayWindow[funcName] === 'function') {
+                            overlayWindow[funcName](...args);
+                        }
+                    } catch (e) {
+                        console.error(`Error calling ${funcName} on overlay window:`, e);
+                    }
+                }
+            }
+
+            window.isOverlayMode = window.location.search.includes('overlay=true');
+            if (window.isOverlayMode) {
+                document.body.classList.add('overlay-mode');
+                document.getElementById('overlay-placeholder').style.display = 'flex';
+                const appWrapper = document.getElementById('app-wrapper');
+                if (appWrapper) appWrapper.style.display = 'none';
+
+                window.triggerOverlayDraw = async function (drawnWinners, fullPool, useClaimFeature, chosenAnim, claimDuration) {
+                    animationSelect.value = chosenAnim;
+                    claimDurationInput.value = claimDuration;
+                    document.getElementById('overlay-placeholder').style.display = 'none';
+                    await displayMultiWinnerModals(drawnWinners, fullPool, useClaimFeature);
+                };
+
+                window.updateOverlayCountdown = function (timeLimit) {
+                    const countdown = multiWinnerModalContainer.querySelector('.modal-claim-countdown');
+                    if (countdown) {
+                        countdown.textContent = `${timeLimit}s`;
+                    }
+                };
+
+                window.setOverlayClaimStatus = function (status, name) {
+                    const countdown = multiWinnerModalContainer.querySelector('.modal-claim-countdown');
+                    const instruction = multiWinnerModalContainer.querySelector('.modal-claim-instruction');
+                    const buttons = multiWinnerModalContainer.querySelector('.modal-claim-buttons');
+
+                    if (countdown) {
+                        if (status === 'confirmed') {
+                            countdown.textContent = "Congratulations, User confirmed!";
+                            countdown.className = "modal-claim-countdown confirmed";
+                            if (instruction) instruction.style.display = 'none';
+                        } else if (status === 'failed') {
+                            if (instruction) instruction.style.display = 'none';
+                            countdown.innerHTML = `WAKE UP ${name},<br>You chalked your win! GG's better luck next time.`;
+                            countdown.className = "modal-claim-countdown failed";
+                            if (buttons) buttons.style.display = 'flex';
+                        }
+                    }
+                };
+
+                window.updateOverlayChatMessage = function (chatData) {
+                    const chatLog = multiWinnerModalContainer.querySelector('.modal-winner-chat-log');
+                    if (chatLog) {
+                        if (chatLog.classList.contains('waiting')) {
+                            chatLog.classList.remove('waiting');
+                        }
+                        chatLog.style.display = 'block';
+                        const li = document.createElement('li');
+                        li.textContent = `${chatData.sender.username}: ${chatData.content}`;
+                        chatLog.append(li);
+                        chatLog.scrollTop = chatLog.scrollHeight;
+                    }
+                };
+
+                window.clearOverlay = function () {
+                    multiWinnerModalContainer.style.display = 'none';
+                    document.body.classList.remove('modal-active');
+                    document.getElementById('overlay-placeholder').style.display = 'flex';
+                };
+            } else {
+                window.drawWinner = drawWinner;
+                window.finishDrawCycle = finishDrawCycle;
+                window.cancelActiveClaim = cancelActiveClaim;
+            }
+
+            // Remove characters in Unicode block U+E0000..U+E007F (supplementary special-purpose plane - tag characters)
+            const SPECIAL_TAGS_REGEX = /[\u{E0000}-\u{E007F}]/gu;
+            function sanitizeUnicodeTagCharacters(str) {
+                if (typeof str !== 'string') return str;
+                return str.replace(SPECIAL_TAGS_REGEX, '');
+            }
+
+            function loadInitialState() {
+                const lastChannel = localStorage.getItem('kickGiveawayLastChannel');
+                if (lastChannel) channelInput.value = lastChannel;
+            }
+
+            function showScreen(scr) {
+                loginScreen.style.display = 'none';
+                mainScreen.style.display = 'none';
+                if (scr === 'login') loginScreen.style.display = 'flex';
+                if (scr === 'main') mainScreen.style.display = 'block';
+            }
+
+            function setSettingsState(disabled) {
+                settingsPanel.querySelectorAll('input:not([type="checkbox"]), select:not(#animation-select)').forEach(el => el.disabled = disabled);
+                startGiveawayButton.disabled = disabled;
+                subOnlyCheckbox.disabled = disabled;
+
+                const rangeInputs = settingsPanel.querySelectorAll('input[type="range"]');
+                rangeInputs.forEach(input => input.disabled = disabled);
+                followLengthValue.setAttribute('contenteditable', !disabled);
+
+                if (disabled) {
+                    winnerClaimCheckbox.disabled = true;
+                    claimDurationInput.disabled = true;
+                } else {
+                    updateClaimSettingsState();
+                }
+                animationSelect.disabled = disabled ? isDrawInProgress : false;
+            }
+
+            function updateDrawButtonState() {
+                drawButton.disabled = isDrawInProgress;
+            }
+
+            function getStoredData() { return JSON.parse(localStorage.getItem('kickGiveawayDB') || '{}'); }
+
+            function saveState() {
+                if (!kickChannelName) return;
+                const allData = getStoredData();
+                allData[kickChannelName] = {
+                    settings: {
+                        keyword: keywordInput.value,
+                        winnerCount: winnerCountInput.value,
+                        subOnly: subOnlyCheckbox.checked,
+                        subMultiplier: subMultiplierSlider.value,
+                        followLength: followLengthSlider.value,
+                        subLength: subLengthSlider.value,
+                        winnerClaim: winnerClaimCheckbox.checked,
+                        repeatWinners: repeatWinnersCheckbox.checked,
+                        claimDuration: claimDurationInput.value,
+                        animation: animationSelect.value,
+                    },
+                    winners: winners,
+                };
+                localStorage.setItem('kickGiveawayDB', JSON.stringify(allData));
+                updateQuickSettingsBar();
+            }
+
+            function loadStateForChannel(channelName) {
+                resetSession();
+                const allData = getStoredData();
+                const channelData = allData[channelName];
+
+                if (channelData) {
+                    const { settings, winners: storedWinners } = channelData;
+                    keywordInput.value = settings.keyword || '';
+                    winnerCountInput.value = settings.winnerCount || '1';
+                    subOnlyCheckbox.checked = settings.subOnly || false;
+                    subMultiplierSlider.value = settings.subMultiplier || '1';
+                    subMultiplierValue.textContent = settings.subMultiplier || '1';
+
+                    followLengthSlider.value = settings.followLength || '0';
+                    followLengthValue.textContent = settings.followLength || '0';
+                    subLengthSlider.value = settings.subLength || '0';
+                    subLengthValue.textContent = settings.subLength || '0';
+
+                    winnerClaimCheckbox.checked = settings.winnerClaim || false;
+                    repeatWinnersCheckbox.checked = settings.repeatWinners || false;
+                    claimDurationInput.value = settings.claimDuration || '30';
+                    animationSelect.value = settings.animation || 'wheel';
+                    winners = storedWinners || [];
+                } else {
+                    keywordInput.value = ''; winnerCountInput.value = '1'; subOnlyCheckbox.checked = false;
+                    subMultiplierSlider.value = '1'; subMultiplierValue.textContent = '1';
+                    followLengthSlider.value = '0'; followLengthValue.textContent = '0';
+                    subLengthSlider.value = '0'; subLengthValue.textContent = '0';
+                    winnerClaimCheckbox.checked = false; claimDurationInput.value = '30'; repeatWinnersCheckbox.checked = false;
+                    animationSelect.value = 'wheel';
+                    winners = [];
+                }
+                updateWinnersListUI();
+                updateClaimSettingsState();
+                updateQuickSettingsBar();
+            }
+
+            async function handleLogin() {
+                const channelName = channelInput.value.trim().toLowerCase();
+                if (!channelName) { alert("Please enter a channel name."); return; }
+                connectButton.disabled = true; connectButton.textContent = "Connecting...";
+                try {
+                    const r = await fetch(`https://kick.com/api/v2/channels/${channelName}`);
+                    if (!r.ok) throw new Error("Channel not found or API error.");
+                    const data = await r.json();
+                    if (!data.chatroom?.id) throw new Error("Could not get Chatroom ID.");
+
+                    kickChannelName = data.slug;
+                    kickChannelSlug = data.slug;
+                    kickChatroomId = data.chatroom.id;
+
+                    let startDate = new Date();
+                    if (data.user && data.user.email_verified_at) {
+                        startDate = new Date(data.user.email_verified_at);
+                    } else if (data.created_at) {
+                        startDate = new Date(data.created_at);
+                    }
+
+                    const now = new Date();
+                    const diffTime = Math.abs(now - startDate);
+                    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+                    followLengthSlider.max = diffDays;
+                    if (parseInt(followLengthSlider.value) > diffDays) {
+                        followLengthSlider.value = diffDays;
+                        followLengthValue.textContent = diffDays;
+                    }
+
+                    localStorage.setItem('kickGiveawayLastChannel', kickChannelName);
+                    connectedChannelName.textContent = kickChannelName;
+                    loadStateForChannel(kickChannelName);
+                    showScreen('main');
+                } catch (err) {
+                    alert(`Login error: ${err.message}`);
+                } finally {
+                    connectButton.disabled = false; connectButton.textContent = "Connect";
+                }
+            }
+
+            const WS_URL = 'wss://ws-us2.pusher.com/app/32cbd69e4b950bf97679?protocol=7&client=js&version=8.4.0&flash=false';
+            function connectToKickChat() {
+                if (ws && ws.readyState === WebSocket.OPEN) ws.close();
+                ws = new WebSocket(WS_URL);
+                ws.onmessage = handleWebSocketMessage;
+                ws.onerror = (err) => console.error(`WebSocket Error: ${err.message}`);
+                ws.onclose = (ev) => {
+                    console.warn(`WebSocket closed. Code: ${ev.code}`);
+                    if (isGiveawayRunning) { statusMessage.textContent = "Connection lost!"; statusMessage.className = 'status-error'; }
+                };
+            }
+
+            function handleWebSocketMessage(e) {
+                let pkt; try { pkt = JSON.parse(e.data); } catch { return; }
+                const event = pkt.event;
+                const data = pkt.data ? JSON.parse(pkt.data) : {};
+
+                if (event === 'pusher:connection_established') {
+                    ws.send(JSON.stringify({ event: 'pusher:subscribe', data: { auth: '', channel: `chatrooms.${kickChatroomId}.v2` } }));
+                } else if (event === 'pusher_internal:subscription_succeeded') {
+                    const modeText = giveawayKeyword === '' ? 'Connected to chat! Entries are open!' : `Connected to chat! Waiting for "${giveawayKeyword}".`;
+                    statusMessage.textContent = modeText;
+                    statusMessage.className = 'status-connected';
+                } else if (event === 'App\\Events\\ChatMessageEvent') {
+                    handleChatMessage(data);
+                }
+            }
+
+            function startGiveaway() {
+                resetSession();
+                giveawayKeyword = keywordInput.value.trim().toLowerCase();
+                isGiveawayRunning = true;
+                setSettingsState(true);
+                connectToKickChat();
+                
+                // Show/hide actions
+                const giveawayControls = document.querySelector('.giveaway-controls');
+                if (giveawayControls) giveawayControls.style.display = 'flex';
+                startGiveawayButton.style.display = 'none';
+                
+                // Connect pulsing indicator
+                const dot = document.querySelector('.status-indicator-dot');
+                if (dot) dot.classList.add('connected');
+            }
+
+            function handleChatMessage(data) {
+                data.content = sanitizeUnicodeTagCharacters(data.content || '');
+
+                if (activeModalClaim && data.sender.username.toLowerCase() === activeModalClaim.winnerName) {
+                    const modalChatLog = activeModalClaim.modalWrapper.querySelector('.modal-winner-chat-log');
+                    if (modalChatLog) {
+                        if (modalChatLog.classList.contains('waiting')) {
+                            modalChatLog.classList.remove('waiting');
+                        }
+                        modalChatLog.style.display = 'block';
+                        const li = document.createElement('li');
+                        li.textContent = `${data.sender.username}: ${data.content}`;
+                        modalChatLog.append(li);
+                        modalChatLog.scrollTop = modalChatLog.scrollHeight;
+                    }
+                    if (overlayWindow && !overlayWindow.closed) {
+                        overlayWindow.updateOverlayChatMessage(data);
+                    }
+                    activeModalClaim.confirm();
+                    return;
+                }
+
+                if (lastClaimWinner && data.sender.username.toLowerCase() === lastClaimWinner.name.toLowerCase()) {
+                    const li = document.createElement('li');
+                    li.textContent = `${data.sender.username}: ${data.content}`;
+                    claimChatLog.append(li);
+                    claimChatLog.scrollTop = claimChatLog.scrollHeight;
+                    if (claimInterval) {
+                        clearInterval(claimInterval);
+                        claimInterval = null;
+                        lastClaimWinner.confirmed = true;
+                        claimCountdown.textContent = "Confirmed!";
+                        claimCountdown.className = 'confirmed';
+                        claimConfirmButton.style.display = 'block';
+                        updateWinnersListUI();
+                        saveState();
+                    }
+                }
+
+                const modalWinner = modalChatWinners.find(w => w.name === data.sender.username.toLowerCase());
+                if (modalWinner) {
+                    if (modalWinner.mode === 'below') {
+                        if (modalWinner.logElement.classList.contains('waiting')) {
+                            modalWinner.logElement.classList.remove('waiting');
+                        }
+                        if (modalWinner.logElement.style.display !== 'block') {
+                            modalWinner.logElement.style.display = 'block';
+                        }
+                        const li = document.createElement('li');
+                        li.textContent = `${data.sender.username}: ${data.content}`;
+                        modalWinner.logElement.append(li);
+                        modalWinner.logElement.scrollTop = modalWinner.logElement.scrollHeight;
+                    } else if (modalWinner.mode === 'replace') {
+                        if (!modalWinner.hasChatStarted) {
+                            modalWinner.hasChatStarted = true;
+                            modalWinner.titleEl.textContent = `Winner: ${data.sender.username}`;
+                            modalWinner.animationBoxEl.innerHTML = '';
+                            modalWinner.animationBoxEl.style.display = 'block';
+
+                            const newLog = document.createElement('ul');
+                            newLog.className = 'modal-winner-chat-log';
+                            newLog.style.display = 'block';
+                            newLog.style.height = '100%';
+                            newLog.addEventListener('wheel', preventPageScroll);
+                            newLog.addEventListener('wheel', (e) => e.stopPropagation());
+
+                            modalWinner.animationBoxEl.appendChild(newLog);
+                            modalWinner.logElement = newLog;
+                        }
+                        const li = document.createElement('li');
+                        li.textContent = `${data.sender.username}: ${data.content}`;
+                        modalWinner.logElement.append(li);
+                        modalWinner.logElement.scrollTop = modalWinner.logElement.scrollHeight;
+                    }
+                }
+
+
+                if (!isGiveawayRunning || participants.has(data.sender.username)) return;
+                const userMessage = data.content.trim().toLowerCase();
+                if (giveawayKeyword === '' || userMessage === giveawayKeyword) {
+                    addParticipant(data.sender);
+                }
+            }
+
+
+            function addParticipant(sender) {
+                const existingLi = [...participantList.children].find(li => li.textContent === sender.username);
+                if (existingLi) return;
+
+
+                const subBadge = (sender.identity?.badges || []).find(b => b.type === 'subscriber' || b.type === 'founder');
+                const isSub = !!subBadge;
+
+
+                if (subOnlyCheckbox.checked && !isSub) return;
+
+
+                const minSubMonths = parseInt(subLengthSlider.value) || 0;
+                const userSubMonths = subBadge ? (subBadge.count || 0) : 0;
+
+                if (minSubMonths > 0 && userSubMonths < minSubMonths) return;
+
+                participants.add(sender.username);
+                const entryCount = isSub ? parseInt(subMultiplierSlider.value) : 1;
+                for (let i = 0; i < entryCount; i++) allEntries.push(sender.username);
+
+                const li = document.createElement('li');
+                li.textContent = sender.username;
+                if (isSub) {
+                    li.classList.add('subscriber');
+                    li.title = `Subscriber (${entryCount}x Entries)`;
+                }
+                participantList.prepend(li);
+                participantCount.textContent = participants.size;
+                updateDrawButtonState();
+            }
+
+
+            async function checkFollowAge(channelSlug, username, minDays) {
+                if (minDays <= 0) return true;
+                try {
+                    const r = await fetch(`https://kick.com/api/v2/channels/${channelSlug}/users/${username}`);
+                    if (!r.ok) return false;
+                    const data = await r.json();
+
+                    if (!data.following_since) return false;
+
+                    const followDate = new Date(data.following_since);
+                    const now = new Date();
+                    const diffTime = Math.abs(now - followDate);
+                    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+                    return diffDays >= minDays;
+                } catch (e) {
+                    console.error("Follow check failed", e);
+                    return null;
+                }
+            }
+
+
+
+            function startPendingAnimation(requestedCount) {
+                document.body.classList.add('modal-active');
+                multiWinnerModalContainer.style.display = 'flex';
+                multiWinnerModalContainer.innerHTML = '';
+
+                const count = requestedCount;
+                const topRowCount = (count <= 3) ? count : Math.ceil(count / 2);
+
+
+                let row1, row2;
+                row1 = document.createElement('div');
+                row1.className = 'modal-row';
+                multiWinnerModalContainer.appendChild(row1);
+
+                if (count > 3) {
+                    row2 = document.createElement('div');
+                    row2.className = 'modal-row';
+                    multiWinnerModalContainer.appendChild(row2);
+                }
+
+                const selectedAnim = animationSelect.value;
+                if (pendingAnimationInterval) clearInterval(pendingAnimationInterval);
+
+
+                const animationBoxes = [];
+
+
+                for (let i = 0; i < count; i++) {
+                    const modalInstance = modalTemplate.firstElementChild.cloneNode(true);
+                    if (i < topRowCount) row1.appendChild(modalInstance);
+                    else row2.appendChild(modalInstance);
+
+                    const content = modalInstance.querySelector('.modal-content');
+                    const titleEl = content.querySelector('.winner-title-text');
+                    titleEl.textContent = "Drawing...";
+                    const animationBox = content.querySelector('.winner-animation-box');
+
+
+                    const btn = content.querySelector('.modal-confirm-button');
+                    btn.style.visibility = 'hidden';
+
+                    animationBoxes.push(animationBox);
+
+
+                    if (selectedAnim === 'wheel') {
+                        animationBox.innerHTML = `<div class="wheel-animation-container"><ul class="wheel-list" style="transform: none; transition: none;"></ul></div>`;
+                        const ul = animationBox.querySelector('ul');
+                        ul.style.animation = "infiniteSpin 0.15s linear infinite";
+
+                        populateWheelList(ul);
+                    } else if (selectedAnim === 'char-scramble') {
+                        animationBox.innerHTML = '<h1 class="winner-name"></h1>';
+                    } else {
+
+                        animationBox.innerHTML = '<h1 class="winner-name"></h1>';
+                    }
+                }
+
+
+
+                let pendingPool = allEntries.length > 0 ? allEntries : ["Wait...", "Loading...", "Drawing..."];
+                while (pendingPool.length < 50) pendingPool = pendingPool.concat(pendingPool);
+
+                pendingAnimationInterval = setInterval(() => {
+                    animationBoxes.forEach(box => {
+                        if (selectedAnim === 'wheel') {
+
+
+
+                        } else if (selectedAnim === 'char-scramble') {
+                            const el = box.querySelector('h1');
+                            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!?*&%';
+                            let output = '';
+                            for (let i = 0; i < 10; i++) {
+                                const winningNumber = getLocalRandomNumber(chars.length);
+                                output += chars[winningNumber];
+                            }
+                            el.textContent = output;
+                        } else {
+
+                            const el = box.querySelector('h1');
+                            const winningNumber = getLocalRandomNumber(pendingPool.length);
+                            el.textContent = pendingPool[winningNumber];
+                        }
+                    });
+                }, 60);
+            }
+
+            function populateWheelList(ul) {
+                let pendingPool = allEntries.length > 0 ? allEntries : ["Wait...", "Loading..."];
+
+                for (let i = 0; i < 50; i++) {
+                    const li = document.createElement('li');
+                    li.textContent = pendingPool[i % pendingPool.length];
+                    ul.appendChild(li);
+                }
+            }
+
+            function stopPendingAnimation() {
+                if (pendingAnimationInterval) {
+                    clearInterval(pendingAnimationInterval);
+                    pendingAnimationInterval = null;
+                }
+            }
+
+            function getLocalRandomNumber(max_number) {
+                // Use Web Crypto API for cryptographically strong local randomness
+                const arr = new Uint32Array(1);
+                crypto.getRandomValues(arr);
+                return arr[0] % max_number;
+            }
+
+            async function getWinningNumber(max_number) {
+                // Validate the pool size before calling the API
+                if (!Number.isInteger(max_number) || max_number < 1) {
+                    console.error('getWinningNumber: invalid max_number:', max_number);
+                    return { winningNumber: 1, wasRandomOrg: false };
+                }
+
+                const randomOrgUrl = `https://www.random.org/integers/?num=1&min=1&max=${max_number}&col=1&base=10&format=plain&rnd=new`;
+
+                // --- Attempt 1: Direct fetch (works when CORS headers are present or in non-browser contexts) ---
+                try {
+                    const response = await fetch(randomOrgUrl);
+                    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                    const text = await response.text();
+                    const parsed = parseInt(text.trim().split('\n')[0]);
+                    if (isNaN(parsed) || parsed < 1 || parsed > max_number) throw new Error('Unexpected response value');
+                    console.log(`[Random.org] Direct — drew #${parsed} of ${max_number}`);
+                    return { winningNumber: parsed, wasRandomOrg: true };
+                } catch (err) {
+                    console.warn('[Random.org] Direct fetch failed (likely CORS):', err.message);
+                }
+
+                // --- Attempt 2: CORS proxy (bypasses CORS restriction for browser-based apps) ---
+                try {
+                    const proxyUrl = `https://corsproxy.io/?url=${encodeURIComponent(randomOrgUrl)}`;
+                    const response = await fetch(proxyUrl);
+                    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                    const text = await response.text();
+                    const parsed = parseInt(text.trim().split('\n')[0]);
+                    if (isNaN(parsed) || parsed < 1 || parsed > max_number) throw new Error('Unexpected proxy response');
+                    console.log(`[Random.org] Via CORS proxy — drew #${parsed} of ${max_number}`);
+                    return { winningNumber: parsed, wasRandomOrg: true };
+                } catch (err) {
+                    console.warn('[Random.org] CORS proxy failed:', err.message);
+                }
+
+                // --- Attempt 3: Local crypto fallback (no network required) ---
+                const localNum = getLocalRandomNumber(max_number) + 1; // 1-based
+                console.warn(`[Random.org] All API attempts failed — using local crypto RNG. Drew #${localNum} of ${max_number}`);
+                return { winningNumber: localNum, wasRandomOrg: false };
+            }
+
+            function cancelActiveClaim() {
+                if (activeModalClaim) {
+                    if (activeModalClaim.interval) {
+                        clearInterval(activeModalClaim.interval);
+                    }
+                    activeModalClaim = null;
+                }
+                if (claimInterval) {
+                    clearInterval(claimInterval);
+                    claimInterval = null;
+                }
+                if (lastClaimWinner && lastClaimWinner.confirmed === false) {
+                    lastClaimWinner.confirmed = 'failed';
+                    updateWinnersListUI();
+                    saveState();
+                }
+                lastClaimWinner = null;
+                claimSection.style.display = 'none';
+                claimChatLog.innerHTML = '';
+                modalChatWinners = [];
+                multiWinnerModalContainer.style.display = 'none';
+                document.body.classList.remove('modal-active');
+                isDrawInProgress = false;
+                resetButton.disabled = false;
+                animationSelect.disabled = false;
+                updateDrawButtonState();
+
+                if (overlayWindow && !overlayWindow.closed) {
+                    safeOverlayCall('clearOverlay');
+                }
+            }
+
+            async function drawWinner() {
+                cancelActiveClaim();
+                isDrawInProgress = true;
+                updateDrawButtonState();
+                resetButton.disabled = true;
+                animationSelect.disabled = true;
+
+                const requestedWinnerCount = parseInt(winnerCountInput.value) || 1;
+                const useClaimFeature = winnerClaimCheckbox.checked && requestedWinnerCount === 1;
+
+                // Build the pending pool — unique eligible entrants (with duplicates for weighted entries)
+                let pendingPool = [...allEntries];
+
+                if (pendingPool.length === 0) {
+                    alert("There are no participants in the giveaway!");
+                    finishDrawCycle();
+                    return;
+                }
+
+                const uniqueEligible = [...new Set(pendingPool)].length;
+                const finalCountToDraw = Math.min(requestedWinnerCount, uniqueEligible);
+
+                const winnersToDraw = [];
+                const minFollowDays = parseInt(followLengthSlider.value) || 0;
+
+                startPendingAnimation(finalCountToDraw);
+
+                let apiErrorOccurred = false;
+
+                for (let i = 0; i < finalCountToDraw; i++) {
+                    if (pendingPool.length === 0) break;
+
+                    // Step 1: getWinningNumber is the top-level draw function.
+                    // max_number = pendingPool.length → sent to Random.org API URL
+                    // The API returns a 1-based number which becomes winningNumber.
+                    const max_number = pendingPool.length;
+                    const res = await getWinningNumber(max_number);
+                    const winningNumber = res.winningNumber;   // 1-based index from Random.org
+                    const wasRandomOrg = res.wasRandomOrg;
+
+                    // Step 2: winningNumber directly picks the winner from pendingPool (no retry needed)
+                    const candidateName = pendingPool[winningNumber - 1];
+
+                    // Step 3: Optional follow-age check
+                    let isValid = true;
+                    if (minFollowDays > 0) {
+                        const checkResult = await checkFollowAge(kickChannelSlug, candidateName, minFollowDays);
+                        if (checkResult === null) {
+                            apiErrorOccurred = true;
+                            break;
+                        }
+                        isValid = checkResult;
+                        await new Promise(r => setTimeout(r, 200));
+                    }
+
+                    // Step 4: Remove candidate from pool (regardless of validity) then record if valid
+                    pendingPool = pendingPool.filter(n => n !== candidateName);
+
+                    if (isValid) {
+                        const winnerData = {
+                            name: candidateName,
+                            timestamp: new Date().toISOString(),
+                            confirmed: !useClaimFeature,
+                            randomnessSource: wasRandomOrg ? 'random.org' : 'local',
+                            ticketNumber: winningNumber
+                        };
+                        winnersToDraw.push(winnerData);
+                    } else {
+                        // Didn't pass follow check — try one more slot from remaining pool
+                        i--;
+                    }
+                }
+
+                stopPendingAnimation();
+
+                if (apiErrorOccurred) {
+                    document.body.classList.remove('modal-active');
+                    multiWinnerModalContainer.style.display = 'none';
+                    alert("Error while checking Follow Duration!");
+                    finishDrawCycle();
+                    return;
+                }
+
+                if (winnersToDraw.length === 0) {
+                    document.body.classList.remove('modal-active');
+                    multiWinnerModalContainer.style.display = 'none';
+                    alert("There are no eligible participants! (Follow Duration too strict?)");
+                    finishDrawCycle();
+                    return;
+                }
+
+                winners.push(...winnersToDraw);
+
+                // Only remove from pool if repeat winners is NOT allowed
+                if (!repeatWinnersCheckbox.checked) {
+                    winnersToDraw.forEach(w => {
+                        allEntries = allEntries.filter(n => n !== w.name);
+                        participants.delete(w.name);
+                    });
+                }
+                updateDrawButtonState();
+                updateWinnersListUI();
+
+                // Step 5: Pass the predetermined winner name to the chosen animation
+                if (overlayWindow && !overlayWindow.closed) {
+                    safeOverlayCall('triggerOverlayDraw', winnersToDraw, allEntries.concat(winnersToDraw.map(w => w.name)), useClaimFeature, animationSelect.value, parseInt(claimDurationInput.value));
+                }
+
+                await displayMultiWinnerModals(winnersToDraw, allEntries.concat(winnersToDraw.map(w => w.name)), useClaimFeature);
+
+                if (useClaimFeature) {
+                    lastClaimWinner = winnersToDraw[0];
+                }
+
+                isDrawInProgress = false;
+                resetButton.disabled = false;
+                animationSelect.disabled = false;
+                updateDrawButtonState();
+            }
+
+            function displayMultiWinnerModals(drawnWinners, fullPool, useClaimFeature) {
+                return new Promise(resolve => {
+                    multiWinnerModalContainer.style.display = 'flex';
+
+
+
+
+
+
+                    const existingInstances = multiWinnerModalContainer.querySelectorAll('.modal-instance');
+                    const canReuse = existingInstances.length === drawnWinners.length;
+
+                    if (!canReuse) {
+
+                        multiWinnerModalContainer.innerHTML = '';
+                    }
+
+
+                    let row1, row2;
+                    if (!canReuse) {
+                        const count = drawnWinners.length;
+                        const topRowCount = (count <= 3) ? count : Math.ceil(count / 2);
+                        row1 = document.createElement('div');
+                        row1.className = 'modal-row';
+                        multiWinnerModalContainer.appendChild(row1);
+                        if (count > 3) {
+                            row2 = document.createElement('div');
+                            row2.className = 'modal-row';
+                            multiWinnerModalContainer.appendChild(row2);
+                        }
+                    } else {
+
+                    }
+
+                    const animationPromises = drawnWinners.map((winner, index) => {
+                        let modalWrapper;
+
+                        if (canReuse) {
+                            modalWrapper = existingInstances[index];
+                        } else {
+                            const count = drawnWinners.length;
+                            const topRowCount = (count <= 3) ? count : Math.ceil(count / 2);
+                            modalWrapper = modalTemplate.firstElementChild.cloneNode(true);
+                            if (index < topRowCount) row1.appendChild(modalWrapper);
+                            else row2.appendChild(modalWrapper);
+                        }
+
+                        const titleEl = modalWrapper.querySelector('.winner-title-text');
+                        const animationBoxEl = modalWrapper.querySelector('.winner-animation-box');
+                        const confirmButton = modalWrapper.querySelector('.modal-confirm-button');
+                        const chatLogEl = modalWrapper.querySelector('.modal-winner-chat-log');
+                        const badgeEl = modalWrapper.querySelector('.randomness-source-badge');
+
+                        if (badgeEl) {
+                            badgeEl.className = 'randomness-source-badge';
+                            const badgeTextEl = badgeEl.querySelector('.badge-text');
+                            if (winner.randomnessSource === 'random.org') {
+                                badgeEl.classList.add('random-org');
+                                badgeTextEl.textContent = `Verified by Random.org API (Drawn: #${winner.ticketNumber})`;
+                            } else {
+                                badgeEl.classList.add('fallback');
+                                badgeTextEl.textContent = `Verified by local cryptographic RNG (Drawn: #${winner.ticketNumber})`;
+                            }
+                        }
+
+                        confirmButton.textContent = "OK";
+                        confirmButton.style.visibility = 'hidden';
+
+
+                        const newBtn = confirmButton.cloneNode(true);
+                        confirmButton.parentNode.replaceChild(newBtn, confirmButton);
+
+                        newBtn.addEventListener('click', () => {
+                            if (window.isOverlayMode) {
+                                modalWrapper.classList.add('is-hidden');
+                                if (window.opener && !window.opener.closed) {
+                                    window.opener.finishDrawCycle();
+                                }
+                                return;
+                            }
+
+                            modalWrapper.classList.add('is-hidden');
+
+                            const showChatLogsBelow = drawnWinners.length <= 3;
+                            const replaceAnimationBoxMode = drawnWinners.length > 3;
+
+                            if (showChatLogsBelow || replaceAnimationBoxMode) {
+                                modalChatWinners = modalChatWinners.filter(w => w.name !== winner.name.toLowerCase());
+                            }
+
+                            if (useClaimFeature && drawnWinners.length === 1) {
+                                handleWinnerClaim();
+                            }
+                        });
+
+
+
+                        return runDrawAnimation(fullPool, winner.name, animationBoxEl).then(() => {
+                            titleEl.textContent = "Winner:";
+
+                            const showChatLogsBelow = drawnWinners.length <= 3;
+                            const replaceAnimationBoxMode = drawnWinners.length > 3;
+
+                            if (showChatLogsBelow) {
+
+                                chatLogEl.style.display = 'block';
+                                chatLogEl.classList.add('waiting');
+
+                                chatLogEl.addEventListener('wheel', preventPageScroll);
+                                chatLogEl.addEventListener('wheel', (e) => e.stopPropagation());
+                                modalChatWinners.push({ name: winner.name.toLowerCase(), logElement: chatLogEl, mode: 'below' });
+                            } else if (replaceAnimationBoxMode) {
+                                modalChatWinners.push({
+                                    name: winner.name.toLowerCase(),
+                                    animationBoxEl: animationBoxEl,
+                                    titleEl: titleEl,
+                                    mode: 'replace',
+                                    hasChatStarted: false
+                                });
+                            }
+
+                            if (useClaimFeature && drawnWinners.length === 1) {
+                                startModalWinnerClaim(modalWrapper, winner);
+                            } else {
+                                newBtn.style.visibility = 'visible';
+                            }
+                        });
+                    });
+                    Promise.all(animationPromises).then(resolve);
+                });
+            }
+
+            function startModalWinnerClaim(modalWrapper, winner) {
+                const claimContainer = modalWrapper.querySelector('.modal-claim-container');
+                const claimInstruction = modalWrapper.querySelector('.modal-claim-instruction');
+                const claimCountdown = modalWrapper.querySelector('.modal-claim-countdown');
+                const claimButtons = modalWrapper.querySelector('.modal-claim-buttons');
+                const redrawBtn = modalWrapper.querySelector('.modal-redraw-button');
+                const cancelBtn = modalWrapper.querySelector('.modal-cancel-button');
+
+                claimContainer.style.display = 'flex';
+                claimButtons.style.display = 'flex';
+                claimInstruction.style.display = 'block';
+                claimCountdown.className = 'modal-claim-countdown';
+                claimInstruction.textContent = "If this is you, enter something into the chat before your time runs out.";
+
+                let timeLimit = parseInt(claimDurationInput.value) || 30;
+                claimCountdown.textContent = `${timeLimit}s`;
+
+                activeModalClaim = {
+                    winnerName: winner.name.toLowerCase(),
+                    modalWrapper: modalWrapper,
+                    confirm: () => {
+                        clearInterval(modalClaimInterval);
+                        winner.confirmed = true;
+                        updateWinnersListUI();
+                        saveState();
+
+                        claimCountdown.textContent = "Congratulations, User confirmed!";
+                        claimCountdown.className = "modal-claim-countdown confirmed";
+                        claimInstruction.style.display = 'none';
+
+                        if (overlayWindow && !overlayWindow.closed) {
+                            safeOverlayCall('setOverlayClaimStatus', 'confirmed', winner.name);
+                        }
+
+                        // Close the modal after 2 seconds
+                        setTimeout(() => {
+                            modalWrapper.classList.add('is-hidden');
+                            activeModalClaim = null;
+                            finishDrawCycle();
+                            if (overlayWindow && !overlayWindow.closed) {
+                                safeOverlayCall('clearOverlay');
+                            }
+                        }, 2000);
+                    }
+                };
+
+                const modalClaimInterval = setInterval(() => {
+                    timeLimit--;
+                    claimCountdown.textContent = `${timeLimit}s`;
+                    if (overlayWindow && !overlayWindow.closed) {
+                        safeOverlayCall('updateOverlayCountdown', timeLimit);
+                    }
+                    if (timeLimit <= 0) {
+                        clearInterval(modalClaimInterval);
+                        winner.confirmed = 'failed';
+                        updateWinnersListUI();
+                        saveState();
+
+                        claimInstruction.style.display = 'none';
+                        claimCountdown.innerHTML = `WAKE UP ${winner.name},<br>You chalked your win! GG's better luck next time.`;
+                        claimCountdown.className = "modal-claim-countdown failed";
+                        claimButtons.style.display = 'flex';
+
+                        activeModalClaim = null;
+
+                        if (overlayWindow && !overlayWindow.closed) {
+                            safeOverlayCall('setOverlayClaimStatus', 'failed', winner.name);
+                        }
+                    }
+                }, 1000);
+
+                activeModalClaim.interval = modalClaimInterval;
+
+                redrawBtn.onclick = () => {
+                    if (window.isOverlayMode) {
+                        modalWrapper.classList.add('is-hidden');
+                        if (window.opener && !window.opener.closed) {
+                            window.opener.drawWinner();
+                        }
+                        return;
+                    }
+                    clearInterval(modalClaimInterval);
+                    modalWrapper.classList.add('is-hidden');
+                    activeModalClaim = null;
+                    finishDrawCycle();
+                    if (overlayWindow && !overlayWindow.closed) {
+                        overlayWindow.clearOverlay();
+                    }
+                    drawWinner();
+                };
+
+                cancelBtn.onclick = () => {
+                    if (window.isOverlayMode) {
+                        modalWrapper.classList.add('is-hidden');
+                        if (window.opener && !window.opener.closed) {
+                            window.opener.cancelActiveClaim();
+                        }
+                        return;
+                    }
+                    clearInterval(modalClaimInterval);
+                    modalWrapper.classList.add('is-hidden');
+                    activeModalClaim = null;
+                    finishDrawCycle();
+                    if (overlayWindow && !overlayWindow.closed) {
+                        overlayWindow.clearOverlay();
+                    }
+                };
+            }
+
+            function runDrawAnimation(pool, finalWinner, animationBoxEl) {
+                return new Promise((resolve) => {
+                    const animationType = animationSelect.value;
+                    const animations = {
+                        'slot-machine': animateSlotMachine,
+                        'char-scramble': animateCharScramble,
+                        'wheel': animateWheel,
+                    };
+                    animations[animationType](pool, finalWinner, animationBoxEl, resolve);
+                });
+            }
+
+            function animateSlotMachine(pool, finalWinner, animationBoxEl, resolve) {
+                animationBoxEl.innerHTML = '<h1 class="winner-name"></h1>';
+                const winnerNameEl = animationBoxEl.querySelector('.winner-name');
+                const localInterval = setInterval(() => {
+                    if (pool.length > 0) {
+                        const winningNumber = getLocalRandomNumber(pool.length);
+                        winnerNameEl.textContent = pool[winningNumber];
+                    } else {
+                        winnerNameEl.textContent = '...';
+                    }
+                }, 75);
+                setTimeout(() => {
+                    clearInterval(localInterval);
+                    winnerNameEl.textContent = finalWinner;
+                    winnerNameEl.classList.add('winner');
+                    resolve();
+                }, 3500);
+            }
+
+            function animateCharScramble(pool, finalWinner, animationBoxEl, resolve) {
+                animationBoxEl.innerHTML = '<h1 class="winner-name"></h1>';
+                const winnerNameEl = animationBoxEl.querySelector('.winner-name');
+                const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!?*&%';
+                let frame = 0; const totalFrames = 150;
+                const localInterval = setInterval(() => {
+                    let output = ''; let completed = true;
+                    for (let i = 0; i < finalWinner.length; i++) {
+                        const winningNumber = getLocalRandomNumber(chars.length);
+                        const from = finalWinner[i], to = chars[winningNumber];
+                        const progress = Math.min(frame / (totalFrames * 0.5 + i * 5), 1);
+                        if (progress < 1) completed = false;
+                        output += (Math.random() < progress) ? from : to;
+                    }
+                    winnerNameEl.textContent = output;
+                    if (completed) {
+                        clearInterval(localInterval);
+                        winnerNameEl.classList.add('winner');
+                        resolve();
+                    }
+                    frame++;
+                }, 40);
+            }
+
+            function animateWheel(pool, finalWinner, animationBoxEl, resolve) {
+                animationBoxEl.innerHTML = `<div class="wheel-animation-container"><ul class="wheel-list"></ul></div>`;
+                const wheelContainer = animationBoxEl.querySelector('.wheel-animation-container');
+                const wheelList = animationBoxEl.querySelector('.wheel-list');
+
+
+                let uniquePool = [...new Set(pool)];
+
+
+                let noisePool = uniquePool.filter(n => n !== finalWinner);
+
+
+                if (noisePool.length === 0) {
+                    noisePool = [finalWinner];
+                }
+                while (noisePool.length < 10) noisePool = noisePool.concat(noisePool);
+
+
+                const cycles = Math.ceil(200 / noisePool.length);
+                let repeatedPool = [];
+                for (let c = 0; c < cycles; c++) {
+                    const shuffled = [...noisePool];
+
+                    for (let i = shuffled.length - 1; i > 0; i--) {
+                        const winningNumber = getLocalRandomNumber(i + 1);
+                        [shuffled[i], shuffled[winningNumber]] = [shuffled[winningNumber], shuffled[i]];
+                    }
+                    repeatedPool.push(...shuffled);
+                }
+
+
+                const targetIndex = repeatedPool.length - Math.floor(noisePool.length / 2) - 1;
+                repeatedPool[targetIndex] = finalWinner;
+
+
+                repeatedPool.forEach((name, index) => {
+                    const li = document.createElement('li');
+                    li.textContent = name;
+                    if (index === targetIndex) li.classList.add('winner');
+                    wheelList.appendChild(li);
+                });
+
+
+                setTimeout(() => {
+                    wheelList.style.transform = `translateY(calc(5.3125rem - ${targetIndex * 3.125}rem))`;
+                }, 100);
+
+                wheelList.addEventListener('transitionend', () => {
+                    wheelList.classList.add('finished');
+                    wheelList.style.transition = 'none';
+                    resolve();
+                }, { once: true });
+            }
+
+            function handleWinnerClaim() {
+                claimSection.style.display = 'flex';
+                claimWinnerName.textContent = lastClaimWinner.name;
+
+                claimCountdown.className = '';
+                claimConfirmButton.style.display = 'none';
+
+                if (claimChatLog.children.length > 0) {
+                    lastClaimWinner.confirmed = true;
+                    claimCountdown.textContent = "Confirmed!";
+                    claimCountdown.className = 'confirmed';
+                    claimConfirmButton.style.display = 'block';
+                    updateWinnersListUI();
+                    saveState();
+                    claimInterval = null;
+                } else {
+                    let t = parseInt(claimDurationInput.value);
+                    claimCountdown.textContent = `${lastClaimWinner.name}, you have ${t} seconds to confirm...`;
+                    claimInterval = setInterval(() => {
+                        t--;
+                        claimCountdown.textContent = `${lastClaimWinner.name}, you have ${t} seconds to confirm...`;
+                        if (t <= 0) {
+                            clearInterval(claimInterval);
+                            claimInterval = null;
+                            claimCountdown.textContent = "Time is up!";
+                            claimCountdown.className = 'failed';
+                            claimConfirmButton.style.display = 'block';
+                            lastClaimWinner.confirmed = 'failed';
+                            updateWinnersListUI();
+                            saveState();
+                        }
+                    }, 1000);
+                }
+            }
+
+            function finishDrawCycle() {
+                cancelActiveClaim();
+            }
+
+            function updateWinnersListUI() {
+                winnersList.innerHTML = '';
+                winners.forEach(winner => {
+                    const li = document.createElement('li');
+                    if (winner.confirmed === true) li.classList.add('confirmed');
+                    if (winner.confirmed === 'failed') li.classList.add('failed');
+
+                    const nameWrapper = document.createElement('div');
+                    nameWrapper.style.display = 'flex';
+                    nameWrapper.style.alignItems = 'center';
+                    nameWrapper.style.minWidth = '0';
+
+                    const nameSpan = document.createElement('span');
+                    nameSpan.className = 'winner-name-span';
+                    nameSpan.textContent = winner.name;
+                    nameSpan.title = winner.name;
+                    nameWrapper.appendChild(nameSpan);
+
+                    const sourceTag = document.createElement('span');
+                    if (winner.randomnessSource === 'random.org') {
+                        sourceTag.className = 'winner-source-tag random-org';
+                        sourceTag.textContent = `R.org (#${winner.ticketNumber || '?'})`;
+                        sourceTag.title = `Drawn via Random.org API (Number: ${winner.ticketNumber || '?'})`;
+                    } else {
+                        sourceTag.className = 'winner-source-tag fallback';
+                        sourceTag.textContent = `Local (#${winner.ticketNumber || '?'})`;
+                        sourceTag.title = `Drawn via local cryptographic RNG (Number: ${winner.ticketNumber || '?'})`;
+                    }
+                    nameWrapper.appendChild(sourceTag);
+
+                    const dateSpan = document.createElement('span');
+                    dateSpan.className = 'winner-date-span';
+                    const locale = 'en-US';
+                    dateSpan.textContent = new Date(winner.timestamp).toLocaleString(locale, { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+                    li.appendChild(nameWrapper); li.appendChild(dateSpan);
+                    winnersList.prepend(li);
+                });
+                winnersCount.textContent = winners.length;
+            }
+
+            function resetSession() {
+                if (ws && ws.readyState === WebSocket.OPEN) ws.close();
+                isGiveawayRunning = false;
+                setSettingsState(false);
+                statusMessage.textContent = 'Press "Start" to connect to the chat.';
+                statusMessage.className = 'status-waiting';
+                participants.clear();
+                allEntries = [];
+                participantList.innerHTML = '';
+                participantCount.textContent = '0';
+                claimChatLog.innerHTML = '';
+                modalChatWinners = [];
+                if (activeModalClaim && activeModalClaim.interval) {
+                    clearInterval(activeModalClaim.interval);
+                }
+                activeModalClaim = null;
+                updateDrawButtonState();
+                
+                // Show/hide actions
+                const giveawayControls = document.querySelector('.giveaway-controls');
+                if (giveawayControls) giveawayControls.style.display = 'none';
+                startGiveawayButton.style.display = 'block';
+                
+                // Disconnect pulsing indicator
+                const dot = document.querySelector('.status-indicator-dot');
+                if (dot) dot.classList.remove('connected');
+            }
+
+            function updateClaimSettingsState() {
+                const isMultiWinner = parseInt(winnerCountInput.value) > 1;
+                winnerClaimCheckbox.disabled = isMultiWinner;
+                if (isMultiWinner) winnerClaimCheckbox.checked = false;
+                claimDurationInput.disabled = isMultiWinner || !winnerClaimCheckbox.checked;
+                updateQuickSettingsBar();
+            }
+
+            function updateQuickSettingsBar() {
+                const quickKeyword = document.getElementById('quick-keyword');
+                const quickWinners = document.getElementById('quick-winners');
+                const quickFilters = document.getElementById('quick-filters');
+                const quickConfirm = document.getElementById('quick-confirm');
+                
+                if (quickKeyword) {
+                    quickKeyword.textContent = keywordInput.value.trim() || 'None';
+                }
+                if (quickWinners) {
+                    quickWinners.textContent = winnerCountInput.value;
+                }
+                if (quickFilters) {
+                    let filters = [];
+                    if (subOnlyCheckbox.checked) {
+                        filters.push('Subs Only');
+                        if (parseInt(subLengthSlider.value) > 0) {
+                            filters.push(`${subLengthSlider.value}m+`);
+                        }
+                    }
+                    if (parseInt(followLengthSlider.value) > 0) {
+                        filters.push(`${followLengthSlider.value}d+ follow`);
+                    }
+                    quickFilters.textContent = filters.join(', ') || 'All Chatters';
+                }
+                if (quickConfirm) {
+                    quickConfirm.textContent = winnerClaimCheckbox.checked ? `${claimDurationInput.value}s` : 'Disabled';
+                }
+            }
+
+            function preventPageScroll(event) {
+                const element = event.currentTarget;
+                const { scrollTop, scrollHeight, clientHeight } = element;
+                const deltaY = event.deltaY;
+                const isAtBottom = scrollTop + clientHeight >= scrollHeight - 1;
+                const isAtTop = scrollTop === 0;
+                if ((deltaY > 0 && isAtBottom) || (deltaY < 0 && isAtTop)) {
+                    event.preventDefault();
+                }
+            }
+
+
+
+            function init() {
+                const openOverlayBtn = document.getElementById('open-overlay-button');
+                if (openOverlayBtn) {
+                    openOverlayBtn.addEventListener('click', () => {
+                        const url = window.location.href.split('?')[0] + '?overlay=true';
+                        overlayWindow = window.open(url, 'KickRaffleOverlay', 'width=1000,height=700,menubar=no,toolbar=no,location=no,status=no');
+                    });
+                }
+
+                loadInitialState();
+                connectButton.addEventListener('click', handleLogin);
+                channelInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') connectButton.click(); });
+                headerMenuToggle.addEventListener('click', () => headerMenuDropdown.classList.toggle('active'));
+                const closeDrawerBtn = document.getElementById('close-drawer-btn');
+                if (closeDrawerBtn) {
+                    closeDrawerBtn.addEventListener('click', () => headerMenuDropdown.classList.remove('active'));
+                }
+                window.addEventListener('click', (e) => { if (!headerMenuContainer.contains(e.target)) headerMenuDropdown.classList.remove('active'); });
+                changeChannelButton.addEventListener('click', () => { if (confirm("You will be returned to the channel selection screen. Are you sure?")) { showScreen('login'); resetSession(); } });
+                clearAllDataButton.addEventListener('click', () => { if (confirm("WARNING! All settings and winner lists for all channels will be permanently deleted. Are you sure?")) { localStorage.removeItem('kickGiveawayDB'); window.location.reload(); } });
+
+                winnerCountInput.addEventListener('input', () => {
+                    let value = parseInt(winnerCountInput.value);
+                    if (isNaN(value) || value < 1) winnerCountInput.value = 1;
+                    if (value > 10) winnerCountInput.value = 10;
+                    updateClaimSettingsState();
+                });
+
+                winnerClaimCheckbox.addEventListener('change', updateClaimSettingsState);
+                startGiveawayButton.addEventListener('click', startGiveaway);
+                drawButton.addEventListener('click', drawWinner);
+                resetButton.addEventListener('click', resetSession);
+                claimConfirmButton.addEventListener('click', finishDrawCycle);
+                settingsPanel.addEventListener('change', saveState);
+
+
+                subMultiplierSlider.addEventListener('input', (e) => { subMultiplierValue.textContent = e.target.value; saveState(); });
+                followLengthSlider.addEventListener('input', (e) => { followLengthValue.textContent = e.target.value; saveState(); });
+                subLengthSlider.addEventListener('input', (e) => { subLengthValue.textContent = e.target.value; saveState(); });
+
+                followLengthValue.addEventListener('blur', function () {
+                    let val = parseInt(this.textContent);
+                    let max = parseInt(followLengthSlider.max) || 365;
+
+                    if (isNaN(val) || val < 0) val = 0;
+                    if (val > max) val = max;
+
+                    this.textContent = val;
+                    followLengthSlider.value = val;
+                    saveState();
+                });
+
+
+                followLengthValue.addEventListener('keydown', function (e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        this.blur();
+                    }
+                });
+
+                followLengthValue.addEventListener('click', function (e) {
+                    if (this.getAttribute('contenteditable') === 'true') {
+                        e.preventDefault();
+                        this.focus();
+                    }
+                });
+
+                updateClaimSettingsState();
+
+                const scrollableElements = document.querySelectorAll(
+                    '#participant-list, #winners-list, #claim-chat-log, #multi-winner-modal-container'
+                );
+
+                scrollableElements.forEach(el => {
+                    el.addEventListener('wheel', preventPageScroll);
+                });
+
+                if (window.location.search.includes('unlock_test')) {
+                    const sandbox = document.getElementById('test-sandbox');
+                    if (sandbox) {
+                        sandbox.style.display = 'flex';
+                        const btn = document.getElementById('add-test-participants-btn');
+                        btn.onclick = () => {
+                            addParticipant({ username: "user1", identity: { badges: [] } });
+                            addParticipant({ username: "user2", identity: { badges: [] } });
+                            addParticipant({ username: "user3", identity: { badges: [] } });
+                        };
+                    }
+                }
+            }
+            init();
+        });
+    </script>
+
+</body>
+
+</html>
