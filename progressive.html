@@ -1016,16 +1016,19 @@
                         <label>Chosen Slot / Bonus Buy:</label>
                         <div class="chosen-slot-badge" id="chosen-slot-display">None Specified Yet</div>
                     </div>
+
+                    <!-- Bonus Result Multiplier Input -->
+                    <div style="display: none; flex-direction: column; gap: 0.5rem; margin-top: 0.75rem;" id="bonus-result-group">
+                        <label for="bonus-result-input">Bonus Result Multiplier (x):</label>
+                        <input type="number" id="bonus-result-input" min="0" placeholder="Enter actual multi result">
+                    </div>
                 </div>
 
                 <!-- Finalize Turn options -->
                 <div style="display: flex; flex-direction: column; gap: 0.75rem; border-top: 1px solid var(--panel-border); padding-top: 1.25rem;">
                     <label>Turn Decisions:</label>
-                    <button class="btn btn-primary" id="apply-jackpot-win-btn" disabled>
-                        🏆 Winner Hit Jackpot!
-                    </button>
-                    <button class="btn btn-danger" id="apply-turn-no-win-btn" disabled>
-                        No Win (End Round & Add Step)
+                    <button class="btn btn-primary" id="resolve-turn-btn" disabled>
+                        Resolve Bonus Buy
                     </button>
                     <button class="btn btn-secondary" id="discard-turn-btn" disabled>
                         Discard Turn / Reset
@@ -1158,9 +1161,10 @@
             const chosenSlotDisplay = document.getElementById('chosen-slot-display');
 
             // Decision Action Buttons
-            const applyTurnNoWinBtn = document.getElementById('apply-turn-no-win-btn');
-            const applyJackpotWinBtn = document.getElementById('apply-jackpot-win-btn');
+            const resolveTurnBtn = document.getElementById('resolve-turn-btn');
             const discardTurnBtn = document.getElementById('discard-turn-btn');
+            const bonusResultGroup = document.getElementById('bonus-result-group');
+            const bonusResultInput = document.getElementById('bonus-result-input');
 
             // Sandbox
             const sandboxChatInput = document.getElementById('sandbox-chat-input');
@@ -1496,8 +1500,7 @@
                 drawWinnerBtn.addEventListener('click', performRaffleDraw);
 
                 // Decision Action Buttons
-                applyJackpotWinBtn.addEventListener('click', resolveJackpotWin);
-                applyTurnNoWinBtn.addEventListener('click', resolveNoWin);
+                resolveTurnBtn.addEventListener('click', handleResolveTurnClick);
                 discardTurnBtn.addEventListener('click', discardCurrentTurn);
 
                 // Offline Testing Sandbox buttons

@@ -1377,6 +1377,101 @@
             background-color: var(--panel-border-hover);
         }
 
+        /* --- WHEEL ANIMATION & SILENT CONTAINER --- */
+        #multi-winner-modal-container.is-silent {
+            opacity: 0 !important;
+            pointer-events: none !important;
+        }
+
+        .winner-animation-box {
+            font-family: 'Poppins', monospace;
+            width: 100%;
+            height: 13.75rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            margin: 0 auto;
+        }
+
+        h1.winner-name {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            word-break: break-all;
+            line-height: 1.1;
+            color: var(--primary-text-color);
+        }
+
+        h1.winner-name.winner {
+            color: var(--primary-color);
+            text-shadow: 0 0 0.9375rem var(--primary-color);
+        }
+
+        .wheel-animation-container {
+            position: relative;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            border-top: 2px solid var(--border-color);
+            border-bottom: 2px solid var(--border-color);
+            mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
+            -webkit-mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
+            transform: scaleY(-1);
+        }
+
+        .wheel-animation-container::after {
+            content: '';
+            position: absolute;
+            left: 0.625rem;
+            top: 50%;
+            transform: translateY(-50%) scaleY(-1);
+            width: calc(100% - 1.25rem);
+            height: 3.125rem;
+            background-color: rgba(83, 252, 24, 0.1);
+            border-top: 2px solid var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            border-radius: 0.5rem;
+            z-index: 1;
+        }
+
+        .wheel-list {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+            transition: transform 7s cubic-bezier(0.2, 0.9, 0.3, 1);
+        }
+
+        .wheel-list li {
+            height: 3.125rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.8rem;
+            color: var(--secondary-text-color);
+            font-weight: 600;
+            padding: 0 0.625rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transition: all 0.3s;
+            transform: scaleY(-1);
+        }
+
+        .wheel-list.finished li.winner {
+            color: var(--primary-color);
+            text-shadow: 0 0 0.625rem var(--primary-color);
+            transform: scaleY(-1) scale(1.1);
+        }
+
+        @keyframes infiniteSpin {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-50%); }
+        }
+
         /* --- OVERLAY MODE --- */
         body.overlay-mode {
             background: transparent !important;
@@ -1499,132 +1594,6 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82-.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06-.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
                                 <span>Settings</span>
                             </button>
-                            
-                            <!-- Slide-out Settings Drawer -->
-                            <div id="header-menu-dropdown" class="settings-drawer settings-panel">
-                                <div class="drawer-header">
-                                    <h3 data-lang-key="settingsTitle">Giveaway Settings</h3>
-                                    <button type="button" class="btn-close-drawer" id="close-drawer-btn" aria-label="Close Settings">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                                    </button>
-                                </div>
-                                
-                                <div class="drawer-body settings-controls-container">
-                                    <!-- Setup Group -->
-                                    <div class="settings-group">
-                                        <div class="group-title">Raffle Setup</div>
-                                        <div class="settings-row">
-                                            <div class="input-group width-66">
-                                                <label for="keyword-input" data-lang-key="keywordLabel">Keyword (optional):</label>
-                                                <input type="text" id="keyword-input" placeholder="e.g. !win">
-                                            </div>
-                                            <div class="input-group width-33">
-                                                <label for="winner-count-input" data-lang-key="winnerCountLabel">Winners:</label>
-                                                <input type="number" id="winner-count-input" value="1" min="1" max="10">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <!-- Filters Group -->
-                                    <div class="settings-group">
-                                        <div class="group-title">Entrant Filters</div>
-                                        
-                                        <div class="toggle-control">
-                                            <label for="sub-only-checkbox" class="toggle-label-container">
-                                                <span class="toggle-text" data-lang-key="subOnlyLabel">Subscribers only</span>
-                                                <div class="toggle-switch">
-                                                    <input type="checkbox" id="sub-only-checkbox">
-                                                    <span class="toggle-slider"></span>
-                                                </div>
-                                            </label>
-                                        </div>
-                                        
-                                        <div class="input-group">
-                                            <div class="label-header">
-                                                <span class="label-title" data-lang-key="subMultiplierLabel">Subscriber Multiplier</span>
-                                                <span class="value-badge"><span id="sub-multiplier-value">1</span>x</span>
-                                            </div>
-                                            <input type="range" id="sub-multiplier-slider" min="1" max="10" value="1">
-                                        </div>
-                                        
-                                        <div class="input-group">
-                                            <div class="label-header">
-                                                <span class="label-title" data-lang-key="subLengthLabel">Subscription Duration</span>
-                                                <span class="value-badge"><span id="sub-length-value">0</span> <span data-lang-key="monthsLabel">Months</span></span>
-                                            </div>
-                                            <input type="range" id="sub-length-slider" min="0" max="60" value="0">
-                                        </div>
-                                        
-                                        <div class="input-group">
-                                            <div class="label-header">
-                                                <span class="label-title" data-lang-key="followLengthLabel">Follow Duration</span>
-                                                <span class="value-badge">
-                                                    <span id="follow-length-value" contenteditable="true" class="editable-number">0</span> <span data-lang-key="daysLabel">Days</span>
-                                                </span>
-                                                <span class="info-tooltip">?
-                                                    <span class="tooltip-content" data-lang-key="followTooltip">Filter users based on how long they have followed the channel</span>
-                                                </span>
-                                            </div>
-                                            <input type="range" id="follow-length-slider" min="0" max="365" value="0">
-                                        </div>
-                                    </div>
-                                    
-                                    <!-- Rules Group -->
-                                    <div class="settings-group">
-                                        <div class="group-title">Drawing Options</div>
-                                        
-                                        <div class="toggle-control">
-                                            <label for="winner-claim-checkbox" class="toggle-label-container">
-                                                <span class="toggle-text" data-lang-key="winnerClaimLabel">Winner confirmation</span>
-                                                <div class="toggle-switch">
-                                                    <input type="checkbox" id="winner-claim-checkbox">
-                                                    <span class="toggle-slider"></span>
-                                                </div>
-                                            </label>
-                                        </div>
-                                        
-                                        <div class="toggle-control">
-                                            <label for="repeat-winners-checkbox" class="toggle-label-container">
-                                                <span class="toggle-text">Allow repeat winners</span>
-                                                <div class="toggle-switch">
-                                                    <input type="checkbox" id="repeat-winners-checkbox">
-                                                    <span class="toggle-slider"></span>
-                                                </div>
-                                            </label>
-                                        </div>
-                                        
-                                        <div class="settings-row">
-                                            <div class="input-group width-50">
-                                                <label for="claim-duration-input" data-lang-key="claimDurationLabel">Confirm Time (s):</label>
-                                                <input type="number" id="claim-duration-input" value="30" min="10">
-                                            </div>
-                                            <div class="input-group width-50">
-                                                <label for="animation-select" data-lang-key="animationLabel">Animation:</label>
-                                                <select id="animation-select">
-                                                    <option value="wheel" selected data-lang-key="animationWheel">Wheel</option>
-                                                    <option value="slot-machine" data-lang-key="animationClassic">Classic</option>
-                                                    <option value="char-scramble" data-lang-key="animationScramble">Scramble</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="drawer-footer">
-                                    <button id="open-overlay-button" type="button" class="btn btn-secondary">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-icon"><rect x="2" y="2" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
-                                        Stream Overlay
-                                    </button>
-                                    <button id="change-channel-button" class="btn btn-secondary" data-lang-key="changeChannel">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-icon"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="18" y1="8" x2="23" y2="13"></line><line x1="23" y1="8" x2="18" y2="13"></line></svg>
-                                        Change Channel
-                                    </button>
-                                    <button id="clear-all-data-button" class="btn btn-danger-outline" data-lang-key="clearAllData">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-icon"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
-                                        Clear Data
-                                    </button>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </header>
@@ -1784,6 +1753,132 @@
                 <button class="modal-confirm-button btn btn-primary" data-lang-key="okButton" style="width: auto; align-self: center;">OK</button>
                 <ul class="modal-winner-chat-log"></ul>
             </div>
+        </div>
+    </div>
+
+    <!-- Slide-out Settings Drawer (Moved to body level to prevent clipping inside app-container) -->
+    <div id="header-menu-dropdown" class="settings-drawer settings-panel">
+        <div class="drawer-header">
+            <h3 data-lang-key="settingsTitle">Giveaway Settings</h3>
+            <button type="button" class="btn-close-drawer" id="close-drawer-btn" aria-label="Close Settings">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+        </div>
+        
+        <div class="drawer-body settings-controls-container">
+            <!-- Setup Group -->
+            <div class="settings-group">
+                <div class="group-title">Raffle Setup</div>
+                <div class="settings-row">
+                    <div class="input-group width-66">
+                        <label for="keyword-input" data-lang-key="keywordLabel">Keyword (optional):</label>
+                        <input type="text" id="keyword-input" placeholder="e.g. !win">
+                    </div>
+                    <div class="input-group width-33">
+                        <label for="winner-count-input" data-lang-key="winnerCountLabel">Winners:</label>
+                        <input type="number" id="winner-count-input" value="1" min="1" max="10">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Filters Group -->
+            <div class="settings-group">
+                <div class="group-title">Entrant Filters</div>
+                
+                <div class="toggle-control">
+                    <label for="sub-only-checkbox" class="toggle-label-container">
+                        <span class="toggle-text" data-lang-key="subOnlyLabel">Subscribers only</span>
+                        <div class="toggle-switch">
+                            <input type="checkbox" id="sub-only-checkbox">
+                            <span class="toggle-slider"></span>
+                        </div>
+                    </label>
+                </div>
+                
+                <div class="input-group">
+                    <div class="label-header">
+                        <span class="label-title" data-lang-key="subMultiplierLabel">Subscriber Multiplier</span>
+                        <span class="value-badge"><span id="sub-multiplier-value">1</span>x</span>
+                    </div>
+                    <input type="range" id="sub-multiplier-slider" min="1" max="10" value="1">
+                </div>
+                
+                <div class="input-group">
+                    <div class="label-header">
+                        <span class="label-title" data-lang-key="subLengthLabel">Subscription Duration</span>
+                        <span class="value-badge"><span id="sub-length-value">0</span> <span data-lang-key="monthsLabel">Months</span></span>
+                    </div>
+                    <input type="range" id="sub-length-slider" min="0" max="60" value="0">
+                </div>
+                
+                <div class="input-group">
+                    <div class="label-header">
+                        <span class="label-title" data-lang-key="followLengthLabel">Follow Duration</span>
+                        <span class="value-badge">
+                            <span id="follow-length-value" contenteditable="true" class="editable-number">0</span> <span data-lang-key="daysLabel">Days</span>
+                        </span>
+                        <span class="info-tooltip">?
+                            <span class="tooltip-content" data-lang-key="followTooltip">Filter users based on how long they have followed the channel</span>
+                        </span>
+                    </div>
+                    <input type="range" id="follow-length-slider" min="0" max="365" value="0">
+                </div>
+            </div>
+            
+            <!-- Rules Group -->
+            <div class="settings-group">
+                <div class="group-title">Drawing Options</div>
+                
+                <div class="toggle-control">
+                    <label for="winner-claim-checkbox" class="toggle-label-container">
+                        <span class="toggle-text" data-lang-key="winnerClaimLabel">Winner confirmation</span>
+                        <div class="toggle-switch">
+                            <input type="checkbox" id="winner-claim-checkbox">
+                            <span class="toggle-slider"></span>
+                        </div>
+                    </label>
+                </div>
+                
+                <div class="toggle-control">
+                    <label for="repeat-winners-checkbox" class="toggle-label-container">
+                        <span class="toggle-text">Allow repeat winners</span>
+                        <div class="toggle-switch">
+                            <input type="checkbox" id="repeat-winners-checkbox">
+                            <span class="toggle-slider"></span>
+                        </div>
+                    </label>
+                </div>
+                
+                <div class="settings-row">
+                    <div class="input-group width-50">
+                        <label for="claim-duration-input" data-lang-key="claimDurationLabel">Confirm Time (s):</label>
+                        <input type="number" id="claim-duration-input" value="30" min="10">
+                    </div>
+                    <div class="input-group width-50">
+                        <label for="animation-select" data-lang-key="animationLabel">Animation:</label>
+                        <select id="animation-select">
+                            <option value="wheel" selected data-lang-key="animationWheel">Wheel</option>
+                            <option value="slot-machine" data-lang-key="animationClassic">Classic</option>
+                            <option value="char-scramble" data-lang-key="animationScramble">Scramble</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="drawer-footer">
+            <button id="open-overlay-button" type="button" class="btn btn-secondary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-icon"><rect x="2" y="2" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                Stream Overlay
+            </button>
+            <button id="change-channel-button" class="btn btn-secondary" data-lang-key="changeChannel">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-icon"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="18" y1="8" x2="23" y2="13"></line><line x1="23" y1="8" x2="18" y2="13"></line></svg>
+                Change Channel
+            </button>
+            <button id="clear-all-data-button" class="btn btn-danger-outline" data-lang-key="clearAllData">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-icon"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                Clear Data
+            </button>
         </div>
     </div>
 
@@ -2428,6 +2523,7 @@
                 claimChatLog.innerHTML = '';
                 modalChatWinners = [];
                 multiWinnerModalContainer.style.display = 'none';
+                multiWinnerModalContainer.classList.remove('is-silent');
                 document.body.classList.remove('modal-active');
                 isDrawInProgress = false;
                 resetButton.disabled = false;
@@ -2517,6 +2613,7 @@
                 if (apiErrorOccurred) {
                     document.body.classList.remove('modal-active');
                     multiWinnerModalContainer.style.display = 'none';
+                    multiWinnerModalContainer.classList.remove('is-silent');
                     alert("Error while checking Follow Duration!");
                     finishDrawCycle();
                     return;
@@ -2525,6 +2622,7 @@
                 if (winnersToDraw.length === 0) {
                     document.body.classList.remove('modal-active');
                     multiWinnerModalContainer.style.display = 'none';
+                    multiWinnerModalContainer.classList.remove('is-silent');
                     alert("There are no eligible participants! (Follow Duration too strict?)");
                     finishDrawCycle();
                     return;
@@ -2561,6 +2659,11 @@
 
             function displayMultiWinnerModals(drawnWinners, fullPool, useClaimFeature) {
                 return new Promise(resolve => {
+                    if (!window.isOverlayMode && overlayWindow && !overlayWindow.closed) {
+                        multiWinnerModalContainer.classList.add('is-silent');
+                    } else {
+                        multiWinnerModalContainer.classList.remove('is-silent');
+                    }
                     multiWinnerModalContainer.style.display = 'flex';
 
 
@@ -3084,7 +3187,7 @@
                 if (closeDrawerBtn) {
                     closeDrawerBtn.addEventListener('click', () => headerMenuDropdown.classList.remove('active'));
                 }
-                window.addEventListener('click', (e) => { if (!headerMenuContainer.contains(e.target)) headerMenuDropdown.classList.remove('active'); });
+                window.addEventListener('click', (e) => { if (!headerMenuContainer.contains(e.target) && !headerMenuDropdown.contains(e.target)) headerMenuDropdown.classList.remove('active'); });
                 changeChannelButton.addEventListener('click', () => { if (confirm("You will be returned to the channel selection screen. Are you sure?")) { showScreen('login'); resetSession(); } });
                 clearAllDataButton.addEventListener('click', () => { if (confirm("WARNING! All settings and winner lists for all channels will be permanently deleted. Are you sure?")) { localStorage.removeItem('kickGiveawayDB'); window.location.reload(); } });
 
