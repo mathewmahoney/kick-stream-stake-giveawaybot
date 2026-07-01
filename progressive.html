@@ -1,0 +1,2080 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progressive Jackpot Board</title>
+    <meta name="description" content="Casino Progressive Jackpot Claim & Bonus Buy Game for Kick Streamers">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-dark: #050811;
+            --bg-darker: #02040a;
+            --panel-bg: #080f1a;
+            --panel-border: #1c355e;
+            --panel-border-hover: rgba(0, 180, 255, 0.4);
+            
+            --color-primary: #00b4ff;       /* Electric Blue */
+            --color-primary-glow: rgba(0, 180, 255, 0.35);
+            
+            --color-success: #53fc18;       /* Kick Green (Only in Admin Connect/Draw Winner buttons) */
+            --color-success-glow: rgba(83, 252, 24, 0.25);
+            
+            --color-danger: #ff3333;        /* Solid Red (No pink!) */
+            --color-danger-glow: rgba(255, 51, 51, 0.35);
+            
+            --color-warning: #ffaa00;       /* Gold/Amber */
+            --color-warning-glow: rgba(255, 170, 0, 0.3);
+            
+            --text-primary: #ffffff;
+            --text-secondary: #94a3b8;
+            --text-muted: #4a607a;
+            
+            --font-sans: 'Outfit', sans-serif;
+            
+            --radius-lg: 12px;
+            --radius-md: 8px;
+            --radius-sm: 6px;
+            
+            --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: radial-gradient(circle at 50% 0%, #0d1e3d 0%, #030814 100%);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- ADMIN INTERFACE --- */
+        #admin-wrapper {
+            max-width: 90rem;
+            width: 100%;
+            margin: 0 auto;
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        header.app-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--panel-border);
+        }
+
+        .brand-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .brand-title span {
+            color: var(--color-primary);
+            text-shadow: 0 0 10px var(--color-primary-glow);
+        }
+
+        .connection-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 51, 51, 0.08);
+            border: 1px solid rgba(255, 51, 51, 0.2);
+            color: var(--color-danger);
+            padding: 0.4rem 0.85rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.85rem;
+            font-weight: 700;
+            transition: all var(--transition-fast);
+        }
+
+        .connection-status.connected {
+            background: rgba(83, 252, 24, 0.08);
+            border: 1px solid rgba(83, 252, 24, 0.25);
+            color: var(--color-success);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--color-danger);
+            box-shadow: 0 0 8px var(--color-danger);
+        }
+
+        .status-dot.connected {
+            background-color: var(--color-success);
+            box-shadow: 0 0 8px var(--color-success);
+        }
+
+        /* Sub-Header Configuration Info Bar (Matches layout.png top filters style) */
+        .info-bar {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-pill {
+            background: rgba(0, 180, 255, 0.08);
+            border: 1px solid rgba(0, 180, 255, 0.25);
+            border-radius: var(--radius-sm);
+            color: var(--color-primary);
+            font-size: 0.75rem;
+            padding: 0.35rem 0.75rem;
+            font-weight: 600;
+        }
+
+        .info-pill strong {
+            color: #fff;
+        }
+
+        /* Dashboard grid with fluid responsive columns (Fixed grid blow-outs) */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr)); /* Fluidly scales side-by-side columns */
+            gap: 1.25rem;
+            flex-grow: 1;
+        }
+
+        /* Note: Removed the max-width media query to prevent column wrapping */
+
+        .glass-panel {
+            min-width: 0; /* Critical: allows columns to shrink below content size */
+            background: var(--panel-bg);
+            border: 2px solid var(--panel-border);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(0, 180, 255, 0.05);
+            transition: border-color var(--transition-fast);
+        }
+
+        .glass-panel:hover {
+            border-color: var(--panel-border-hover);
+        }
+
+        .panel-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-left: 3px solid var(--color-primary);
+            padding-left: 0.75rem;
+        }
+
+        .title-badge {
+            background: rgba(0, 180, 255, 0.15);
+            color: var(--color-primary);
+            border-radius: 20px;
+            padding: 0.15rem 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-left: 0.5rem;
+        }
+
+        /* Inputs & Controls */
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--panel-border);
+            border-radius: var(--radius-sm);
+            padding: 0.65rem 0.85rem;
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            outline: none;
+            transition: all var(--transition-fast);
+            width: 100%;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        select:focus {
+            border-color: var(--color-primary);
+            box-shadow: 0 0 8px var(--color-primary-glow);
+        }
+
+        /* Switch toggles (layout.png style) */
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 0.65rem 0.85rem;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--panel-border);
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 44px;
+            height: 24px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #142136;
+            transition: .3s;
+            border-radius: 24px;
+            border: 1px solid var(--panel-border);
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 3px;
+            bottom: 3px;
+            background-color: #94a3b8;
+            transition: .3s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--color-primary-glow);
+            border-color: var(--color-primary);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(20px);
+            background-color: var(--color-primary);
+        }
+
+        /* Buttons matching the layout.png and Technical UI Kit */
+        .btn {
+            background: #142136;
+            border: 1px solid var(--panel-border);
+            color: var(--text-secondary);
+            padding: 0.75rem 1rem;
+            border-radius: var(--radius-md);
+            font-weight: 700;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .btn:hover:not(:disabled) {
+            border-color: var(--text-secondary);
+            color: #fff;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .btn:disabled {
+            opacity: 0.25;
+            cursor: not-allowed;
+            border-color: var(--panel-border);
+            color: var(--text-muted);
+            background: rgba(0,0,0,0.1);
+        }
+
+        /* Glowing green Draw Winner button (matches Technical UI Kit) */
+        .btn-success {
+            background: #3cd01e;
+            border: none;
+            color: #03070d;
+            box-shadow: 0 0 15px rgba(60, 208, 30, 0.35);
+        }
+
+        .btn-success:hover:not(:disabled) {
+            background: #4ae015;
+            color: #000;
+            box-shadow: 0 0 20px rgba(60, 208, 30, 0.6);
+            transform: translateY(-1px);
+        }
+
+        /* Glowing blue Jackpot button (matches Technical UI Kit) */
+        .btn-primary {
+            background: linear-gradient(to bottom, #0088cc, #0066aa);
+            border: 1px solid var(--color-primary);
+            color: #ffffff;
+            box-shadow: 0 0 15px var(--color-primary-glow);
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background: var(--color-primary);
+            color: #000;
+            box-shadow: 0 0 20px var(--color-primary);
+            transform: translateY(-1px);
+        }
+
+        /* Glowing red cancel/no-win button (matches Technical UI kit cancel) */
+        .btn-danger {
+            border-color: var(--color-danger);
+            background: #4a1c29;
+            color: var(--color-danger);
+            box-shadow: 0 0 15px rgba(255, 51, 51, 0.15);
+        }
+
+        .btn-danger:hover:not(:disabled) {
+            background: var(--color-danger);
+            color: #fff;
+            box-shadow: 0 0 20px var(--color-danger);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            border-color: var(--panel-border);
+            background: rgba(255,255,255,0.02);
+            color: var(--text-secondary);
+        }
+
+        /* Collapsible details submenu animations */
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+        details summary {
+            list-style: none;
+            outline: none;
+        }
+        details[open] summary .arrow {
+            transform: rotate(90deg);
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                filter: drop-shadow(0 0 20px rgba(0, 180, 255, 0.45));
+            }
+            50% {
+                transform: scale(1.05);
+                filter: drop-shadow(0 0 35px rgba(0, 180, 255, 0.75));
+            }
+        }
+        
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        /* Participant List UI */
+        .list-container {
+            flex-grow: 1;
+            max-height: 240px;
+            overflow-y: auto;
+            border: 1px solid var(--panel-border);
+            border-radius: var(--radius-md);
+            background: rgba(0,0,0,0.3);
+            padding: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .list-container li {
+            list-style: none;
+            padding: 0.5rem 0.75rem;
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .list-container li:nth-child(even) {
+            background: rgba(255,255,255,0.02);
+        }
+
+        .subscriber-tag {
+            background: rgba(0, 180, 255, 0.15);
+            border: 1px solid var(--color-primary);
+            color: var(--color-primary);
+            font-size: 0.75rem;
+            padding: 1px 4px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+
+        /* Turn Resolution Panel & Badges */
+        .turn-panel {
+            background: rgba(0, 180, 255, 0.02);
+            border: 1px solid var(--panel-border);
+        }
+
+        .active-turn-winner {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 1.25rem;
+            border-radius: var(--radius-lg);
+            text-align: center;
+            border: 1px dashed var(--panel-border);
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .active-turn-winner .winner-name {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--color-primary); /* Electric Blue Username display */
+            text-shadow: 0 0 10px var(--color-primary-glow);
+        }
+
+        .status-badge {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            display: inline-block;
+            margin: 0 auto;
+            border: 1px solid transparent;
+        }
+
+        .status-badge.waiting {
+            background: rgba(255, 170, 0, 0.1);
+            color: var(--color-warning);
+            border-color: var(--color-warning);
+            animation: pulse-border 1.5s infinite alternate;
+        }
+
+        .status-badge.claimed {
+            background: rgba(0, 180, 255, 0.15);
+            color: var(--color-primary);
+            border-color: var(--color-primary);
+        }
+
+        .status-badge.timeout {
+            background: rgba(255, 51, 51, 0.15);
+            color: var(--color-danger);
+            border-color: var(--color-danger);
+        }
+
+        .active-countdown {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--color-danger);
+            text-shadow: 0 0 10px var(--color-danger-glow);
+        }
+
+        .chosen-slot-badge {
+            background: rgba(0, 180, 255, 0.08);
+            border: 1px solid var(--color-primary);
+            color: var(--color-primary);
+            padding: 0.5rem;
+            border-radius: var(--radius-sm);
+            font-weight: 700;
+            font-size: 0.95rem;
+            word-break: break-all;
+        }
+
+        /* --- STREAM OVERLAY STYLE --- */
+        #overlay-wrapper {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: transparent !important;
+            box-sizing: border-box;
+            overflow: hidden;
+            justify-content: center;
+            align-items: center;
+            user-select: none;
+        }
+
+        body.overlay-mode {
+            background: transparent !important;
+        }
+
+        body.overlay-mode #admin-wrapper {
+            display: none !important;
+        }
+
+        body.overlay-mode #overlay-wrapper {
+            display: flex !important;
+        }
+
+        /* Casino Billboard Scoreboard (Electric blue & white style) */
+        .casino-billboard {
+            width: 90%;
+            max-width: 800px;
+            background: radial-gradient(circle at center, #061124 0%, #02050b 100%);
+            border: 12px solid #0f223d;
+            border-radius: 2.5rem;
+            box-shadow: 
+                0 20px 50px rgba(0,0,0,0.8),
+                0 0 35px rgba(0, 180, 255, 0.4),
+                inset 0 0 30px rgba(0,0,0,0.9);
+            position: relative;
+            padding: 2.5rem;
+            text-align: center;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.25rem;
+            z-index: 10;
+        }
+
+        /* LED Chase Lights (Electric blue / white flasher) */
+        .led-border {
+            position: absolute;
+            top: -6px;
+            left: -6px;
+            right: -6px;
+            bottom: -6px;
+            border-radius: 2.2rem;
+            border: 4px solid transparent;
+            pointer-events: none;
+            z-index: 12;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .led-dot-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .led-light {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px #ffffff, inset 0 0 2px #fff;
+            animation: led-flash 1s infinite alternate;
+        }
+
+        .led-light.t1 { top: -14px; left: 10%; }
+        .led-light.t2 { top: -14px; left: 30%; }
+        .led-light.t3 { top: -14px; left: 50%; }
+        .led-light.t4 { top: -14px; left: 70%; }
+        .led-light.t5 { top: -14px; left: 90%; }
+        .led-light.b1 { bottom: -14px; left: 10%; }
+        .led-light.b2 { bottom: -14px; left: 30%; }
+        .led-light.b3 { bottom: -14px; left: 50%; }
+        .led-light.b4 { bottom: -14px; left: 70%; }
+        .led-light.b5 { bottom: -14px; left: 90%; }
+        .led-light.l1 { left: -14px; top: 25%; }
+        .led-light.l2 { left: -14px; top: 50%; }
+        .led-light.l3 { left: -14px; top: 75%; }
+        .led-light.r1 { right: -14px; top: 25%; }
+        .led-light.r2 { right: -14px; top: 50%; }
+        .led-light.r3 { right: -14px; top: 75%; }
+
+        .led-light:nth-child(even) {
+            animation-delay: 0.5s;
+            background-color: var(--color-primary);
+            box-shadow: 0 0 12px var(--color-primary), inset 0 0 2px #fff;
+        }
+
+        @keyframes led-flash {
+            0% { opacity: 0.3; transform: scale(0.9); }
+            100% { opacity: 1; transform: scale(1.1); }
+        }
+
+        /* Promoted Buzzer Beater Jackpot to main heading size */
+        .billboard-header {
+            font-size: 2.8rem;
+            font-weight: 900;
+            letter-spacing: 3px;
+            color: #ffffff;
+            text-transform: uppercase;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.8), 0 0 15px var(--color-primary-glow);
+            border-bottom: 2px solid rgba(0, 180, 255, 0.2);
+            padding-bottom: 0.5rem;
+            width: 90%;
+            margin-top: 0.25rem;
+        }
+
+        .jackpot-display-box {
+            background: #010408;
+            border: 4px solid #081426;
+            border-radius: 1.5rem;
+            padding: 1.25rem 2.5rem;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.9), 0 0 20px rgba(0, 180, 255, 0.15);
+            min-width: 85%;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .jackpot-display-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.05), transparent);
+            pointer-events: none;
+        }
+
+        /* "Current Progressive Jackpot" label style */
+        .jackpot-label {
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: var(--color-primary);
+            text-transform: uppercase;
+            margin-bottom: 0.25rem;
+            text-shadow: 0 0 10px var(--color-primary-glow);
+        }
+
+        .jackpot-amount {
+            font-size: 4.8rem;
+            font-weight: 900;
+            color: #ffffff;
+            text-shadow: 0 0 20px rgba(0, 180, 255, 0.8), 0 0 40px rgba(0, 180, 255, 0.4);
+            letter-spacing: 2px;
+            line-height: 1.1;
+        }
+
+        .multiplier-badge {
+            background: rgba(0, 180, 255, 0.08);
+            border: 2px solid var(--color-primary);
+            border-radius: 50px;
+            padding: 0.6rem 2.5rem;
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--color-primary);
+            text-shadow: 0 0 15px var(--color-primary-glow);
+            box-shadow: 0 0 15px rgba(0, 180, 255, 0.2);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Fullscreen Winner overlay */
+        #winner-screen-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(2, 4, 10, 0.98);
+            z-index: 100;
+            border-radius: 2.2rem;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 1.25rem;
+            padding: 2.5rem;
+            animation: fade-in 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .winner-announcement-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            text-shadow: 0 0 8px rgba(255,255,255,0.3);
+        }
+
+        .winner-announcement-name {
+            font-size: 4rem;
+            font-weight: 900;
+            color: var(--color-primary); /* Electric Blue Winner username */
+            text-shadow: 0 0 25px var(--color-primary);
+            letter-spacing: 1px;
+            animation: pulse-name 1.5s infinite;
+        }
+
+        .winner-announcement-subtitle {
+            font-size: 1.35rem;
+            color: var(--text-secondary);
+            text-align: center;
+            max-width: 90%;
+            line-height: 1.6;
+        }
+
+        .winner-timer-text {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--color-danger); /* Solid Red */
+            text-shadow: 0 0 15px var(--color-danger-glow);
+            margin-top: 0.5rem;
+        }
+
+        /* Picked slot layout */
+        .picked-slot-block {
+            background: rgba(0, 180, 255, 0.08);
+            border: 2px solid var(--color-primary);
+            border-radius: var(--radius-md);
+            padding: 1.5rem 3rem;
+            margin-top: 0.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            box-shadow: 0 0 25px rgba(0, 180, 255, 0.25);
+            animation: card-appear 0.5s ease-out;
+            align-items: center;
+        }
+
+        .picked-slot-label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--color-primary);
+            font-weight: bold;
+        }
+
+        .picked-slot-value {
+            font-size: 3.2rem;
+            font-weight: 900;
+            color: #ffffff;
+            text-shadow: 0 0 20px var(--color-primary-glow);
+            text-transform: capitalize;
+        }
+
+        /* Large display of current progressive targets in slot selection */
+        .picked-slot-goals {
+            display: flex;
+            gap: 2.5rem;
+            font-size: 2rem; /* Even larger target totals display */
+            font-weight: 800;
+            color: #ffffff;
+            justify-content: center;
+            border-top: 1px solid rgba(0,180,255,0.25);
+            padding-top: 1rem;
+            width: 100%;
+            margin-top: 0.5rem;
+        }
+
+        .picked-slot-goals span {
+            text-shadow: 0 0 12px var(--color-primary-glow);
+        }
+
+        @keyframes card-appear {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes pulse-name {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.04); }
+        }
+
+        @keyframes fade-in {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 999;
+            display: none;
+        }
+
+        /* SVG Red Dice */
+        .dice-container {
+            display: flex;
+            gap: 15px;
+            margin: 10px 0;
+            justify-content: center;
+        }
+
+        .die-svg {
+            filter: drop-shadow(0 0 10px rgba(255, 51, 51, 0.6));
+            animation: die-float 3s ease-in-out infinite alternate;
+        }
+
+        .die-svg:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+
+        @keyframes die-float {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-5px) rotate(5deg); }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HTML5 Particle Canvas (For Jackpot rain) -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- ADMIN CONSOLE -->
+    <div id="admin-wrapper">
+        <header class="app-header">
+            <h1 class="brand-title">KICKBOT <span>PROGRESSIVE JACKPOT</span></h1>
+            <div class="flex-row">
+                <button class="btn btn-secondary" id="open-overlay-btn" type="button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"></path><path d="M10 14 21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg>
+                    Open Overlay
+                </button>
+                <div class="connection-status" id="connection-box">
+                    <span class="status-dot" id="connection-indicator"></span>
+                    <span id="connection-label">Disconnected</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Sub-Header Info Bar (Matches layout.png top filters style) -->
+        <div class="info-bar">
+            <div class="info-pill">Keyword: <strong id="info-keyword">None</strong></div>
+            <div class="info-pill">Timer: <strong id="info-timer">30s</strong></div>
+            <div class="info-pill">Filters: <strong id="info-filters">All Chatters</strong></div>
+            <div class="info-pill">Multiplier Increase: <strong id="info-step-multi">0.1x</strong></div>
+            <div class="info-pill">Jackpot Increase: <strong id="info-step-jackpot">$5.00</strong></div>
+        </div>
+
+        <div class="dashboard-grid">
+            
+            <!-- COLUMN 1: KICK CONNECTION & RAFFLE CONFIG -->
+            <div class="glass-panel">
+                <h2 class="panel-title">Raffle Connection</h2>
+                
+                <div class="input-group">
+                    <label for="channel-input">Kick Channel Name:</label>
+                    <div class="flex-row">
+                        <input class="flex-grow" type="text" id="channel-input" placeholder="e.g. iceinmyvein">
+                        <button class="btn" id="connect-btn">Connect</button>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="keyword-input">Raffle Keyword (e.g. !win):</label>
+                    <input type="text" id="keyword-input" placeholder="Empty for all messages">
+                </div>
+
+                <details style="border-top: 1px solid var(--panel-border); padding-top: 1rem;">
+                    <summary style="font-size: 0.9rem; font-weight: 700; color: var(--color-primary); cursor: pointer; outline: none; list-style: none; display: flex; align-items: center; gap: 0.5rem; user-select: none;">
+                        <span class="arrow" style="transition: transform 0.2s; display: inline-block;">▶</span> Advanced Options
+                    </summary>
+                    <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;">
+                        <div class="toggle-container">
+                            <span style="font-size: 0.9rem; font-weight: 600;">Subscribers Only</span>
+                            <label class="switch">
+                                <input type="checkbox" id="sub-only-checkbox">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="input-group">
+                            <label for="sub-multiplier-input">Subscriber Multiplier (Weighted Entries):</label>
+                            <input type="number" id="sub-multiplier-input" value="2" min="1" max="10">
+                        </div>
+                        <div class="input-group">
+                            <label for="follow-length-input">Min Follower Age (Days):</label>
+                            <input type="number" id="follow-length-input" value="0" min="0">
+                        </div>
+                    </div>
+                </details>
+
+                <div class="input-group">
+                    <div class="space-between flex-row mb-2">
+                        <span style="font-size:0.95rem; font-weight:700;">Participants <span class="title-badge" id="entrant-count">0</span></span>
+                        <button class="btn btn-secondary btn-danger" style="padding: 0.2rem 0.5rem; font-size: 0.75rem;" id="clear-entrants-btn">Clear</button>
+                    </div>
+                    <div class="list-container" id="entrants-list-ui">
+                        <div class="center-text" style="color: var(--text-muted); padding: 2.5rem 0;">No participants yet. Connect and have chatters type the keyword!</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- COLUMN 2: JACKPOT & MULTIPLIER CORE SETTINGS -->
+            <div class="glass-panel">
+                <h2 class="panel-title">Progressive Game Setup</h2>
+
+                <!-- Jackpot Setup -->
+                <div style="background: rgba(255, 170, 0, 0.02); padding: 1.25rem; border-radius: var(--radius-lg); border: 1px solid var(--panel-border); display: flex; flex-direction: column; gap: 1rem;">
+                    <h3 style="font-size: 0.95rem; font-weight: 700; color: var(--color-warning); text-transform: uppercase; letter-spacing: 0.5px;">💰 Progressive Jackpot</h3>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem;">
+                        <div class="input-group">
+                            <label for="current-jackpot-input">Current Value ($):</label>
+                            <input type="number" id="current-jackpot-input" value="200" min="0">
+                        </div>
+                        <div class="input-group">
+                            <label for="step-jackpot-input">Step Increase ($):</label>
+                            <input type="number" id="step-jackpot-input" value="5" min="0">
+                        </div>
+                    </div>
+
+                    <div class="flex-row">
+                        <button class="btn btn-warning flex-grow" id="add-jackpot-step-btn">+ Add Step Value</button>
+                        <button class="btn btn-secondary" id="reset-jackpot-btn">Reset to Start</button>
+                    </div>
+                </div>
+
+                <!-- Multiplier Setup -->
+                <div style="background: rgba(0, 180, 255, 0.02); padding: 1.25rem; border-radius: var(--radius-lg); border: 1px solid var(--panel-border); display: flex; flex-direction: column; gap: 1rem;">
+                    <h3 style="font-size: 0.95rem; font-weight: 700; color: var(--color-primary); text-transform: uppercase; letter-spacing: 0.5px;">⭐ Progressive Multiplier Target</h3>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem;">
+                        <div class="input-group">
+                            <label for="current-multiplier-input">Current Multi (x):</label>
+                            <input type="number" id="current-multiplier-input" value="500" min="1">
+                        </div>
+                        <div class="input-group">
+                            <label for="step-multiplier-input">Step Increase (x):</label>
+                            <input type="number" id="step-multiplier-input" value="10" min="0">
+                        </div>
+                    </div>
+
+                    <div class="flex-row">
+                        <button class="btn flex-grow" id="add-multiplier-step-btn">+ Add Step Value</button>
+                        <button class="btn btn-secondary" id="reset-multiplier-btn">Reset to Start</button>
+                    </div>
+                </div>
+
+                <!-- Claim Setup -->
+                <div class="input-group">
+                    <label for="claim-timer-input">Claim Confirmation Timer (seconds):</label>
+                    <input type="number" id="claim-timer-input" value="30" min="5" max="300">
+                </div>
+            </div>
+
+            <!-- COLUMN 3: GAME TURN RESOLUTION -->
+            <div class="glass-panel turn-panel">
+                <h2 class="panel-title">Turn Resolution</h2>
+
+                <!-- Drawing Mechanism -->
+                <div class="input-group">
+                    <button class="btn btn-success" style="padding: 1rem; font-size: 1rem;" id="draw-winner-btn">Draw Turn Winner</button>
+                </div>
+
+                <!-- Active Winner Status Display -->
+                <div class="active-turn-winner">
+                    <div style="font-size: 0.85rem; color: var(--text-secondary); font-weight: 600;">ACTIVE WINNER:</div>
+                    <div class="winner-name" id="active-winner-display">NONE</div>
+                    
+                    <!-- Claim State Badge -->
+                    <div class="status-badge" id="claim-status-badge" style="display: none;">Waiting</div>
+                    
+                    <!-- Countdown Display -->
+                    <div class="active-countdown" id="claim-countdown-display" style="display: none;">30s</div>
+
+                    <!-- Slot Pick Display -->
+                    <div style="display: none; flex-direction: column; gap: 0.25rem;" id="chosen-slot-group">
+                        <label>Chosen Slot / Bonus Buy:</label>
+                        <div class="chosen-slot-badge" id="chosen-slot-display">None Specified Yet</div>
+                    </div>
+                </div>
+
+                <!-- Finalize Turn options -->
+                <div style="display: flex; flex-direction: column; gap: 0.75rem; border-top: 1px solid var(--panel-border); padding-top: 1.25rem;">
+                    <label>Turn Decisions:</label>
+                    <button class="btn btn-primary" id="apply-jackpot-win-btn" disabled>
+                        🏆 Winner Hit Jackpot!
+                    </button>
+                    <button class="btn btn-danger" id="apply-turn-no-win-btn" disabled>
+                        No Win (End Round & Add Step)
+                    </button>
+                    <button class="btn btn-secondary" id="discard-turn-btn" disabled>
+                        Discard Turn / Reset
+                    </button>
+                </div>
+
+                <!-- Offline Testing Sandbox -->
+                <div style="border-top: 1px dashed var(--panel-border); padding-top: 1rem; display: flex; flex-direction: column; gap: 0.75rem;">
+                    <label>Offline Test Sandbox:</label>
+                    <div class="input-group">
+                        <input type="text" id="sandbox-chat-input" placeholder="Type simulated chat message...">
+                    </div>
+                    <div class="horizontal-inputs">
+                        <button class="btn btn-secondary" style="font-size: 0.75rem;" id="send-sandbox-chat-btn">Simulate Msg</button>
+                        <button class="btn btn-secondary" style="font-size: 0.75rem;" id="add-test-users-btn">Add Users</button>
+                    </div>
+                    <div class="horizontal-inputs">
+                        <button class="btn btn-secondary" style="font-size: 0.75rem;" id="force-timeout-btn">Force Timeout</button>
+                        <button class="btn btn-secondary" style="font-size: 0.75rem;" id="test-jackpot-celebration-btn">Celebration</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- STREAM OVERLAY VIEW -->
+    <div id="overlay-wrapper">
+        <div class="casino-billboard">
+            <!-- Ice Logo Top Header (Slightly larger height: 110px) -->
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 0.25rem;">
+                <img src="ice_logo.png" alt="ICEINMYVEIN" style="max-height: 110px; width: auto; filter: drop-shadow(0 0 10px rgba(0, 180, 255, 0.45));">
+            </div>
+
+            <!-- "Buzzer Beater Jackpot" promoted to main heading size -->
+            <div class="billboard-header">Buzzer Beater Jackpot</div>
+            
+            <div class="jackpot-display-box">
+                <!-- "Current Progressive Jackpot" label inside box made a little bigger -->
+                <div class="jackpot-label">Current Progressive Jackpot</div>
+                <div class="jackpot-amount" id="overlay-jackpot-amount">$0.00</div>
+            </div>
+
+            <!-- Multiplier badge displays "Hit [multi] to Win!" -->
+            <div class="multiplier-badge">
+                <span>Hit <strong id="overlay-multiplier-val">1.0x</strong> to Win!</span>
+            </div>
+
+            <!-- Inner Fullscreen Winner Card Overlay -->
+            <div id="winner-screen-overlay">
+                <!-- Main wrapper for winner content -->
+                <div id="overlay-card-content" style="display:flex; flex-direction:column; align-items:center; gap:1rem; width:100%;">
+                    <!-- Populated dynamically via JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- STATE DATA ---
+            let kickChannelSlug = '';
+            let kickChatroomId = null;
+            let ws = null;
+            let participants = new Set();
+            let allEntries = []; 
+
+            let startingJackpot = 200;
+            let currentJackpot = 200;
+            let stepJackpot = 5;
+
+            let startingMultiplier = 500;
+            let currentMultiplier = 500;
+            let stepMultiplier = 10;
+
+            let claimTimerLimit = 30; // default in seconds
+
+            // Active turn variables
+            let drawnWinner = null; 
+            let activePhase = 'idle'; // 'idle', 'claim', 'bonus', 'play', 'timeout', 'betterluck', 'celebrate'
+            let claimTimerRemaining = 0;
+            let countdownInterval = null;
+            let chosenBonusBuy = '';
+
+            // Web Audio Synthesis elements
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+            // BroadcastChannel synchronization
+            const bc = new BroadcastChannel('kickbot_progressive');
+
+            // --- HTML ELEMENT REFERENCES ---
+            const adminWrapper = document.getElementById('admin-wrapper');
+            const overlayWrapper = document.getElementById('overlay-wrapper');
+            const openOverlayBtn = document.getElementById('open-overlay-btn');
+            
+            // Admin inputs
+            const channelInput = document.getElementById('channel-input');
+            const connectBtn = document.getElementById('connect-btn');
+            const keywordInput = document.getElementById('keyword-input');
+            const subOnlyCheckbox = document.getElementById('sub-only-checkbox');
+            const subMultiplierInput = document.getElementById('sub-multiplier-input');
+            const followLengthInput = document.getElementById('follow-length-input');
+            const claimTimerInput = document.getElementById('claim-timer-input');
+            
+            // Jackpot inputs
+            const currentJackpotInput = document.getElementById('current-jackpot-input');
+            const stepJackpotInput = document.getElementById('step-jackpot-input');
+            const addJackpotStepBtn = document.getElementById('add-jackpot-step-btn');
+            const resetJackpotBtn = document.getElementById('reset-jackpot-btn');
+
+            // Multiplier inputs
+            const currentMultiplierInput = document.getElementById('current-multiplier-input');
+            const stepMultiplierInput = document.getElementById('step-multiplier-input');
+            const addMultiplierStepBtn = document.getElementById('add-multiplier-step-btn');
+            const resetMultiplierBtn = document.getElementById('reset-multiplier-btn');
+
+            // Admin Lists and UI
+            const entrantsListUi = document.getElementById('entrants-list-ui');
+            const entrantCountDisplay = document.getElementById('entrant-count');
+            const clearEntrantsBtn = document.getElementById('clear-entrants-btn');
+
+            // Admin Turn Resolution Panel
+            const drawWinnerBtn = document.getElementById('draw-winner-btn');
+            const activeWinnerDisplay = document.getElementById('active-winner-display');
+            const claimStatusBadge = document.getElementById('claim-status-badge');
+            const claimCountdownDisplay = document.getElementById('claim-countdown-display');
+            const chosenSlotGroup = document.getElementById('chosen-slot-group');
+            const chosenSlotDisplay = document.getElementById('chosen-slot-display');
+
+            // Decision Action Buttons
+            const applyTurnNoWinBtn = document.getElementById('apply-turn-no-win-btn');
+            const applyJackpotWinBtn = document.getElementById('apply-jackpot-win-btn');
+            const discardTurnBtn = document.getElementById('discard-turn-btn');
+
+            // Sandbox
+            const sandboxChatInput = document.getElementById('sandbox-chat-input');
+            const sendSandboxChatBtn = document.getElementById('send-sandbox-chat-btn');
+            const addTestUsersBtn = document.getElementById('add-test-users-btn');
+            const forceTimeoutBtn = document.getElementById('force-timeout-btn');
+            const testJackpotCelebrationBtn = document.getElementById('test-jackpot-celebration-btn');
+            
+            // Overlay Display References
+            const overlayJackpotAmount = document.getElementById('overlay-jackpot-amount');
+            const overlayMultiplierVal = document.getElementById('overlay-multiplier-val');
+            const winnerScreenOverlay = document.getElementById('winner-screen-overlay');
+            const overlayCardContent = document.getElementById('overlay-card-content');
+            
+            // Canvas particles
+            const particleCanvas = document.getElementById('particle-canvas');
+            const pCtx = particleCanvas.getContext('2d');
+            let particles = [];
+            let particleAnimFrame = null;
+
+            // --- DETECT MODE ---
+            const isOverlayMode = window.location.search.includes('overlay=true');
+            if (isOverlayMode) {
+                document.body.classList.add('overlay-mode');
+                initOverlayView();
+            } else {
+                initAdminView();
+            }
+
+            // --- SOUND SYNTHESIZER ---
+            function playClickSound() {
+                try {
+                    if (audioCtx.state === 'suspended') audioCtx.resume();
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(600, audioCtx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(150, audioCtx.currentTime + 0.08);
+                    gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.08);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.08);
+                } catch (e) { }
+            }
+
+            function playWinnerSound() {
+                try {
+                    if (audioCtx.state === 'suspended') audioCtx.resume();
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(350, audioCtx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(1000, audioCtx.currentTime + 0.45);
+                    gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.45);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.45);
+                } catch (e) { }
+            }
+
+            function playJackpotSound() {
+                try {
+                    if (audioCtx.state === 'suspended') audioCtx.resume();
+                    let time = audioCtx.currentTime;
+                    for (let i = 0; i < 8; i++) {
+                        const osc = audioCtx.createOscillator();
+                        const gain = audioCtx.createGain();
+                        osc.type = 'sawtooth';
+                        const isEven = i % 2 === 0;
+                        osc.frequency.setValueAtTime(isEven ? 550 : 800, time + i * 0.25);
+                        osc.frequency.linearRampToValueAtTime(isEven ? 800 : 550, time + i * 0.25 + 0.2);
+                        gain.gain.setValueAtTime(0.12, time + i * 0.25);
+                        gain.gain.exponentialRampToValueAtTime(0.001, time + i * 0.25 + 0.25);
+                        osc.connect(gain);
+                        gain.connect(audioCtx.destination);
+                        osc.start(time + i * 0.25);
+                        osc.stop(time + i * 0.25 + 0.25);
+                    }
+                } catch (e) { }
+            }
+
+            function playTimeoutSound() {
+                try {
+                    if (audioCtx.state === 'suspended') audioCtx.resume();
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(300, audioCtx.currentTime);
+                    osc.frequency.linearRampToValueAtTime(100, audioCtx.currentTime + 0.6);
+                    gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.6);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.6);
+                } catch (e) { }
+            }
+
+            // --- PARTICLES ENGINE ---
+            class CoinParticle {
+                constructor(w) {
+                    this.x = Math.random() * w;
+                    this.y = -20 - Math.random() * 80;
+                    this.r = 6 + Math.random() * 6;
+                    this.vy = 3 + Math.random() * 5;
+                    this.vx = (Math.random() - 0.5) * 3;
+                    this.rotation = Math.random() * 360;
+                    this.rotationSpeed = (Math.random() - 0.5) * 8;
+                    this.color = `hsl(${200 + Math.random() * 20}, 100%, ${55 + Math.random() * 15}%)`; // Electric blue coins
+                }
+                update(h) {
+                    this.y += this.vy;
+                    this.x += this.vx;
+                    this.rotation += this.rotationSpeed;
+                    return this.y < h + 20;
+                }
+                draw(ctx) {
+                    ctx.save();
+                    ctx.translate(this.x, this.y);
+                    ctx.rotate(this.rotation * Math.PI / 180);
+                    ctx.beginPath();
+                    ctx.ellipse(0, 0, this.r, this.r / 1.8, 0, 0, Math.PI * 2);
+                    ctx.fillStyle = this.color;
+                    ctx.fill();
+                    ctx.strokeStyle = '#e0f7ff';
+                    ctx.lineWidth = 1;
+                    ctx.stroke();
+                    ctx.restore();
+                }
+            }
+
+            class ConfettiParticle {
+                constructor(w) {
+                    this.x = Math.random() * w;
+                    this.y = -20 - Math.random() * 80;
+                    this.w = 5 + Math.random() * 6;
+                    this.h = 8 + Math.random() * 8;
+                    this.vy = 2.5 + Math.random() * 3.5;
+                    this.vx = (Math.random() - 0.5) * 2.5;
+                    this.rotation = Math.random() * 360;
+                    this.rotationSpeed = (Math.random() - 0.5) * 6;
+                    this.color = `hsl(${180 + Math.random() * 40}, 100%, 65%)`; // Shades of electric blue and white
+                    if (Math.random() > 0.6) this.color = '#ffffff';
+                }
+                update(h) {
+                    this.y += this.vy;
+                    this.x += this.vx;
+                    this.rotation += this.rotationSpeed;
+                    return this.y < h + 20;
+                }
+                draw(ctx) {
+                    ctx.save();
+                    ctx.translate(this.x, this.y);
+                    ctx.rotate(this.rotation * Math.PI / 180);
+                    ctx.fillStyle = this.color;
+                    ctx.fillRect(-this.w / 2, -this.h / 2, this.w, this.h);
+                    ctx.restore();
+                }
+            }
+
+            function resizeCanvas() {
+                particleCanvas.width = window.innerWidth;
+                particleCanvas.height = window.innerHeight;
+            }
+
+            function triggerCelebration() {
+                resizeCanvas();
+                particleCanvas.style.display = 'block';
+                particles = [];
+                const maxParticles = 180;
+                for (let i = 0; i < maxParticles; i++) {
+                    if (Math.random() > 0.4) {
+                        particles.push(new CoinParticle(particleCanvas.width));
+                    } else {
+                        particles.push(new ConfettiParticle(particleCanvas.width));
+                    }
+                }
+                
+                if (particleAnimFrame) cancelAnimationFrame(particleAnimFrame);
+                animateParticles();
+                playJackpotSound();
+            }
+
+            function animateParticles() {
+                pCtx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
+                particles = particles.filter(p => {
+                    const keep = p.update(particleCanvas.height);
+                    if (keep) p.draw(pCtx);
+                    return keep;
+                });
+
+                if (particles.length > 0) {
+                    particleAnimFrame = requestAnimationFrame(animateParticles);
+                } else {
+                    particleCanvas.style.display = 'none';
+                    particleAnimFrame = null;
+                }
+            }
+
+            // --- LOCAL STORAGE BACKUP ---
+            function loadSettings() {
+                const stored = localStorage.getItem('kickbot_jackpot_settings');
+                if (stored) {
+                    try {
+                        const parsed = JSON.parse(stored);
+                        startingJackpot = parsed.startingJackpot ?? 100;
+                        currentJackpot = parsed.currentJackpot ?? 100;
+                        stepJackpot = parsed.stepJackpot ?? 5;
+                        startingMultiplier = parsed.startingMultiplier ?? 1.0;
+                        currentMultiplier = parsed.currentMultiplier ?? 1.0;
+                        stepMultiplier = parsed.stepMultiplier ?? 0.1;
+                        claimTimerLimit = parsed.claimTimerLimit ?? 30;
+                        
+                        const lastChan = localStorage.getItem('kickGiveawayLastChannel');
+                        if (lastChan && channelInput) channelInput.value = lastChan;
+                    } catch (e) {
+                        console.error("Load settings failed", e);
+                    }
+                }
+            }
+
+            function saveSettings() {
+                const config = {
+                    startingJackpot,
+                    currentJackpot,
+                    stepJackpot,
+                    startingMultiplier,
+                    currentMultiplier,
+                    stepMultiplier,
+                    claimTimerLimit
+                };
+                localStorage.setItem('kickbot_jackpot_settings', JSON.stringify(config));
+            }
+
+            // --- ADMIN VIEW INITIALIZATION ---
+            function initAdminView() {
+                loadSettings();
+                syncStateToUI();
+                updateInfoBar();
+
+                // Connect to Kick
+                connectBtn.addEventListener('click', handleConnectToChannel);
+                channelInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') handleConnectToChannel(); });
+                
+                // Open Overlay Popup
+                openOverlayBtn.addEventListener('click', () => {
+                    const url = window.location.href.split('?')[0] + '?overlay=true';
+                    window.open(url, 'KickJackpotOverlay', 'width=1100,height=650,menubar=no,toolbar=no,location=no,status=no');
+                });
+
+                // Clear Entrants
+                clearEntrantsBtn.addEventListener('click', () => {
+                    participants.clear();
+                    allEntries = [];
+                    updateEntrantsListUI();
+                });
+
+                // Numeric settings events
+                startingJackpotInput.addEventListener('change', () => {
+                    startingJackpot = parseFloat(startingJackpotInput.value) || 0;
+                    saveSettings();
+                    sendStateUpdate();
+                });
+                currentJackpotInput.addEventListener('change', () => {
+                    currentJackpot = parseFloat(currentJackpotInput.value) || 0;
+                    saveSettings();
+                    sendStateUpdate();
+                });
+                stepJackpotInput.addEventListener('change', () => {
+                    stepJackpot = parseFloat(stepJackpotInput.value) || 0;
+                    saveSettings();
+                    updateInfoBar();
+                });
+
+                startingMultiplierInput.addEventListener('change', () => {
+                    startingMultiplier = parseFloat(startingMultiplierInput.value) || 1.0;
+                    saveSettings();
+                    sendStateUpdate();
+                });
+                currentMultiplierInput.addEventListener('change', () => {
+                    currentMultiplier = parseFloat(currentMultiplierInput.value) || 1.0;
+                    saveSettings();
+                    sendStateUpdate();
+                });
+                stepMultiplierInput.addEventListener('change', () => {
+                    stepMultiplier = parseFloat(stepMultiplierInput.value) || 0;
+                    saveSettings();
+                    updateInfoBar();
+                });
+                
+                claimTimerInput.addEventListener('change', () => {
+                    claimTimerLimit = parseInt(claimTimerInput.value) || 30;
+                    saveSettings();
+                    updateInfoBar();
+                });
+
+                keywordInput.addEventListener('input', updateInfoBar);
+                subOnlyCheckbox.addEventListener('change', updateInfoBar);
+                followLengthInput.addEventListener('change', updateInfoBar);
+
+                // Manual Adjustments
+                addJackpotStepBtn.addEventListener('click', () => {
+                    currentJackpot = Math.round((currentJackpot + stepJackpot) * 100) / 100;
+                    currentJackpotInput.value = currentJackpot;
+                    saveSettings();
+                    sendStateUpdate();
+                });
+                resetJackpotBtn.addEventListener('click', () => {
+                    currentJackpot = startingJackpot;
+                    currentJackpotInput.value = currentJackpot;
+                    saveSettings();
+                    sendStateUpdate();
+                });
+
+                addMultiplierStepBtn.addEventListener('click', () => {
+                    currentMultiplier = Math.round((currentMultiplier + stepMultiplier) * 100) / 100;
+                    currentMultiplierInput.value = currentMultiplier;
+                    saveSettings();
+                    sendStateUpdate();
+                });
+                resetMultiplierBtn.addEventListener('click', () => {
+                    currentMultiplier = startingMultiplier;
+                    currentMultiplierInput.value = currentMultiplier;
+                    saveSettings();
+                    sendStateUpdate();
+                });
+
+                // Draw button
+                drawWinnerBtn.addEventListener('click', performRaffleDraw);
+
+                // Decision Action Buttons
+                applyJackpotWinBtn.addEventListener('click', resolveJackpotWin);
+                applyTurnNoWinBtn.addEventListener('click', resolveNoWin);
+                discardTurnBtn.addEventListener('click', discardCurrentTurn);
+
+                // Offline Testing Sandbox buttons
+                addTestUsersBtn.addEventListener('click', () => {
+                    const testUsers = ['SlotKing', 'SpinMaster', 'HighRoller', 'LuckyKick', 'JackpotHunter', 'NeonGlow', 'MegaPunter'];
+                    testUsers.forEach(u => {
+                        const isSub = Math.random() > 0.5;
+                        const subMultiplier = parseInt(subMultiplierInput.value) || 1;
+                        participants.add(u);
+                        const weight = isSub ? subMultiplier : 1;
+                        for (let i = 0; i < weight; i++) {
+                            allEntries.push(u);
+                        }
+                    });
+                    updateEntrantsListUI();
+                });
+                
+                sendSandboxChatBtn.addEventListener('click', () => {
+                    const text = sandboxChatInput.value.trim();
+                    if (!text) return;
+                    if (!drawnWinner) {
+                        alert("No drawn winner active to simulate chat for!");
+                        return;
+                    }
+                    simulateIncomingChatMessage(drawnWinner, text);
+                    sandboxChatInput.value = '';
+                });
+
+                forceTimeoutBtn.addEventListener('click', () => {
+                    if (activePhase === 'claim') {
+                        handleClaimTimeout();
+                    }
+                });
+
+                testJackpotCelebrationBtn.addEventListener('click', () => {
+                    bc.postMessage({ type: 'CELEBRATE_JACKPOT' });
+                    triggerCelebration();
+                });
+
+                // Sync incoming requests from Overlay if any
+                bc.onmessage = (e) => {
+                    if (e.data.type === 'REQUEST_STATE') {
+                        sendStateUpdate();
+                    }
+                };
+            }
+
+            function syncStateToUI() {
+                startingJackpotInput.value = startingJackpot;
+                currentJackpotInput.value = currentJackpot;
+                stepJackpotInput.value = stepJackpot;
+                startingMultiplierInput.value = startingMultiplier;
+                currentMultiplierInput.value = currentMultiplier;
+                stepMultiplierInput.value = stepMultiplier;
+                claimTimerInput.value = claimTimerLimit;
+                updateEntrantsListUI();
+            }
+
+            function updateInfoBar() {
+                const keyword = keywordInput.value.trim() || 'None';
+                document.getElementById('info-keyword').textContent = keyword;
+                document.getElementById('info-timer').textContent = `${claimTimerLimit}s`;
+                
+                let filters = [];
+                if (subOnlyCheckbox.checked) filters.push("Subs Only");
+                const days = parseInt(followLengthInput.value) || 0;
+                if (days > 0) filters.push(`${days}d follow`);
+                
+                document.getElementById('info-filters').textContent = filters.join(', ') || 'All Chatters';
+                document.getElementById('info-step-multi').textContent = `${stepMultiplier}x`;
+                document.getElementById('info-step-jackpot').textContent = `$${stepJackpot.toFixed(2)}`;
+            }
+
+            function sendStateUpdate() {
+                bc.postMessage({
+                    type: 'UPDATE_STATE',
+                    state: {
+                        currentJackpot,
+                        currentMultiplier,
+                        startingJackpot,
+                        startingMultiplier,
+                        activePhase,
+                        drawnWinner,
+                        claimTimerRemaining,
+                        chosenBonusBuy
+                    }
+                });
+            }
+
+            // --- KICK CHAT LOGIC ---
+            const WS_URL = 'wss://ws-us2.pusher.com/app/32cbd69e4b950bf97679?protocol=7&client=js&version=8.4.0&flash=false';
+
+            async function handleConnectToChannel() {
+                const channelName = channelInput.value.trim().toLowerCase();
+                if (!channelName) { alert("Please enter a Kick channel name."); return; }
+                connectBtn.disabled = true;
+                connectBtn.textContent = "Connecting...";
+                
+                try {
+                    const response = await fetch(`https://kick.com/api/v2/channels/${channelName}`);
+                    if (!response.ok) throw new Error("Channel not found or Kick API offline.");
+                    const data = await response.json();
+                    if (!data.chatroom?.id) throw new Error("Unable to parse Chatroom ID.");
+
+                    kickChannelSlug = data.slug;
+                    kickChatroomId = data.chatroom.id;
+
+                    localStorage.setItem('kickGiveawayLastChannel', kickChannelSlug);
+                    
+                    const box = document.getElementById('connection-box');
+                    box.classList.add('connected');
+                    
+                    document.getElementById('connection-indicator').classList.add('connected');
+                    document.getElementById('connection-label').innerHTML = `Connected to: <span style="color:#fff;">${kickChannelSlug}</span>`;
+                    
+                    connectBtn.textContent = "Disconnect";
+                    connectBtn.classList.add('btn-danger');
+                    connectBtn.onclick = handleDisconnect;
+
+                    connectToKickWS();
+                } catch (err) {
+                    alert(`Error: ${err.message}`);
+                    handleDisconnect();
+                } finally {
+                    connectBtn.disabled = false;
+                }
+            }
+
+            function handleDisconnect() {
+                if (ws) {
+                    ws.close();
+                    ws = null;
+                }
+                const box = document.getElementById('connection-box');
+                box.classList.remove('connected');
+
+                document.getElementById('connection-indicator').classList.remove('connected');
+                document.getElementById('connection-label').textContent = "Disconnected";
+                connectBtn.textContent = "Connect";
+                connectBtn.classList.remove('btn-danger');
+                connectBtn.onclick = handleConnectToChannel;
+            }
+
+            function connectToKickWS() {
+                if (ws) ws.close();
+                ws = new WebSocket(WS_URL);
+                ws.onmessage = (e) => {
+                    let pkt; try { pkt = JSON.parse(e.data); } catch { return; }
+                    const event = pkt.event;
+                    const data = pkt.data ? JSON.parse(pkt.data) : {};
+
+                    if (event === 'pusher:connection_established') {
+                        ws.send(JSON.stringify({
+                            event: 'pusher:subscribe',
+                            data: { auth: '', channel: `chatrooms.${kickChatroomId}.v2` }
+                        }));
+                    } else if (event === 'App\\Events\\ChatMessageEvent') {
+                        processIncomingMessage(data);
+                    }
+                };
+            }
+
+            function processIncomingMessage(data) {
+                const content = (data.content || '').replace(/[\u{E0000}-\u{E007F}]/gu, '').trim();
+                const sender = data.sender;
+                
+                if (drawnWinner && sender.username.toLowerCase() === drawnWinner.toLowerCase()) {
+                    handleWinnerChatMessage(content);
+                    return;
+                }
+
+                if (participants.has(sender.username)) return;
+
+                const keyword = keywordInput.value.trim().toLowerCase();
+                if (keyword !== '' && content.toLowerCase() !== keyword) return;
+
+                const subBadge = (sender.identity?.badges || []).find(b => b.type === 'subscriber' || b.type === 'founder');
+                const isSub = !!subBadge;
+                if (subOnlyCheckbox.checked && !isSub) return;
+
+                addUserToPool(sender.username, isSub);
+            }
+
+            async function addUserToPool(username, isSub) {
+                const minFollowDays = parseInt(followLengthInput.value) || 0;
+                if (minFollowDays > 0) {
+                    try {
+                        const r = await fetch(`https://kick.com/api/v2/channels/${kickChannelSlug}/users/${username}`);
+                        if (!r.ok) return;
+                        const uData = await r.json();
+                        if (!uData.following_since) return;
+                        
+                        const followDate = new Date(uData.following_since);
+                        const diffTime = Math.abs(new Date() - followDate);
+                        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                        if (diffDays < minFollowDays) return;
+                    } catch (e) {
+                        return;
+                    }
+                }
+
+                participants.add(username);
+                const subMultiplier = parseInt(subMultiplierInput.value) || 1;
+                const weight = isSub ? subMultiplier : 1;
+                for (let i = 0; i < weight; i++) {
+                    allEntries.push(username);
+                }
+
+                updateEntrantsListUI();
+            }
+
+            function updateEntrantsListUI() {
+                entrantCountDisplay.textContent = participants.size;
+                entrantsListUi.innerHTML = '';
+                if (participants.size === 0) {
+                    entrantsListUi.innerHTML = '<div class="center-text" style="color: var(--text-muted); padding: 2.5rem 0;">No participants yet.</div>';
+                    return;
+                }
+
+                participants.forEach(user => {
+                    const li = document.createElement('li');
+                    li.textContent = user;
+                    
+                    const count = allEntries.filter(e => e === user).length;
+                    if (count > 1) {
+                        const span = document.createElement('span');
+                        span.className = 'subscriber-tag';
+                        span.textContent = `Sub (${count}x)`;
+                        li.appendChild(span);
+                    }
+                    entrantsListUi.appendChild(li);
+                });
+            }
+
+            // --- DRAW & GAMEPLAY LOOP ---
+            function getLocalRandomNumber(max) {
+                const arr = new Uint32Array(1);
+                crypto.getRandomValues(arr);
+                return arr[0] % max;
+            }
+
+            async function performRaffleDraw() {
+                if (allEntries.length === 0) {
+                    alert("No participants in pool!");
+                    return;
+                }
+
+                drawWinnerBtn.disabled = true;
+                drawWinnerBtn.textContent = "Drawing...";
+
+                const max = allEntries.length;
+                let winningIdx = 0;
+
+                try {
+                    const rUrl = `https://www.random.org/integers/?num=1&min=1&max=${max}&col=1&base=10&format=plain&rnd=new`;
+                    const direct = await fetch(rUrl);
+                    if (direct.ok) {
+                        const text = await direct.text();
+                        winningIdx = (parseInt(text.trim()) || 1) - 1;
+                    } else {
+                        const proxy = await fetch(`https://corsproxy.io/?url=${encodeURIComponent(rUrl)}`);
+                        if (proxy.ok) {
+                            const text = await proxy.text();
+                            winningIdx = (parseInt(text.trim()) || 1) - 1;
+                        } else {
+                            winningIdx = getLocalRandomNumber(max);
+                        }
+                    }
+                } catch(e) {
+                    winningIdx = getLocalRandomNumber(max);
+                }
+
+                drawnWinner = allEntries[winningIdx];
+                chosenBonusBuy = '';
+
+                activeWinnerDisplay.textContent = drawnWinner;
+                activeWinnerDisplay.style.color = 'var(--color-primary)';
+                
+                claimStatusBadge.style.display = 'inline-block';
+                claimStatusBadge.textContent = 'Waiting';
+                claimStatusBadge.className = 'status-badge waiting';
+                
+                claimCountdownDisplay.style.display = 'block';
+                claimCountdownDisplay.textContent = `${claimTimerLimit}s`;
+
+                chosenSlotGroup.style.display = 'none';
+                chosenSlotDisplay.textContent = 'None Specified Yet';
+
+                discardTurnBtn.disabled = false;
+                applyJackpotWinBtn.disabled = true;
+                applyTurnNoWinBtn.disabled = true;
+
+                activePhase = 'claim';
+                claimTimerRemaining = claimTimerLimit;
+                
+                if (countdownInterval) clearInterval(countdownInterval);
+                countdownInterval = setInterval(() => {
+                    claimTimerRemaining--;
+                    claimCountdownDisplay.textContent = `${claimTimerRemaining}s`;
+                    bc.postMessage({ type: 'TIMER_TICK', remaining: claimTimerRemaining });
+
+                    if (claimTimerRemaining <= 0) {
+                        handleClaimTimeout();
+                    }
+                }, 1000);
+
+                bc.postMessage({ type: 'DRAWN_WINNER', winnerName: drawnWinner, timerLimit: claimTimerLimit });
+                playWinnerSound();
+
+                drawWinnerBtn.disabled = false;
+                drawWinnerBtn.textContent = "Draw Turn Winner";
+            }
+
+            function handleWinnerChatMessage(message) {
+                if (activePhase === 'claim') {
+                    if (countdownInterval) clearInterval(countdownInterval);
+                    countdownInterval = null;
+
+                    activePhase = 'bonus';
+                    claimStatusBadge.textContent = 'Claimed';
+                    claimStatusBadge.className = 'status-badge claimed';
+                    claimCountdownDisplay.style.display = 'none';
+                    
+                    chosenSlotGroup.style.display = 'flex';
+                    chosenSlotDisplay.textContent = 'Type !SlotName (Super/Normal) in chat...';
+
+                    applyTurnNoWinBtn.disabled = false;
+                    applyJackpotWinBtn.disabled = false;
+
+                    bc.postMessage({ type: 'CLAIM_CONFIRMED' });
+                    playWinnerSound();
+
+                } else if (activePhase === 'bonus' || activePhase === 'play') {
+                    if (message.startsWith('!')) {
+                        chosenBonusBuy = message;
+                        chosenSlotDisplay.textContent = chosenBonusBuy;
+                        chosenSlotDisplay.style.color = 'var(--color-primary)';
+                        activePhase = 'play';
+
+                        bc.postMessage({
+                            type: 'BONUS_SELECTED',
+                            slotName: chosenBonusBuy,
+                            currentJackpot,
+                            currentMultiplier
+                        });
+                        playWinnerSound();
+                    }
+                }
+            }
+
+            function handleClaimTimeout() {
+                if (countdownInterval) clearInterval(countdownInterval);
+                countdownInterval = null;
+
+                activePhase = 'timeout';
+                claimStatusBadge.textContent = 'Timed Out';
+                claimStatusBadge.className = 'status-badge timeout';
+                claimCountdownDisplay.textContent = '0s';
+
+                applyTurnNoWinBtn.disabled = true;
+                applyJackpotWinBtn.disabled = true;
+
+                bc.postMessage({ type: 'CLAIM_TIMEOUT' });
+                playTimeoutSound();
+            }
+
+            function resolveJackpotWin() {
+                bc.postMessage({ type: 'JACKPOT_WON_CELEBRATE', winnerName: drawnWinner, jackpotValue: currentJackpot });
+                triggerCelebration();
+
+                currentJackpot = startingJackpot;
+                currentJackpotInput.value = currentJackpot;
+                currentMultiplier = startingMultiplier;
+                currentMultiplierInput.value = currentMultiplier;
+
+                saveSettings();
+                resetTurnPanel();
+            }
+
+            function resolveNoWin() {
+                currentMultiplier = Math.round((currentMultiplier + stepMultiplier) * 100) / 100;
+                currentMultiplierInput.value = currentMultiplier;
+
+                currentJackpot = Math.round((currentJackpot + stepJackpot) * 100) / 100;
+                currentJackpotInput.value = currentJackpot;
+
+                saveSettings();
+
+                bc.postMessage({ 
+                    type: 'ROUND_NO_WIN',
+                    increasedJackpot: currentJackpot,
+                    increasedMultiplier: currentMultiplier
+                });
+                
+                resetTurnPanel();
+            }
+
+            function discardCurrentTurn() {
+                bc.postMessage({ type: 'CLEAR_OVERLAY' });
+                resetTurnPanel();
+            }
+
+            function resetTurnPanel() {
+                if (countdownInterval) clearInterval(countdownInterval);
+                countdownInterval = null;
+
+                drawnWinner = null;
+                activePhase = 'idle';
+                chosenBonusBuy = '';
+
+                activeWinnerDisplay.textContent = 'NONE';
+                activeWinnerDisplay.style.color = '';
+                
+                claimStatusBadge.style.display = 'none';
+                claimCountdownDisplay.style.display = 'none';
+                chosenSlotGroup.style.display = 'none';
+
+                applyTurnNoWinBtn.disabled = true;
+                applyJackpotWinBtn.disabled = true;
+                discardTurnBtn.disabled = true;
+
+                sendStateUpdate();
+            }
+
+            function simulateIncomingChatMessage(username, text) {
+                processIncomingMessage({
+                    content: text,
+                    sender: {
+                        username: username,
+                        identity: { badges: [] }
+                    }
+                });
+            }
+
+
+            // --- OVERLAY VIEW INITIALIZATION ---
+            function initOverlayView() {
+                bc.postMessage({ type: 'REQUEST_STATE' });
+
+                bc.onmessage = (e) => {
+                    const data = e.data;
+                    if (data.type === 'UPDATE_STATE') {
+                        overlayJackpotAmount.textContent = `$${parseFloat(data.state.currentJackpot).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+                        overlayMultiplierVal.textContent = `${parseFloat(data.state.currentMultiplier).toFixed(1)}x`;
+                        
+                        activePhase = data.state.activePhase;
+                        drawnWinner = data.state.drawnWinner;
+                        chosenBonusBuy = data.state.chosenBonusBuy;
+
+                        if (activePhase === 'idle') {
+                            winnerScreenOverlay.style.display = 'none';
+                        }
+                    } else if (data.type === 'DRAWN_WINNER') {
+                        drawnWinner = data.winnerName;
+                        activePhase = 'claim';
+                        chosenBonusBuy = '';
+
+                        overlayCardContent.innerHTML = `
+                            <div class="winner-announcement-title">UP NEXT:</div>
+                            <div class="winner-announcement-name">${drawnWinner}</div>
+                            <div class="winner-announcement-subtitle">Congrats! Claim your prize by sending a message in chat.</div>
+                            <div class="winner-timer-text" id="winner-banner-timer">${data.timerLimit}s</div>
+                        `;
+                        
+                        winnerScreenOverlay.style.display = 'flex';
+                        playWinnerSound();
+
+                    } else if (data.type === 'TIMER_TICK') {
+                        const timerEl = document.getElementById('winner-banner-timer');
+                        if (timerEl) timerEl.textContent = `${data.remaining}s`;
+
+                    } else if (data.type === 'CLAIM_CONFIRMED') {
+                        activePhase = 'bonus';
+                        
+                        overlayCardContent.innerHTML = `
+                            <div class="winner-announcement-name">${drawnWinner}</div>
+                            
+                            <!-- Red Dice Visual in between winner and heading -->
+                            <div class="dice-container">
+                                <svg class="die-svg" width="55" height="55" viewBox="0 0 60 60">
+                                    <rect x="2" y="2" width="56" height="56" rx="10" fill="#ffffff" stroke="#ff3333" stroke-width="4"/>
+                                    <circle cx="15" cy="15" r="5" fill="#ff3333"/>
+                                    <circle cx="45" cy="45" r="5" fill="#ff3333"/>
+                                </svg>
+                                <svg class="die-svg" width="55" height="55" viewBox="0 0 60 60">
+                                    <rect x="2" y="2" width="56" height="56" rx="10" fill="#ffffff" stroke="#ff3333" stroke-width="4"/>
+                                    <circle cx="15" cy="15" r="5" fill="#ff3333"/>
+                                    <circle cx="30" cy="30" r="5" fill="#ff3333"/>
+                                    <circle cx="45" cy="45" r="5" fill="#ff3333"/>
+                                </svg>
+                            </div>
+
+                            <div class="winner-announcement-title" style="font-size: 2.2rem; color:#fff; text-shadow:0 0 10px rgba(255,255,255,0.2);">Prize Claimed!</div>
+                            <div class="winner-announcement-subtitle" style="color:var(--color-primary); font-weight:700; font-size:1.4rem;">Put Your Bonus Buy In Chat!</div>
+                            <div class="winner-announcement-subtitle" style="font-size:0.95rem; font-weight:normal; opacity:0.75; margin-top: -0.5rem;">Example: !Dork Unit Normal or !Waylanders Forge Super</div>
+                        `;
+                        playWinnerSound();
+
+                    } else if (data.type === 'CLAIM_TIMEOUT') {
+                        activePhase = 'timeout';
+                        
+                        overlayCardContent.innerHTML = `
+                            <div class="winner-announcement-title" style="font-size:2.5rem; color:var(--color-danger); text-shadow:0 0 10px var(--color-danger-glow);">TIMES Up! 😢</div>
+                            <div class="winner-announcement-subtitle" style="font-size:1.45rem; line-height:1.6; color:#fff; font-weight:bold;">
+                                Sleepers never win and winners never sleep!<br>Try Again!
+                            </div>
+                        `;
+                        playTimeoutSound();
+
+                    } else if (data.type === 'BONUS_SELECTED') {
+                        activePhase = 'play';
+                        chosenBonusBuy = data.slotName;
+                        
+                        // Strip '!' character from display name
+                        const slotNameClean = chosenBonusBuy.replace(/^!/, '');
+
+                        overlayCardContent.innerHTML = `
+                            <div class="winner-announcement-title">BONUS BUY LOCKED!</div>
+                            <div class="winner-announcement-name" style="font-size: 3.2rem;">${drawnWinner}</div>
+                            
+                            <div class="picked-slot-block">
+                                <div class="picked-slot-label">Chosen Slot Game</div>
+                                <div class="picked-slot-value">${slotNameClean}</div>
+                                
+                                <!-- Giant displays of Target Goals -->
+                                <div class="picked-slot-goals">
+                                    <span>Jackpot: $${parseFloat(data.currentJackpot).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                                    <span>Goal: ${parseFloat(data.currentMultiplier).toFixed(1)}x</span>
+                                </div>
+                            </div>
+                        `;
+                        playWinnerSound();
+
+                    } else if (data.type === 'JACKPOT_WON_CELEBRATE') {
+                        activePhase = 'celebrate';
+                        
+                        overlayCardContent.innerHTML = `
+                            <div class="winner-announcement-title" style="font-size:2.5rem; color:var(--color-primary); text-shadow:0 0 15px var(--color-primary-glow);">🏆 CONGRATULATIONS 🏆</div>
+                            <div class="winner-announcement-subtitle" style="font-size: 1.8rem; line-height: 1.5; color: #fff; font-weight: 800;">
+                                YOU HAVE WON <span style="color:var(--color-primary);">${data.winnerName}</span> the JACKPOT of <span style="color:var(--color-warning); text-shadow:0 0 10px var(--color-warning-glow); display:block; font-size: 3.2rem; margin: 0.5rem 0;">$${parseFloat(data.jackpotValue).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}!</span>
+                            </div>
+                            <div style="font-size:1.8rem; font-weight:800; color:var(--color-primary); text-shadow:0 0 15px var(--color-primary-glow); margin-top:0.5rem;">
+                                Way To Go!
+                            </div>
+                        `;
+                        triggerCelebration();
+
+                    } else if (data.type === 'ROUND_NO_WIN') {
+                        activePhase = 'betterluck';
+                        
+                        overlayCardContent.innerHTML = `
+                            <div class="winner-announcement-title" style="font-size:2.5rem; color:var(--color-primary); text-shadow:0 0 15px var(--color-primary-glow);">BETTER LUCK NEXT TIME!</div>
+                            
+                            <div class="winner-announcement-subtitle" style="font-size: 1.8rem; font-weight: 800; color: #fff; margin-bottom: 0.5rem;">
+                                JACKPOT Has Increased
+                            </div>
+
+                            <div style="background:rgba(0,180,255,0.08); border:1px solid rgba(0,180,255,0.25); border-radius:10px; padding:1.25rem 2rem; display:flex; gap:2.5rem; font-size:1.7rem; font-weight:800; color:#fff; text-shadow:0 0 12px var(--color-primary-glow); margin: 0.5rem 0;">
+                                <span>Jackpot: $${parseFloat(data.increasedJackpot).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                                <span>Target: ${parseFloat(data.increasedMultiplier).toFixed(1)}x</span>
+                            </div>
+
+                            <div style="font-size:0.95rem; font-weight:600; color:var(--text-secondary); opacity:0.8; margin-top:0.75rem; text-transform:uppercase; letter-spacing:1px;">
+                                Ready to Draw a New Winner
+                            </div>
+                        `;
+                        playWinnerSound();
+
+                    } else if (data.type === 'CLEAR_OVERLAY') {
+                        activePhase = 'idle';
+                        winnerScreenOverlay.style.display = 'none';
+                    }
+                };
+            }
+
+        });
+    </script>
+</body>
+
+</html>
