@@ -2020,13 +2020,41 @@
 
                         overlayCardContent.innerHTML = `
                             <div class="winner-announcement-title">UP NEXT:</div>
-                            <div class="winner-announcement-name">${drawnWinner}</div>
+                            <div class="winner-announcement-name" id="scramble-winner-name" style="font-family: inherit;"></div>
                             <div class="winner-announcement-subtitle">Congrats! Claim your prize by sending a message in chat.</div>
                             <div class="winner-timer-text" id="winner-banner-timer">${data.timerLimit}s</div>
                         `;
                         
                         winnerScreenOverlay.style.display = 'flex';
                         playWinnerSound();
+
+                        // Charanim (Character Scramble Animation)
+                        const winnerNameEl = document.getElementById('scramble-winner-name');
+                        const finalWinner = drawnWinner;
+                        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!?*&%';
+                        let frame = 0;
+                        const totalFrames = 80; // ~2.4 seconds resolution
+
+                        if (window.scrambleInterval) clearInterval(window.scrambleInterval);
+                        window.scrambleInterval = setInterval(() => {
+                            let output = '';
+                            let completed = true;
+                            for (let i = 0; i < finalWinner.length; i++) {
+                                if (finalWinner[i] === ' ') {
+                                    output += ' ';
+                                    continue;
+                                }
+                                const randChar = chars[Math.floor(Math.random() * chars.length)];
+                                const progress = Math.min(frame / (totalFrames * 0.4 + i * 4), 1);
+                                if (progress < 1) completed = false;
+                                output += (Math.random() < progress) ? finalWinner[i] : randChar;
+                            }
+                            winnerNameEl.textContent = output;
+                            if (completed) {
+                                clearInterval(window.scrambleInterval);
+                            }
+                            frame++;
+                        }, 30);
 
                     } else if (data.type === 'TIMER_TICK') {
                         const timerEl = document.getElementById('winner-banner-timer');
