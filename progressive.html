@@ -722,6 +722,21 @@
             animation: fade-in 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
+        @keyframes flash-celebrate-anim {
+            0%, 20%, 40%, 60%, 80%, 100% {
+                background: rgba(2, 4, 10, 0.98);
+                box-shadow: inset 0 0 50px rgba(0, 180, 255, 0.3);
+            }
+            10%, 30%, 50%, 70% {
+                background: rgba(255, 170, 0, 0.65); /* Vibrant gold flash */
+                box-shadow: inset 0 0 100px rgba(255, 255, 255, 0.85);
+            }
+        }
+
+        .flash-celebrate {
+            animation: flash-celebrate-anim 2.5s ease-out;
+        }
+
         .winner-announcement-title {
             font-size: 1.5rem;
             font-weight: 800;
@@ -949,16 +964,16 @@
                     <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem;">
                         <div class="input-group">
                             <label for="current-jackpot-input">Current Value ($):</label>
-                            <input type="number" id="current-jackpot-input" value="200" min="0">
+                            <input type="number" id="current-jackpot-input" value="100" min="0">
                         </div>
                         <div class="input-group">
-                            <label for="step-jackpot-input">Step Increase ($):</label>
+                            <label for="step-jackpot-input">Increase By ($):</label>
                             <input type="number" id="step-jackpot-input" value="5" min="0">
                         </div>
                     </div>
 
                     <div class="flex-row">
-                        <button class="btn btn-warning flex-grow" id="add-jackpot-step-btn">+ Add Step Value</button>
+                        <button class="btn btn-warning flex-grow" id="add-jackpot-step-btn">+ Increase Value</button>
                         <button class="btn btn-secondary" id="reset-jackpot-btn">Reset to Start</button>
                     </div>
                 </div>
@@ -970,16 +985,16 @@
                     <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem;">
                         <div class="input-group">
                             <label for="current-multiplier-input">Current Multi (x):</label>
-                            <input type="number" id="current-multiplier-input" value="500" min="1">
+                            <input type="number" id="current-multiplier-input" value="300" min="1">
                         </div>
                         <div class="input-group">
-                            <label for="step-multiplier-input">Step Increase (x):</label>
+                            <label for="step-multiplier-input">Increase By (x):</label>
                             <input type="number" id="step-multiplier-input" value="10" min="0">
                         </div>
                     </div>
 
                     <div class="flex-row">
-                        <button class="btn flex-grow" id="add-multiplier-step-btn">+ Add Step Value</button>
+                        <button class="btn flex-grow" id="add-multiplier-step-btn">+ Increase Value</button>
                         <button class="btn btn-secondary" id="reset-multiplier-btn">Reset to Start</button>
                     </div>
                 </div>
@@ -1030,6 +1045,9 @@
                     <button class="btn btn-primary" id="resolve-turn-btn" disabled>
                         Resolve Bonus Buy
                     </button>
+                    <button class="btn btn-warning" id="force-jackpot-win-btn" disabled>
+                        🏆 Force Jackpot Win
+                    </button>
                     <button class="btn btn-secondary" id="discard-turn-btn" disabled>
                         Discard Turn / Reset
                     </button>
@@ -1069,12 +1087,12 @@
             <div class="jackpot-display-box">
                 <!-- "Current Progressive Jackpot" label inside box made a little bigger -->
                 <div class="jackpot-label">Current Progressive Jackpot</div>
-                <div class="jackpot-amount" id="overlay-jackpot-amount">$0.00</div>
+                <div class="jackpot-amount" id="overlay-jackpot-amount">$100.00</div>
             </div>
 
             <!-- Multiplier badge displays "Hit [multi] to Win!" -->
             <div class="multiplier-badge">
-                <span>Hit <strong id="overlay-multiplier-val">1.0x</strong> to Win!</span>
+                <span>Hit <strong id="overlay-multiplier-val">300.0x</strong> to Win!</span>
             </div>
 
             <!-- Inner Fullscreen Winner Card Overlay -->
@@ -1098,12 +1116,12 @@
             let participants = new Set();
             let allEntries = []; 
 
-            let startingJackpot = 200;
-            let currentJackpot = 200;
+            let startingJackpot = 100;
+            let currentJackpot = 100;
             let stepJackpot = 5;
 
-            let startingMultiplier = 500;
-            let currentMultiplier = 500;
+            let startingMultiplier = 300;
+            let currentMultiplier = 300;
             let stepMultiplier = 10;
 
             let claimTimerLimit = 30; // default in seconds
@@ -1162,6 +1180,7 @@
 
             // Decision Action Buttons
             const resolveTurnBtn = document.getElementById('resolve-turn-btn');
+            const forceJackpotWinBtn = document.getElementById('force-jackpot-win-btn');
             const discardTurnBtn = document.getElementById('discard-turn-btn');
             const bonusResultGroup = document.getElementById('bonus-result-group');
             const bonusResultInput = document.getElementById('bonus-result-input');
@@ -1377,9 +1396,9 @@
                         startingJackpot = parsed.startingJackpot ?? 100;
                         currentJackpot = parsed.currentJackpot ?? 100;
                         stepJackpot = parsed.stepJackpot ?? 5;
-                        startingMultiplier = parsed.startingMultiplier ?? 1.0;
-                        currentMultiplier = parsed.currentMultiplier ?? 1.0;
-                        stepMultiplier = parsed.stepMultiplier ?? 0.1;
+                        startingMultiplier = parsed.startingMultiplier ?? 300;
+                        currentMultiplier = parsed.currentMultiplier ?? 300;
+                        stepMultiplier = parsed.stepMultiplier ?? 10;
                         claimTimerLimit = parsed.claimTimerLimit ?? 30;
                         
                         const lastChan = localStorage.getItem('kickGiveawayLastChannel');
@@ -1410,8 +1429,8 @@
                 updateInfoBar();
 
                 // Connect to Kick
-                connectBtn.addEventListener('click', handleConnectToChannel);
-                channelInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') handleConnectToChannel(); });
+                connectBtn.addEventListener('click', handleConnectBtnClick);
+                channelInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') handleConnectBtnClick(); });
                 
                 // Open Overlay Popup
                 openOverlayBtn.addEventListener('click', () => {
@@ -1427,11 +1446,6 @@
                 });
 
                 // Numeric settings events
-                startingJackpotInput.addEventListener('change', () => {
-                    startingJackpot = parseFloat(startingJackpotInput.value) || 0;
-                    saveSettings();
-                    sendStateUpdate();
-                });
                 currentJackpotInput.addEventListener('change', () => {
                     currentJackpot = parseFloat(currentJackpotInput.value) || 0;
                     saveSettings();
@@ -1443,11 +1457,6 @@
                     updateInfoBar();
                 });
 
-                startingMultiplierInput.addEventListener('change', () => {
-                    startingMultiplier = parseFloat(startingMultiplierInput.value) || 1.0;
-                    saveSettings();
-                    sendStateUpdate();
-                });
                 currentMultiplierInput.addEventListener('change', () => {
                     currentMultiplier = parseFloat(currentMultiplierInput.value) || 1.0;
                     saveSettings();
@@ -1501,6 +1510,11 @@
 
                 // Decision Action Buttons
                 resolveTurnBtn.addEventListener('click', handleResolveTurnClick);
+                forceJackpotWinBtn.addEventListener('click', () => {
+                    if (drawnWinner) {
+                        resolveJackpotWin();
+                    }
+                });
                 discardTurnBtn.addEventListener('click', discardCurrentTurn);
 
                 // Offline Testing Sandbox buttons
@@ -1549,10 +1563,8 @@
             }
 
             function syncStateToUI() {
-                startingJackpotInput.value = startingJackpot;
                 currentJackpotInput.value = currentJackpot;
                 stepJackpotInput.value = stepJackpot;
-                startingMultiplierInput.value = startingMultiplier;
                 currentMultiplierInput.value = currentMultiplier;
                 stepMultiplierInput.value = stepMultiplier;
                 claimTimerInput.value = claimTimerLimit;
@@ -1593,6 +1605,14 @@
             // --- KICK CHAT LOGIC ---
             const WS_URL = 'wss://ws-us2.pusher.com/app/32cbd69e4b950bf97679?protocol=7&client=js&version=8.4.0&flash=false';
 
+            function handleConnectBtnClick() {
+                if (connectBtn.textContent === "Disconnect") {
+                    handleDisconnect();
+                } else {
+                    handleConnectToChannel();
+                }
+            }
+
             async function handleConnectToChannel() {
                 const channelName = channelInput.value.trim().toLowerCase();
                 if (!channelName) { alert("Please enter a Kick channel name."); return; }
@@ -1618,7 +1638,6 @@
                     
                     connectBtn.textContent = "Disconnect";
                     connectBtn.classList.add('btn-danger');
-                    connectBtn.onclick = handleDisconnect;
 
                     connectToKickWS();
                 } catch (err) {
@@ -1641,7 +1660,6 @@
                 document.getElementById('connection-label').textContent = "Disconnected";
                 connectBtn.textContent = "Connect";
                 connectBtn.classList.remove('btn-danger');
-                connectBtn.onclick = handleConnectToChannel;
             }
 
             function connectToKickWS() {
@@ -1790,8 +1808,10 @@
                 chosenSlotDisplay.textContent = 'None Specified Yet';
 
                 discardTurnBtn.disabled = false;
-                applyJackpotWinBtn.disabled = true;
-                applyTurnNoWinBtn.disabled = true;
+                resolveTurnBtn.disabled = true;
+                forceJackpotWinBtn.disabled = true;
+                bonusResultGroup.style.display = 'none';
+                bonusResultInput.value = '';
 
                 activePhase = 'claim';
                 claimTimerRemaining = claimTimerLimit;
@@ -1827,8 +1847,9 @@
                     chosenSlotGroup.style.display = 'flex';
                     chosenSlotDisplay.textContent = 'Type !SlotName (Super/Normal) in chat...';
 
-                    applyTurnNoWinBtn.disabled = false;
-                    applyJackpotWinBtn.disabled = false;
+                    resolveTurnBtn.disabled = false;
+                    forceJackpotWinBtn.disabled = false;
+                    bonusResultGroup.style.display = 'flex';
 
                     bc.postMessage({ type: 'CLAIM_CONFIRMED' });
                     playWinnerSound();
@@ -1839,6 +1860,7 @@
                         chosenSlotDisplay.textContent = chosenBonusBuy;
                         chosenSlotDisplay.style.color = 'var(--color-primary)';
                         activePhase = 'play';
+                        bonusResultGroup.style.display = 'flex';
 
                         bc.postMessage({
                             type: 'BONUS_SELECTED',
@@ -1860,15 +1882,22 @@
                 claimStatusBadge.className = 'status-badge timeout';
                 claimCountdownDisplay.textContent = '0s';
 
-                applyTurnNoWinBtn.disabled = true;
-                applyJackpotWinBtn.disabled = true;
+                resolveTurnBtn.disabled = true;
+                forceJackpotWinBtn.disabled = true;
+                bonusResultGroup.style.display = 'none';
 
                 bc.postMessage({ type: 'CLAIM_TIMEOUT' });
                 playTimeoutSound();
             }
 
             function resolveJackpotWin() {
-                bc.postMessage({ type: 'JACKPOT_WON_CELEBRATE', winnerName: drawnWinner, jackpotValue: currentJackpot });
+                bc.postMessage({ 
+                    type: 'JACKPOT_WON_CELEBRATE', 
+                    winnerName: drawnWinner, 
+                    jackpotValue: currentJackpot,
+                    resetJackpot: startingJackpot,
+                    resetMultiplier: startingMultiplier
+                });
                 triggerCelebration();
 
                 currentJackpot = startingJackpot;
@@ -1918,11 +1947,33 @@
                 claimCountdownDisplay.style.display = 'none';
                 chosenSlotGroup.style.display = 'none';
 
-                applyTurnNoWinBtn.disabled = true;
-                applyJackpotWinBtn.disabled = true;
+                resolveTurnBtn.disabled = true;
+                forceJackpotWinBtn.disabled = true;
                 discardTurnBtn.disabled = true;
+                bonusResultGroup.style.display = 'none';
+                bonusResultInput.value = '';
 
                 sendStateUpdate();
+            }
+
+            function handleResolveTurnClick() {
+                if (!drawnWinner) return;
+                const resultVal = bonusResultInput.value.trim();
+                if (resultVal === '') {
+                    alert("Please enter the actual bonus multiplier result (x).");
+                    return;
+                }
+                const resultMulti = parseFloat(resultVal);
+                if (isNaN(resultMulti) || resultMulti < 0) {
+                    alert("Please enter a valid non-negative multiplier.");
+                    return;
+                }
+
+                if (resultMulti >= currentMultiplier) {
+                    resolveJackpotWin();
+                } else {
+                    resolveNoWin();
+                }
             }
 
             function simulateIncomingChatMessage(username, text) {
@@ -1939,24 +1990,29 @@
             // --- OVERLAY VIEW INITIALIZATION ---
             function initOverlayView() {
                 bc.postMessage({ type: 'REQUEST_STATE' });
-
                 bc.onmessage = (e) => {
                     const data = e.data;
                     if (data.type === 'UPDATE_STATE') {
                         overlayJackpotAmount.textContent = `$${parseFloat(data.state.currentJackpot).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
                         overlayMultiplierVal.textContent = `${parseFloat(data.state.currentMultiplier).toFixed(1)}x`;
                         
+                        if (data.state.activePhase === 'idle' && (activePhase === 'celebrate' || activePhase === 'betterluck')) {
+                            return;
+                        }
+
                         activePhase = data.state.activePhase;
                         drawnWinner = data.state.drawnWinner;
                         chosenBonusBuy = data.state.chosenBonusBuy;
 
                         if (activePhase === 'idle') {
                             winnerScreenOverlay.style.display = 'none';
+                            winnerScreenOverlay.classList.remove('flash-celebrate');
                         }
                     } else if (data.type === 'DRAWN_WINNER') {
                         drawnWinner = data.winnerName;
                         activePhase = 'claim';
                         chosenBonusBuy = '';
+                        winnerScreenOverlay.classList.remove('flash-celebrate');
 
                         overlayCardContent.innerHTML = `
                             <div class="winner-announcement-title">UP NEXT:</div>
@@ -1974,6 +2030,7 @@
 
                     } else if (data.type === 'CLAIM_CONFIRMED') {
                         activePhase = 'bonus';
+                        winnerScreenOverlay.classList.remove('flash-celebrate');
                         
                         overlayCardContent.innerHTML = `
                             <div class="winner-announcement-name">${drawnWinner}</div>
@@ -1983,13 +2040,14 @@
                                 <svg class="die-svg" width="55" height="55" viewBox="0 0 60 60">
                                     <rect x="2" y="2" width="56" height="56" rx="10" fill="#ffffff" stroke="#ff3333" stroke-width="4"/>
                                     <circle cx="15" cy="15" r="5" fill="#ff3333"/>
+                                    <circle cx="15" cy="45" r="5" fill="#ff3333"/>
+                                    <circle cx="30" cy="30" r="5" fill="#ff3333"/>
+                                    <circle cx="45" cy="15" r="5" fill="#ff3333"/>
                                     <circle cx="45" cy="45" r="5" fill="#ff3333"/>
                                 </svg>
                                 <svg class="die-svg" width="55" height="55" viewBox="0 0 60 60">
-                                    <rect x="2" y="2" width="56" height="56" rx="10" fill="#ffffff" stroke="#ff3333" stroke-width="4"/>
-                                    <circle cx="15" cy="15" r="5" fill="#ff3333"/>
-                                    <circle cx="30" cy="30" r="5" fill="#ff3333"/>
-                                    <circle cx="45" cy="45" r="5" fill="#ff3333"/>
+                                    <rect x="2" y="2" width="56" height="56" rx="10" fill="#ff3333" stroke="#ff3333" stroke-width="4"/>
+                                    <circle cx="30" cy="30" r="6" fill="#ffffff"/>
                                 </svg>
                             </div>
 
@@ -2001,6 +2059,7 @@
 
                     } else if (data.type === 'CLAIM_TIMEOUT') {
                         activePhase = 'timeout';
+                        winnerScreenOverlay.classList.remove('flash-celebrate');
                         
                         overlayCardContent.innerHTML = `
                             <div class="winner-announcement-title" style="font-size:2.5rem; color:var(--color-danger); text-shadow:0 0 10px var(--color-danger-glow);">TIMES Up! 😢</div>
@@ -2013,6 +2072,7 @@
                     } else if (data.type === 'BONUS_SELECTED') {
                         activePhase = 'play';
                         chosenBonusBuy = data.slotName;
+                        winnerScreenOverlay.classList.remove('flash-celebrate');
                         
                         // Strip '!' character from display name
                         const slotNameClean = chosenBonusBuy.replace(/^!/, '');
@@ -2038,40 +2098,54 @@
                         activePhase = 'celebrate';
                         
                         overlayCardContent.innerHTML = `
-                            <div class="winner-announcement-title" style="font-size:2.5rem; color:var(--color-primary); text-shadow:0 0 15px var(--color-primary-glow);">🏆 CONGRATULATIONS 🏆</div>
-                            <div class="winner-announcement-subtitle" style="font-size: 1.8rem; line-height: 1.5; color: #fff; font-weight: 800;">
-                                YOU HAVE WON <span style="color:var(--color-primary);">${data.winnerName}</span> the JACKPOT of <span style="color:var(--color-warning); text-shadow:0 0 10px var(--color-warning-glow); display:block; font-size: 3.2rem; margin: 0.5rem 0;">$${parseFloat(data.jackpotValue).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}!</span>
+                            <div class="winner-announcement-title" style="font-size:2.5rem; color:var(--color-warning); text-shadow:0 0 15px var(--color-warning-glow);">🏆 JACKPOT WON 🏆</div>
+                            <div class="winner-announcement-name" style="font-size: 3.2rem; color: #fff; text-shadow: 0 0 25px var(--color-primary); font-weight: 900; line-height: 1.3; margin: 1rem 0; width: 100%; word-wrap: break-word;">
+                                ${data.winnerName} has WON THE JACKPOT!
                             </div>
-                            <div style="font-size:1.8rem; font-weight:800; color:var(--color-primary); text-shadow:0 0 15px var(--color-primary-glow); margin-top:0.5rem;">
-                                Way To Go!
+                            <div style="font-size:2rem; font-weight:900; color:var(--color-primary); text-shadow:0 0 15px var(--color-primary-glow); margin-bottom:1.5rem; animation: pulse-name 1s infinite;">
+                                WAY TO GO!
+                            </div>
+                            
+                            <div class="picked-slot-block" style="width: 80%; max-width: 500px;">
+                                <div class="picked-slot-label" style="color: var(--color-warning); text-shadow: 0 0 8px var(--color-warning-glow);">Ongoing Targets (Reset)</div>
+                                <div class="picked-slot-goals" style="display: flex; justify-content: center; gap: 2.5rem; font-size: 1.6rem; font-weight: 800; color: #fff; margin-top: 0.5rem;">
+                                    <span>Jackpot: $${parseFloat(data.resetJackpot).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                                    <span>Target: ${parseFloat(data.resetMultiplier).toFixed(1)}x</span>
+                                </div>
                             </div>
                         `;
+                        winnerScreenOverlay.classList.remove('flash-celebrate');
+                        void winnerScreenOverlay.offsetWidth; // Trigger reflow
+                        winnerScreenOverlay.classList.add('flash-celebrate');
+                        winnerScreenOverlay.style.display = 'flex';
                         triggerCelebration();
 
                     } else if (data.type === 'ROUND_NO_WIN') {
                         activePhase = 'betterluck';
+                        winnerScreenOverlay.classList.remove('flash-celebrate');
                         
                         overlayCardContent.innerHTML = `
-                            <div class="winner-announcement-title" style="font-size:2.5rem; color:var(--color-primary); text-shadow:0 0 15px var(--color-primary-glow);">BETTER LUCK NEXT TIME!</div>
+                            <div class="winner-announcement-title" style="font-size:2.3rem; color:var(--color-danger); text-shadow:0 0 15px rgba(255, 51, 51, 0.4); text-transform: none; letter-spacing: 1px;">GG's better luck next time!</div>
                             
-                            <div class="winner-announcement-subtitle" style="font-size: 1.8rem; font-weight: 800; color: #fff; margin-bottom: 0.5rem;">
-                                JACKPOT Has Increased
+                            <div class="picked-slot-block" style="width: 80%; max-width: 500px; margin-top: 1.5rem;">
+                                <div class="picked-slot-label">Ongoing Progressive Totals</div>
+                                <div class="picked-slot-goals" style="display: flex; justify-content: center; gap: 2.5rem; font-size: 1.6rem; font-weight: 800; color: #fff; margin-top: 0.5rem;">
+                                    <span>Jackpot: $${parseFloat(data.increasedJackpot).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                                    <span>Target: ${parseFloat(data.increasedMultiplier).toFixed(1)}x</span>
+                                </div>
                             </div>
-
-                            <div style="background:rgba(0,180,255,0.08); border:1px solid rgba(0,180,255,0.25); border-radius:10px; padding:1.25rem 2rem; display:flex; gap:2.5rem; font-size:1.7rem; font-weight:800; color:#fff; text-shadow:0 0 12px var(--color-primary-glow); margin: 0.5rem 0;">
-                                <span>Jackpot: $${parseFloat(data.increasedJackpot).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
-                                <span>Target: ${parseFloat(data.increasedMultiplier).toFixed(1)}x</span>
-                            </div>
-
-                            <div style="font-size:0.95rem; font-weight:600; color:var(--text-secondary); opacity:0.8; margin-top:0.75rem; text-transform:uppercase; letter-spacing:1px;">
+                            
+                            <div style="font-size:0.95rem; font-weight:600; color:var(--text-secondary); opacity:0.8; margin-top:1.5rem; text-transform:uppercase; letter-spacing:1px;">
                                 Ready to Draw a New Winner
                             </div>
                         `;
+                        winnerScreenOverlay.style.display = 'flex';
                         playWinnerSound();
 
                     } else if (data.type === 'CLEAR_OVERLAY') {
                         activePhase = 'idle';
                         winnerScreenOverlay.style.display = 'none';
+                        winnerScreenOverlay.classList.remove('flash-celebrate');
                     }
                 };
             }
