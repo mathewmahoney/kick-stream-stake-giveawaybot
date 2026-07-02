@@ -972,7 +972,7 @@
                         </div>
                         <div class="input-group">
                             <label for="step-jackpot-input">Increase By ($):</label>
-                            <input type="number" id="step-jackpot-input" value="5" min="0">
+                            <input type="number" id="step-jackpot-input" value="20" min="0">
                         </div>
                     </div>
 
@@ -993,7 +993,7 @@
                         </div>
                         <div class="input-group">
                             <label for="step-multiplier-input">Increase By (x):</label>
-                            <input type="number" id="step-multiplier-input" value="10" min="0">
+                            <input type="number" id="step-multiplier-input" value="20" min="0">
                         </div>
                     </div>
 
@@ -1122,11 +1122,27 @@
 
             let startingJackpot = 100;
             let currentJackpot = 100;
-            let stepJackpot = 5;
+            let stepJackpot = 20;
 
             let startingMultiplier = 300;
             let currentMultiplier = 300;
-            let stepMultiplier = 10;
+            let stepMultiplier = 20;
+
+            // Progressive Scale Calculations
+            function getNextScaleMultiplier(current) {
+                if (current < 300) return 300;
+                if (current >= 500 && current < 620) return 620;
+                return Math.round((current + 20) / 20) * 20;
+            }
+
+            function getJackpotForMultiplier(multi) {
+                if (multi <= 300) return 100;
+                if (multi <= 500) {
+                    return 100 + (multi - 300);
+                } else {
+                    return 100 + (multi - 400);
+                }
+            }
 
             let claimTimerLimit = 30; // default in seconds
 
@@ -1399,10 +1415,10 @@
                         const parsed = JSON.parse(stored);
                         startingJackpot = parsed.startingJackpot ?? 100;
                         currentJackpot = parsed.currentJackpot ?? 100;
-                        stepJackpot = parsed.stepJackpot ?? 5;
+                        stepJackpot = parsed.stepJackpot ?? 20;
                         startingMultiplier = parsed.startingMultiplier ?? 300;
                         currentMultiplier = parsed.currentMultiplier ?? 300;
-                        stepMultiplier = parsed.stepMultiplier ?? 10;
+                        stepMultiplier = parsed.stepMultiplier ?? 20;
                         claimTimerLimit = parsed.claimTimerLimit ?? 30;
                         
                         const lastChan = localStorage.getItem('kickGiveawayLastChannel');
@@ -1462,7 +1478,9 @@
                 });
 
                 currentMultiplierInput.addEventListener('change', () => {
-                    currentMultiplier = parseFloat(currentMultiplierInput.value) || 1.0;
+                    currentMultiplier = parseFloat(currentMultiplierInput.value) || 300;
+                    currentJackpot = getJackpotForMultiplier(currentMultiplier);
+                    currentJackpotInput.value = currentJackpot;
                     saveSettings();
                     sendStateUpdate();
                 });
@@ -1492,19 +1510,25 @@
                 resetJackpotBtn.addEventListener('click', () => {
                     currentJackpot = startingJackpot;
                     currentJackpotInput.value = currentJackpot;
+                    currentMultiplier = startingMultiplier;
+                    currentMultiplierInput.value = currentMultiplier;
                     saveSettings();
                     sendStateUpdate();
                 });
 
                 addMultiplierStepBtn.addEventListener('click', () => {
-                    currentMultiplier = Math.round((currentMultiplier + stepMultiplier) * 100) / 100;
+                    currentMultiplier = getNextScaleMultiplier(currentMultiplier);
                     currentMultiplierInput.value = currentMultiplier;
+                    currentJackpot = getJackpotForMultiplier(currentMultiplier);
+                    currentJackpotInput.value = currentJackpot;
                     saveSettings();
                     sendStateUpdate();
                 });
                 resetMultiplierBtn.addEventListener('click', () => {
                     currentMultiplier = startingMultiplier;
                     currentMultiplierInput.value = currentMultiplier;
+                    currentJackpot = getJackpotForMultiplier(currentMultiplier);
+                    currentJackpotInput.value = currentJackpot;
                     saveSettings();
                     sendStateUpdate();
                 });
@@ -1914,10 +1938,10 @@
             }
 
             function resolveNoWin() {
-                currentMultiplier = Math.round((currentMultiplier + stepMultiplier) * 100) / 100;
+                currentMultiplier = getNextScaleMultiplier(currentMultiplier);
                 currentMultiplierInput.value = currentMultiplier;
 
-                currentJackpot = Math.round((currentJackpot + stepJackpot) * 100) / 100;
+                currentJackpot = getJackpotForMultiplier(currentMultiplier);
                 currentJackpotInput.value = currentJackpot;
 
                 saveSettings();
