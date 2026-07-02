@@ -546,16 +546,16 @@
 
         /* Casino Billboard Scoreboard (Electric blue & white style) */
         .casino-billboard {
-            width: 720px;
-            height: 720px;
-            aspect-ratio: 1 / 1;
+            width: 820px;
+            height: 546px;
+            aspect-ratio: 1.5 / 1;
             background: url('ice_frame.png') no-repeat center center;
             background-size: 100% 100%;
             border: none;
             border-radius: 0;
             box-shadow: none;
             position: relative;
-            padding: 7rem 7.5rem; /* Push content to stay inside the ice borders */
+            padding: 4.5rem 6.5rem 5rem 6.5rem; /* Push content to stay inside the ice borders */
             text-align: center;
             box-sizing: border-box;
             display: flex;
@@ -631,25 +631,27 @@
 
         /* Promoted Buzzer Beater Jackpot to main heading size */
         .billboard-header {
-            font-size: 2.8rem;
-            font-weight: 900;
-            letter-spacing: 3px;
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: 2px;
             color: #ffffff;
             text-transform: uppercase;
             text-shadow: 0 2px 8px rgba(0,0,0,0.8), 0 0 15px var(--color-primary-glow);
-            border-bottom: 2px solid rgba(0, 180, 255, 0.2);
-            padding-bottom: 0.5rem;
-            width: 90%;
+            border-bottom: 1px solid rgba(0, 180, 255, 0.15);
+            padding-bottom: 0.75rem;
+            width: 70%;
             margin-top: 0.25rem;
+            line-height: 1.15;
         }
 
         .jackpot-display-box {
             background: #010408;
-            border: 4px solid #081426;
-            border-radius: 1.5rem;
-            padding: 1.25rem 2.5rem;
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.9), 0 0 20px rgba(0, 180, 255, 0.15);
-            min-width: 85%;
+            border: 3px solid #081426;
+            border-radius: 1.25rem;
+            padding: 0.75rem 2rem;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.95), 0 0 15px rgba(0, 180, 255, 0.1);
+            width: 80%;
+            max-width: 500px;
             position: relative;
             overflow: hidden;
             display: flex;
@@ -670,46 +672,48 @@
 
         /* "Current Progressive Jackpot" label style */
         .jackpot-label {
-            font-size: 1.4rem;
+            font-size: 0.95rem;
             font-weight: 800;
-            letter-spacing: 2px;
-            color: var(--color-primary);
+            letter-spacing: 1.5px;
+            color: #00b4ff;
             text-transform: uppercase;
             margin-bottom: 0.25rem;
-            text-shadow: 0 0 10px var(--color-primary-glow);
+            text-shadow: 0 0 8px rgba(0, 180, 255, 0.4);
         }
 
         .jackpot-amount {
-            font-size: 4.8rem;
+            font-size: 3.8rem;
             font-weight: 900;
             color: #ffffff;
-            text-shadow: 0 0 20px rgba(0, 180, 255, 0.8), 0 0 40px rgba(0, 180, 255, 0.4);
-            letter-spacing: 2px;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.7), 0 0 35px rgba(0, 180, 255, 0.5);
+            letter-spacing: 1px;
             line-height: 1.1;
         }
 
         .multiplier-badge {
-            background: rgba(0, 180, 255, 0.08);
-            border: 2px solid var(--color-primary);
+            background: transparent;
+            border: 2px solid #00b4ff;
             border-radius: 50px;
-            padding: 0.6rem 2.5rem;
-            font-size: 2rem;
+            padding: 0.4rem 2rem;
+            font-size: 1.15rem;
             font-weight: 800;
-            color: var(--color-primary);
-            text-shadow: 0 0 15px var(--color-primary-glow);
-            box-shadow: 0 0 15px rgba(0, 180, 255, 0.2);
+            color: #00b4ff;
+            text-shadow: 0 0 10px rgba(0, 180, 255, 0.5);
+            box-shadow: 0 0 10px rgba(0, 180, 255, 0.15);
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 0.5rem;
+            margin-top: 0.25rem;
         }
 
         /* Fullscreen Winner overlay */
         #winner-screen-overlay {
             position: absolute;
-            top: 7rem;
-            left: 7.5rem;
-            right: 7.5rem;
-            bottom: 7rem;
+            top: 4.5rem;
+            left: 6.5rem;
+            right: 6.5rem;
+            bottom: 5rem;
             background: rgba(2, 4, 10, 0.95);
             z-index: 100;
             border-radius: 1.5rem;
@@ -1076,13 +1080,13 @@
     <!-- STREAM OVERLAY VIEW -->
     <div id="overlay-wrapper">
         <div class="casino-billboard">
-            <!-- Ice Logo Top Header (Slightly larger height: 110px) -->
-            <div style="display: flex; flex-direction: column; align-items: center; gap: 0.25rem;">
-                <img src="ice_logo.png" alt="ICEINMYVEIN" style="max-height: 110px; width: auto; filter: drop-shadow(0 0 10px rgba(0, 180, 255, 0.45));">
+            <!-- Ice Logo Top Header -->
+            <div style="display: flex; flex-direction: column; align-items: center;">
+                <img src="ice_logo.png" alt="ICEINMYVEIN" style="max-height: 48px; width: auto; filter: drop-shadow(0 0 15px rgba(0, 180, 255, 0.6));">
             </div>
 
             <!-- "Buzzer Beater Jackpot" promoted to main heading size -->
-            <div class="billboard-header">Buzzer Beater Jackpot</div>
+            <div class="billboard-header">Buzzer Beater<br>Jackpot</div>
             
             <div class="jackpot-display-box">
                 <!-- "Current Progressive Jackpot" label inside box made a little bigger -->
