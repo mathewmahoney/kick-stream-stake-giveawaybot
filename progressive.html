@@ -10,7 +10,8 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&display=swap"
+        rel="stylesheet">
 
     <style>
         :root {
@@ -19,29 +20,33 @@
             --panel-bg: #080f1a;
             --panel-border: #1c355e;
             --panel-border-hover: rgba(0, 180, 255, 0.4);
-            
-            --color-primary: #00b4ff;       /* Electric Blue */
+
+            --color-primary: #00b4ff;
+            /* Electric Blue */
             --color-primary-glow: rgba(0, 180, 255, 0.35);
-            
-            --color-success: #53fc18;       /* Kick Green (Only in Admin Connect/Draw Winner buttons) */
+
+            --color-success: #53fc18;
+            /* Kick Green (Only in Admin Connect/Draw Winner buttons) */
             --color-success-glow: rgba(83, 252, 24, 0.25);
-            
-            --color-danger: #ff3333;        /* Solid Red (No pink!) */
+
+            --color-danger: #ff3333;
+            /* Solid Red (No pink!) */
             --color-danger-glow: rgba(255, 51, 51, 0.35);
-            
-            --color-warning: #ffaa00;       /* Gold/Amber */
+
+            --color-warning: #ffaa00;
+            /* Gold/Amber */
             --color-warning-glow: rgba(255, 170, 0, 0.3);
-            
+
             --text-primary: #ffffff;
             --text-secondary: #94a3b8;
             --text-muted: #4a607a;
-            
+
             --font-sans: 'Outfit', sans-serif;
-            
+
             --radius-lg: 12px;
             --radius-md: 8px;
             --radius-sm: 6px;
-            
+
             --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -154,7 +159,8 @@
         /* Dashboard grid with fluid responsive columns (Fixed grid blow-outs) */
         .dashboard-grid {
             display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr)); /* Fluidly scales side-by-side columns */
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            /* Fluidly scales side-by-side columns */
             gap: 1.25rem;
             flex-grow: 1;
         }
@@ -162,7 +168,8 @@
         /* Note: Removed the max-width media query to prevent column wrapping */
 
         .glass-panel {
-            min-width: 0; /* Critical: allows columns to shrink below content size */
+            min-width: 0;
+            /* Critical: allows columns to shrink below content size */
             background: var(--panel-bg);
             border: 2px solid var(--panel-border);
             border-radius: var(--radius-lg);
@@ -283,12 +290,12 @@
             border-radius: 50%;
         }
 
-        input:checked + .slider {
+        input:checked+.slider {
             background-color: var(--color-primary-glow);
             border-color: var(--color-primary);
         }
 
-        input:checked + .slider:before {
+        input:checked+.slider:before {
             transform: translateX(20px);
             background-color: var(--color-primary);
         }
@@ -315,7 +322,7 @@
         .btn:hover:not(:disabled) {
             border-color: var(--text-secondary);
             color: #fff;
-            background: rgba(255,255,255,0.05);
+            background: rgba(255, 255, 255, 0.05);
         }
 
         .btn:disabled {
@@ -323,7 +330,7 @@
             cursor: not-allowed;
             border-color: var(--panel-border);
             color: var(--text-muted);
-            background: rgba(0,0,0,0.1);
+            background: rgba(0, 0, 0, 0.1);
         }
 
         /* Glowing green Draw Winner button (matches Technical UI Kit) */
@@ -373,7 +380,7 @@
 
         .btn-secondary {
             border-color: var(--panel-border);
-            background: rgba(255,255,255,0.02);
+            background: rgba(255, 255, 255, 0.02);
             color: var(--text-secondary);
         }
 
@@ -381,29 +388,37 @@
         details summary::-webkit-details-marker {
             display: none;
         }
+
         details summary {
             list-style: none;
             outline: none;
         }
+
         details[open] summary .arrow {
             transform: rotate(90deg);
         }
 
         @keyframes pulse {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: scale(1);
                 filter: drop-shadow(0 0 20px rgba(0, 180, 255, 0.45));
             }
+
             50% {
                 transform: scale(1.05);
                 filter: drop-shadow(0 0 35px rgba(0, 180, 255, 0.75));
             }
         }
-        
+
         @keyframes bounce {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: translateY(0);
             }
+
             50% {
                 transform: translateY(-8px);
             }
@@ -416,7 +431,7 @@
             overflow-y: auto;
             border: 1px solid var(--panel-border);
             border-radius: var(--radius-md);
-            background: rgba(0,0,0,0.3);
+            background: rgba(0, 0, 0, 0.3);
             padding: 0.5rem;
             font-size: 0.9rem;
         }
@@ -431,7 +446,7 @@
         }
 
         .list-container li:nth-child(even) {
-            background: rgba(255,255,255,0.02);
+            background: rgba(255, 255, 255, 0.02);
         }
 
         .subscriber-tag {
@@ -464,7 +479,8 @@
         .active-turn-winner .winner-name {
             font-size: 2rem;
             font-weight: 800;
-            color: var(--color-primary); /* Electric Blue Username display */
+            color: var(--color-primary);
+            /* Electric Blue Username display */
             text-shadow: 0 0 10px var(--color-primary-glow);
         }
 
@@ -555,13 +571,15 @@
             border-radius: 0;
             box-shadow: none;
             position: relative;
-            padding: 5.5rem 6.5rem 6rem 6.5rem; /* Push content to stay inside the ice borders */
+            padding: 5.5rem 6.5rem 6rem 6.5rem;
+            /* Push content to stay inside the ice borders */
             text-align: center;
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center; /* Center content vertically */
+            justify-content: center;
+            /* Center content vertically */
             gap: 1.25rem;
             z-index: 10;
         }
@@ -601,22 +619,85 @@
             animation: led-flash 1s infinite alternate;
         }
 
-        .led-light.t1 { top: -14px; left: 10%; }
-        .led-light.t2 { top: -14px; left: 30%; }
-        .led-light.t3 { top: -14px; left: 50%; }
-        .led-light.t4 { top: -14px; left: 70%; }
-        .led-light.t5 { top: -14px; left: 90%; }
-        .led-light.b1 { bottom: -14px; left: 10%; }
-        .led-light.b2 { bottom: -14px; left: 30%; }
-        .led-light.b3 { bottom: -14px; left: 50%; }
-        .led-light.b4 { bottom: -14px; left: 70%; }
-        .led-light.b5 { bottom: -14px; left: 90%; }
-        .led-light.l1 { left: -14px; top: 25%; }
-        .led-light.l2 { left: -14px; top: 50%; }
-        .led-light.l3 { left: -14px; top: 75%; }
-        .led-light.r1 { right: -14px; top: 25%; }
-        .led-light.r2 { right: -14px; top: 50%; }
-        .led-light.r3 { right: -14px; top: 75%; }
+        .led-light.t1 {
+            top: -14px;
+            left: 10%;
+        }
+
+        .led-light.t2 {
+            top: -14px;
+            left: 30%;
+        }
+
+        .led-light.t3 {
+            top: -14px;
+            left: 50%;
+        }
+
+        .led-light.t4 {
+            top: -14px;
+            left: 70%;
+        }
+
+        .led-light.t5 {
+            top: -14px;
+            left: 90%;
+        }
+
+        .led-light.b1 {
+            bottom: -14px;
+            left: 10%;
+        }
+
+        .led-light.b2 {
+            bottom: -14px;
+            left: 30%;
+        }
+
+        .led-light.b3 {
+            bottom: -14px;
+            left: 50%;
+        }
+
+        .led-light.b4 {
+            bottom: -14px;
+            left: 70%;
+        }
+
+        .led-light.b5 {
+            bottom: -14px;
+            left: 90%;
+        }
+
+        .led-light.l1 {
+            left: -14px;
+            top: 25%;
+        }
+
+        .led-light.l2 {
+            left: -14px;
+            top: 50%;
+        }
+
+        .led-light.l3 {
+            left: -14px;
+            top: 75%;
+        }
+
+        .led-light.r1 {
+            right: -14px;
+            top: 25%;
+        }
+
+        .led-light.r2 {
+            right: -14px;
+            top: 50%;
+        }
+
+        .led-light.r3 {
+            right: -14px;
+            top: 75%;
+        }
 
         .led-light:nth-child(even) {
             animation-delay: 0.5s;
@@ -625,8 +706,15 @@
         }
 
         @keyframes led-flash {
-            0% { opacity: 0.3; transform: scale(0.9); }
-            100% { opacity: 1; transform: scale(1.1); }
+            0% {
+                opacity: 0.3;
+                transform: scale(0.9);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1.1);
+            }
         }
 
         /* Promoted Buzzer Beater Jackpot to main heading size */
@@ -636,7 +724,7 @@
             letter-spacing: 2px;
             color: #ffffff;
             text-transform: uppercase;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.8), 0 0 15px var(--color-primary-glow);
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8), 0 0 15px var(--color-primary-glow);
             border-bottom: 1px solid rgba(0, 180, 255, 0.15);
             padding-bottom: 0.75rem;
             width: 70%;
@@ -649,7 +737,7 @@
             border: 3px solid #081426;
             border-radius: 1.25rem;
             padding: 0.75rem 2rem;
-            box-shadow: inset 0 0 15px rgba(0,0,0,0.95), 0 0 15px rgba(0, 180, 255, 0.1);
+            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.95), 0 0 15px rgba(0, 180, 255, 0.1);
             width: 80%;
             max-width: 500px;
             position: relative;
@@ -666,7 +754,7 @@
             left: 0;
             right: 0;
             height: 50%;
-            background: linear-gradient(to bottom, rgba(255,255,255,0.05), transparent);
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.05), transparent);
             pointer-events: none;
         }
 
@@ -727,12 +815,23 @@
         }
 
         @keyframes flash-celebrate-anim {
-            0%, 20%, 40%, 60%, 80%, 100% {
+
+            0%,
+            20%,
+            40%,
+            60%,
+            80%,
+            100% {
                 background: rgba(2, 4, 10, 0.95);
                 box-shadow: inset 0 0 50px rgba(0, 180, 255, 0.3);
             }
-            10%, 30%, 50%, 70% {
-                background: rgba(255, 170, 0, 0.65); /* Vibrant gold flash */
+
+            10%,
+            30%,
+            50%,
+            70% {
+                background: rgba(255, 170, 0, 0.65);
+                /* Vibrant gold flash */
                 box-shadow: inset 0 0 100px rgba(255, 255, 255, 0.85);
             }
         }
@@ -747,13 +846,14 @@
             color: #ffffff;
             text-transform: uppercase;
             letter-spacing: 5px;
-            text-shadow: 0 0 8px rgba(255,255,255,0.3);
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
         }
 
         .winner-announcement-name {
             font-size: 4rem;
             font-weight: 900;
-            color: var(--color-primary); /* Electric Blue Winner username */
+            color: var(--color-primary);
+            /* Electric Blue Winner username */
             text-shadow: 0 0 25px var(--color-primary);
             letter-spacing: 1px;
             animation: pulse-name 1.5s infinite;
@@ -770,7 +870,8 @@
         .winner-timer-text {
             font-size: 3.5rem;
             font-weight: 900;
-            color: var(--color-danger); /* Solid Red */
+            color: var(--color-danger);
+            /* Solid Red */
             text-shadow: 0 0 15px var(--color-danger-glow);
             margin-top: 0.5rem;
         }
@@ -810,11 +911,12 @@
         .picked-slot-goals {
             display: flex;
             gap: 2.5rem;
-            font-size: 2rem; /* Even larger target totals display */
+            font-size: 2rem;
+            /* Even larger target totals display */
             font-weight: 800;
             color: #ffffff;
             justify-content: center;
-            border-top: 1px solid rgba(0,180,255,0.25);
+            border-top: 1px solid rgba(0, 180, 255, 0.25);
             padding-top: 1rem;
             width: 100%;
             margin-top: 0.5rem;
@@ -825,18 +927,39 @@
         }
 
         @keyframes card-appear {
-            from { transform: scale(0.8); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
         }
 
         @keyframes pulse-name {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.04); }
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.04);
+            }
         }
 
         @keyframes fade-in {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
         #particle-canvas {
@@ -868,8 +991,13 @@
         }
 
         @keyframes die-float {
-            0% { transform: translateY(0) rotate(0deg); }
-            100% { transform: translateY(-5px) rotate(5deg); }
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            100% {
+                transform: translateY(-5px) rotate(5deg);
+            }
         }
     </style>
 </head>
@@ -885,7 +1013,12 @@
             <h1 class="brand-title">KICKBOT <span>PROGRESSIVE JACKPOT</span></h1>
             <div class="flex-row">
                 <button class="btn btn-secondary" id="open-overlay-btn" type="button">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"></path><path d="M10 14 21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M15 3h6v6"></path>
+                        <path d="M10 14 21 3"></path>
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    </svg>
                     Open Overlay
                 </button>
                 <div class="connection-status" id="connection-box">
@@ -905,11 +1038,11 @@
         </div>
 
         <div class="dashboard-grid">
-            
+
             <!-- COLUMN 1: KICK CONNECTION & RAFFLE CONFIG -->
             <div class="glass-panel">
                 <h2 class="panel-title">Raffle Connection</h2>
-                
+
                 <div class="input-group">
                     <label for="channel-input">Kick Channel Name:</label>
                     <div class="flex-row">
@@ -924,8 +1057,10 @@
                 </div>
 
                 <details style="border-top: 1px solid var(--panel-border); padding-top: 1rem;">
-                    <summary style="font-size: 0.9rem; font-weight: 700; color: var(--color-primary); cursor: pointer; outline: none; list-style: none; display: flex; align-items: center; gap: 0.5rem; user-select: none;">
-                        <span class="arrow" style="transition: transform 0.2s; display: inline-block;">▶</span> Advanced Options
+                    <summary
+                        style="font-size: 0.9rem; font-weight: 700; color: var(--color-primary); cursor: pointer; outline: none; list-style: none; display: flex; align-items: center; gap: 0.5rem; user-select: none;">
+                        <span class="arrow" style="transition: transform 0.2s; display: inline-block;">▶</span> Advanced
+                        Options
                     </summary>
                     <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;">
                         <div class="toggle-container">
@@ -948,11 +1083,14 @@
 
                 <div class="input-group">
                     <div class="space-between flex-row mb-2">
-                        <span style="font-size:0.95rem; font-weight:700;">Participants <span class="title-badge" id="entrant-count">0</span></span>
-                        <button class="btn btn-secondary btn-danger" style="padding: 0.2rem 0.5rem; font-size: 0.75rem;" id="clear-entrants-btn">Clear</button>
+                        <span style="font-size:0.95rem; font-weight:700;">Participants <span class="title-badge"
+                                id="entrant-count">0</span></span>
+                        <button class="btn btn-secondary btn-danger" style="padding: 0.2rem 0.5rem; font-size: 0.75rem;"
+                            id="clear-entrants-btn">Clear</button>
                     </div>
                     <div class="list-container" id="entrants-list-ui">
-                        <div class="center-text" style="color: var(--text-muted); padding: 2.5rem 0;">No participants yet. Connect and have chatters type the keyword!</div>
+                        <div class="center-text" style="color: var(--text-muted); padding: 2.5rem 0;">No participants
+                            yet. Connect and have chatters type the keyword!</div>
                     </div>
                 </div>
             </div>
@@ -962,9 +1100,12 @@
                 <h2 class="panel-title">Progressive Game Setup</h2>
 
                 <!-- Jackpot Setup -->
-                <div style="background: rgba(255, 170, 0, 0.02); padding: 1.25rem; border-radius: var(--radius-lg); border: 1px solid var(--panel-border); display: flex; flex-direction: column; gap: 1rem;">
-                    <h3 style="font-size: 0.95rem; font-weight: 700; color: var(--color-warning); text-transform: uppercase; letter-spacing: 0.5px;">💰 Progressive Jackpot</h3>
-                    
+                <div
+                    style="background: rgba(255, 170, 0, 0.02); padding: 1.25rem; border-radius: var(--radius-lg); border: 1px solid var(--panel-border); display: flex; flex-direction: column; gap: 1rem;">
+                    <h3
+                        style="font-size: 0.95rem; font-weight: 700; color: var(--color-warning); text-transform: uppercase; letter-spacing: 0.5px;">
+                        💰 Progressive Jackpot</h3>
+
                     <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem;">
                         <div class="input-group">
                             <label for="current-jackpot-input">Current Value ($):</label>
@@ -983,9 +1124,12 @@
                 </div>
 
                 <!-- Multiplier Setup -->
-                <div style="background: rgba(0, 180, 255, 0.02); padding: 1.25rem; border-radius: var(--radius-lg); border: 1px solid var(--panel-border); display: flex; flex-direction: column; gap: 1rem;">
-                    <h3 style="font-size: 0.95rem; font-weight: 700; color: var(--color-primary); text-transform: uppercase; letter-spacing: 0.5px;">⭐ Progressive Multiplier Target</h3>
-                    
+                <div
+                    style="background: rgba(0, 180, 255, 0.02); padding: 1.25rem; border-radius: var(--radius-lg); border: 1px solid var(--panel-border); display: flex; flex-direction: column; gap: 1rem;">
+                    <h3
+                        style="font-size: 0.95rem; font-weight: 700; color: var(--color-primary); text-transform: uppercase; letter-spacing: 0.5px;">
+                        ⭐ Progressive Multiplier Target</h3>
+
                     <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem;">
                         <div class="input-group">
                             <label for="current-multiplier-input">Current Multi (x):</label>
@@ -1016,17 +1160,28 @@
 
                 <!-- Drawing Mechanism -->
                 <div class="input-group">
-                    <button class="btn btn-success" style="padding: 1rem; font-size: 1rem;" id="draw-winner-btn">Draw Turn Winner</button>
+                    <button class="btn btn-success" style="padding: 1rem; font-size: 1rem;" id="draw-winner-btn">Draw
+                        Turn Winner</button>
+                </div>
+
+                <!-- Manual Winner Entry -->
+                <div class="input-group" style="border-top: 1px dashed var(--panel-border); padding-top: 1rem;">
+                    <label for="manual-winner-input" style="font-size:0.8rem; color: var(--text-muted);">— OR SET WINNER MANUALLY —</label>
+                    <div class="flex-row">
+                        <input type="text" id="manual-winner-input" placeholder="Enter username..." style="flex:1;">
+                        <button class="btn btn-primary" id="set-manual-winner-btn" style="white-space:nowrap;">Set Winner</button>
+                    </div>
                 </div>
 
                 <!-- Active Winner Status Display -->
                 <div class="active-turn-winner">
-                    <div style="font-size: 0.85rem; color: var(--text-secondary); font-weight: 600;">ACTIVE WINNER:</div>
+                    <div style="font-size: 0.85rem; color: var(--text-secondary); font-weight: 600;">ACTIVE WINNER:
+                    </div>
                     <div class="winner-name" id="active-winner-display">NONE</div>
-                    
+
                     <!-- Claim State Badge -->
                     <div class="status-badge" id="claim-status-badge" style="display: none;">Waiting</div>
-                    
+
                     <!-- Countdown Display -->
                     <div class="active-countdown" id="claim-countdown-display" style="display: none;">30s</div>
 
@@ -1037,14 +1192,16 @@
                     </div>
 
                     <!-- Bonus Result Multiplier Input -->
-                    <div style="display: none; flex-direction: column; gap: 0.5rem; margin-top: 0.75rem;" id="bonus-result-group">
+                    <div style="display: none; flex-direction: column; gap: 0.5rem; margin-top: 0.75rem;"
+                        id="bonus-result-group">
                         <label for="bonus-result-input">Bonus Result Multiplier (x):</label>
                         <input type="number" id="bonus-result-input" min="0" placeholder="Enter actual multi result">
                     </div>
                 </div>
 
                 <!-- Finalize Turn options -->
-                <div style="display: flex; flex-direction: column; gap: 0.75rem; border-top: 1px solid var(--panel-border); padding-top: 1.25rem;">
+                <div
+                    style="display: flex; flex-direction: column; gap: 0.75rem; border-top: 1px solid var(--panel-border); padding-top: 1.25rem;">
                     <label>Turn Decisions:</label>
                     <button class="btn btn-primary" id="resolve-turn-btn" disabled>
                         Resolve Bonus Buy
@@ -1058,18 +1215,23 @@
                 </div>
 
                 <!-- Offline Testing Sandbox -->
-                <div style="border-top: 1px dashed var(--panel-border); padding-top: 1rem; display: flex; flex-direction: column; gap: 0.75rem;">
+                <div
+                    style="border-top: 1px dashed var(--panel-border); padding-top: 1rem; display: flex; flex-direction: column; gap: 0.75rem;">
                     <label>Offline Test Sandbox:</label>
                     <div class="input-group">
                         <input type="text" id="sandbox-chat-input" placeholder="Type simulated chat message...">
                     </div>
                     <div class="horizontal-inputs">
-                        <button class="btn btn-secondary" style="font-size: 0.75rem;" id="send-sandbox-chat-btn">Simulate Msg</button>
-                        <button class="btn btn-secondary" style="font-size: 0.75rem;" id="add-test-users-btn">Add Users</button>
+                        <button class="btn btn-secondary" style="font-size: 0.75rem;"
+                            id="send-sandbox-chat-btn">Simulate Msg</button>
+                        <button class="btn btn-secondary" style="font-size: 0.75rem;" id="add-test-users-btn">Add
+                            Users</button>
                     </div>
                     <div class="horizontal-inputs">
-                        <button class="btn btn-secondary" style="font-size: 0.75rem;" id="force-timeout-btn">Force Timeout</button>
-                        <button class="btn btn-secondary" style="font-size: 0.75rem;" id="test-jackpot-celebration-btn">Celebration</button>
+                        <button class="btn btn-secondary" style="font-size: 0.75rem;" id="force-timeout-btn">Force
+                            Timeout</button>
+                        <button class="btn btn-secondary" style="font-size: 0.75rem;"
+                            id="test-jackpot-celebration-btn">Celebration</button>
                     </div>
                 </div>
             </div>
@@ -1082,12 +1244,13 @@
         <div class="casino-billboard">
             <!-- Ice Logo Top Header -->
             <div style="display: flex; flex-direction: column; align-items: center;">
-                <img src="ice_logo.png" alt="ICEINMYVEIN" style="max-height: 48px; width: auto; filter: drop-shadow(0 0 15px rgba(0, 180, 255, 0.6));">
+                <img src="ice_logo.png" alt="ICEINMYVEIN"
+                    style="max-height: 48px; width: auto; filter: drop-shadow(0 0 15px rgba(0, 180, 255, 0.6));">
             </div>
 
             <!-- "Buzzer Beater Jackpot" promoted to main heading size -->
             <div class="billboard-header">Buzzer Beater<br>Jackpot</div>
-            
+
             <div class="jackpot-display-box">
                 <!-- "Current Progressive Jackpot" label inside box made a little bigger -->
                 <div class="jackpot-label">Current Progressive Jackpot</div>
@@ -1102,7 +1265,8 @@
             <!-- Inner Fullscreen Winner Card Overlay -->
             <div id="winner-screen-overlay">
                 <!-- Main wrapper for winner content -->
-                <div id="overlay-card-content" style="display:flex; flex-direction:column; align-items:center; gap:1rem; width:100%;">
+                <div id="overlay-card-content"
+                    style="display:flex; flex-direction:column; align-items:center; gap:1rem; width:100%;">
                     <!-- Populated dynamically via JS -->
                 </div>
             </div>
@@ -1112,13 +1276,13 @@
     <!-- SCRIPTS -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            
+
             // --- STATE DATA ---
             let kickChannelSlug = '';
             let kickChatroomId = null;
             let ws = null;
             let participants = new Set();
-            let allEntries = []; 
+            let allEntries = [];
 
             let startingJackpot = 100;
             let currentJackpot = 100;
@@ -1147,7 +1311,7 @@
             let claimTimerLimit = 30; // default in seconds
 
             // Active turn variables
-            let drawnWinner = null; 
+            let drawnWinner = null;
             let activePhase = 'idle'; // 'idle', 'claim', 'bonus', 'play', 'timeout', 'betterluck', 'celebrate'
             let claimTimerRemaining = 0;
             let countdownInterval = null;
@@ -1163,7 +1327,7 @@
             const adminWrapper = document.getElementById('admin-wrapper');
             const overlayWrapper = document.getElementById('overlay-wrapper');
             const openOverlayBtn = document.getElementById('open-overlay-btn');
-            
+
             // Admin inputs
             const channelInput = document.getElementById('channel-input');
             const connectBtn = document.getElementById('connect-btn');
@@ -1172,7 +1336,7 @@
             const subMultiplierInput = document.getElementById('sub-multiplier-input');
             const followLengthInput = document.getElementById('follow-length-input');
             const claimTimerInput = document.getElementById('claim-timer-input');
-            
+
             // Jackpot inputs
             const currentJackpotInput = document.getElementById('current-jackpot-input');
             const stepJackpotInput = document.getElementById('step-jackpot-input');
@@ -1211,13 +1375,13 @@
             const addTestUsersBtn = document.getElementById('add-test-users-btn');
             const forceTimeoutBtn = document.getElementById('force-timeout-btn');
             const testJackpotCelebrationBtn = document.getElementById('test-jackpot-celebration-btn');
-            
+
             // Overlay Display References
             const overlayJackpotAmount = document.getElementById('overlay-jackpot-amount');
             const overlayMultiplierVal = document.getElementById('overlay-multiplier-val');
             const winnerScreenOverlay = document.getElementById('winner-screen-overlay');
             const overlayCardContent = document.getElementById('overlay-card-content');
-            
+
             // Canvas particles
             const particleCanvas = document.getElementById('particle-canvas');
             const pCtx = particleCanvas.getContext('2d');
@@ -1385,7 +1549,7 @@
                         particles.push(new ConfettiParticle(particleCanvas.width));
                     }
                 }
-                
+
                 if (particleAnimFrame) cancelAnimationFrame(particleAnimFrame);
                 animateParticles();
                 playJackpotSound();
@@ -1420,7 +1584,7 @@
                         currentMultiplier = parsed.currentMultiplier ?? 300;
                         stepMultiplier = parsed.stepMultiplier ?? 20;
                         claimTimerLimit = parsed.claimTimerLimit ?? 30;
-                        
+
                         const lastChan = localStorage.getItem('kickGiveawayLastChannel');
                         if (lastChan && channelInput) channelInput.value = lastChan;
                     } catch (e) {
@@ -1451,7 +1615,7 @@
                 // Connect to Kick
                 connectBtn.addEventListener('click', handleConnectBtnClick);
                 channelInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') handleConnectBtnClick(); });
-                
+
                 // Open Overlay Popup
                 openOverlayBtn.addEventListener('click', () => {
                     const url = window.location.href.split('?')[0] + '?overlay=true';
@@ -1489,7 +1653,7 @@
                     saveSettings();
                     updateInfoBar();
                 });
-                
+
                 claimTimerInput.addEventListener('change', () => {
                     claimTimerLimit = parseInt(claimTimerInput.value) || 30;
                     saveSettings();
@@ -1536,6 +1700,24 @@
                 // Draw button
                 drawWinnerBtn.addEventListener('click', performRaffleDraw);
 
+                // Manual winner button
+                const manualWinnerInput = document.getElementById('manual-winner-input');
+                const setManualWinnerBtn = document.getElementById('set-manual-winner-btn');
+                setManualWinnerBtn.addEventListener('click', () => {
+                    const name = manualWinnerInput.value.trim();
+                    if (!name) { alert('Please enter a username.'); return; }
+                    setWinnerManually(name);
+                    manualWinnerInput.value = '';
+                });
+                manualWinnerInput.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') {
+                        const name = manualWinnerInput.value.trim();
+                        if (!name) return;
+                        setWinnerManually(name);
+                        manualWinnerInput.value = '';
+                    }
+                });
+
                 // Decision Action Buttons
                 resolveTurnBtn.addEventListener('click', handleResolveTurnClick);
                 forceJackpotWinBtn.addEventListener('click', () => {
@@ -1559,7 +1741,7 @@
                     });
                     updateEntrantsListUI();
                 });
-                
+
                 sendSandboxChatBtn.addEventListener('click', () => {
                     const text = sandboxChatInput.value.trim();
                     if (!text) return;
@@ -1603,12 +1785,12 @@
                 const keyword = keywordInput.value.trim() || 'None';
                 document.getElementById('info-keyword').textContent = keyword;
                 document.getElementById('info-timer').textContent = `${claimTimerLimit}s`;
-                
+
                 let filters = [];
                 if (subOnlyCheckbox.checked) filters.push("Subs Only");
                 const days = parseInt(followLengthInput.value) || 0;
                 if (days > 0) filters.push(`${days}d follow`);
-                
+
                 document.getElementById('info-filters').textContent = filters.join(', ') || 'All Chatters';
                 document.getElementById('info-step-multi').textContent = `${stepMultiplier}x`;
                 document.getElementById('info-step-jackpot').textContent = `$${stepJackpot.toFixed(2)}`;
@@ -1646,7 +1828,7 @@
                 if (!channelName) { alert("Please enter a Kick channel name."); return; }
                 connectBtn.disabled = true;
                 connectBtn.textContent = "Connecting...";
-                
+
                 try {
                     const response = await fetch(`https://kick.com/api/v2/channels/${channelName}`);
                     if (!response.ok) throw new Error("Channel not found or Kick API offline.");
@@ -1657,13 +1839,13 @@
                     kickChatroomId = data.chatroom.id;
 
                     localStorage.setItem('kickGiveawayLastChannel', kickChannelSlug);
-                    
+
                     const box = document.getElementById('connection-box');
                     box.classList.add('connected');
-                    
+
                     document.getElementById('connection-indicator').classList.add('connected');
                     document.getElementById('connection-label').innerHTML = `Connected to: <span style="color:#fff;">${kickChannelSlug}</span>`;
-                    
+
                     connectBtn.textContent = "Disconnect";
                     connectBtn.classList.add('btn-danger');
 
@@ -1712,7 +1894,7 @@
             function processIncomingMessage(data) {
                 const content = (data.content || '').replace(/[\u{E0000}-\u{E007F}]/gu, '').trim();
                 const sender = data.sender;
-                
+
                 if (drawnWinner && sender.username.toLowerCase() === drawnWinner.toLowerCase()) {
                     handleWinnerChatMessage(content);
                     return;
@@ -1738,7 +1920,7 @@
                         if (!r.ok) return;
                         const uData = await r.json();
                         if (!uData.following_since) return;
-                        
+
                         const followDate = new Date(uData.following_since);
                         const diffTime = Math.abs(new Date() - followDate);
                         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
@@ -1769,7 +1951,7 @@
                 participants.forEach(user => {
                     const li = document.createElement('li');
                     li.textContent = user;
-                    
+
                     const count = allEntries.filter(e => e === user).length;
                     if (count > 1) {
                         const span = document.createElement('span');
@@ -1786,6 +1968,49 @@
                 const arr = new Uint32Array(1);
                 crypto.getRandomValues(arr);
                 return arr[0] % max;
+            }
+
+            function setWinnerManually(username) {
+                // Stop any existing countdown
+                if (countdownInterval) clearInterval(countdownInterval);
+
+                drawnWinner = username;
+                chosenBonusBuy = '';
+
+                activeWinnerDisplay.textContent = drawnWinner;
+                activeWinnerDisplay.style.color = 'var(--color-primary)';
+
+                claimStatusBadge.style.display = 'inline-block';
+                claimStatusBadge.textContent = 'Waiting';
+                claimStatusBadge.className = 'status-badge waiting';
+
+                claimCountdownDisplay.style.display = 'block';
+                claimCountdownDisplay.textContent = `${claimTimerLimit}s`;
+
+                chosenSlotGroup.style.display = 'none';
+                chosenSlotDisplay.textContent = 'None Specified Yet';
+
+                discardTurnBtn.disabled = false;
+                resolveTurnBtn.disabled = true;
+                forceJackpotWinBtn.disabled = true;
+                bonusResultGroup.style.display = 'none';
+                bonusResultInput.value = '';
+
+                activePhase = 'claim';
+                claimTimerRemaining = claimTimerLimit;
+
+                countdownInterval = setInterval(() => {
+                    claimTimerRemaining--;
+                    claimCountdownDisplay.textContent = `${claimTimerRemaining}s`;
+                    bc.postMessage({ type: 'TIMER_TICK', remaining: claimTimerRemaining });
+
+                    if (claimTimerRemaining <= 0) {
+                        handleClaimTimeout();
+                    }
+                }, 1000);
+
+                bc.postMessage({ type: 'DRAWN_WINNER', winnerName: drawnWinner, timerLimit: claimTimerLimit });
+                playWinnerSound();
             }
 
             async function performRaffleDraw() {
@@ -1815,7 +2040,7 @@
                             winningIdx = getLocalRandomNumber(max);
                         }
                     }
-                } catch(e) {
+                } catch (e) {
                     winningIdx = getLocalRandomNumber(max);
                 }
 
@@ -1824,11 +2049,11 @@
 
                 activeWinnerDisplay.textContent = drawnWinner;
                 activeWinnerDisplay.style.color = 'var(--color-primary)';
-                
+
                 claimStatusBadge.style.display = 'inline-block';
                 claimStatusBadge.textContent = 'Waiting';
                 claimStatusBadge.className = 'status-badge waiting';
-                
+
                 claimCountdownDisplay.style.display = 'block';
                 claimCountdownDisplay.textContent = `${claimTimerLimit}s`;
 
@@ -1843,7 +2068,7 @@
 
                 activePhase = 'claim';
                 claimTimerRemaining = claimTimerLimit;
-                
+
                 if (countdownInterval) clearInterval(countdownInterval);
                 countdownInterval = setInterval(() => {
                     claimTimerRemaining--;
@@ -1871,7 +2096,7 @@
                     claimStatusBadge.textContent = 'Claimed';
                     claimStatusBadge.className = 'status-badge claimed';
                     claimCountdownDisplay.style.display = 'none';
-                    
+
                     chosenSlotGroup.style.display = 'flex';
                     chosenSlotDisplay.textContent = 'Type !SlotName (Super/Normal) in chat...';
 
@@ -1919,9 +2144,9 @@
             }
 
             function resolveJackpotWin() {
-                bc.postMessage({ 
-                    type: 'JACKPOT_WON_CELEBRATE', 
-                    winnerName: drawnWinner, 
+                bc.postMessage({
+                    type: 'JACKPOT_WON_CELEBRATE',
+                    winnerName: drawnWinner,
                     jackpotValue: currentJackpot,
                     resetJackpot: startingJackpot,
                     resetMultiplier: startingMultiplier
@@ -1946,12 +2171,12 @@
 
                 saveSettings();
 
-                bc.postMessage({ 
+                bc.postMessage({
                     type: 'ROUND_NO_WIN',
                     increasedJackpot: currentJackpot,
                     increasedMultiplier: currentMultiplier
                 });
-                
+
                 resetTurnPanel();
             }
 
@@ -1970,7 +2195,7 @@
 
                 activeWinnerDisplay.textContent = 'NONE';
                 activeWinnerDisplay.style.color = '';
-                
+
                 claimStatusBadge.style.display = 'none';
                 claimCountdownDisplay.style.display = 'none';
                 chosenSlotGroup.style.display = 'none';
@@ -2023,7 +2248,7 @@
                     if (data.type === 'UPDATE_STATE') {
                         overlayJackpotAmount.textContent = `$${parseFloat(data.state.currentJackpot).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
                         overlayMultiplierVal.textContent = `${parseFloat(data.state.currentMultiplier).toFixed(1)}x`;
-                        
+
                         if (data.state.activePhase === 'idle' && (activePhase === 'celebrate' || activePhase === 'betterluck')) {
                             return;
                         }
@@ -2048,7 +2273,7 @@
                             <div class="winner-announcement-subtitle">Congrats! Claim your prize by sending a message in chat.</div>
                             <div class="winner-timer-text" id="winner-banner-timer">${data.timerLimit}s</div>
                         `;
-                        
+
                         winnerScreenOverlay.style.display = 'flex';
                         playWinnerSound();
 
@@ -2087,7 +2312,7 @@
                     } else if (data.type === 'CLAIM_CONFIRMED') {
                         activePhase = 'bonus';
                         winnerScreenOverlay.classList.remove('flash-celebrate');
-                        
+
                         overlayCardContent.innerHTML = `
                             <div class="winner-announcement-name">${drawnWinner}</div>
                             
@@ -2107,16 +2332,16 @@
                                 </svg>
                             </div>
 
-                            <div class="winner-announcement-title" style="font-size: 2.2rem; color:#fff; text-shadow:0 0 10px rgba(255,255,255,0.2);">Prize Claimed!</div>
-                            <div class="winner-announcement-subtitle" style="color:var(--color-primary); font-weight:700; font-size:1.4rem;">Put Your Bonus Buy In Chat!</div>
-                            <div class="winner-announcement-subtitle" style="font-size:0.95rem; font-weight:normal; opacity:0.75; margin-top: -0.5rem;">Example: !Dork Unit Normal or !Waylanders Forge Super</div>
+                            <div class="winner-announcement-title" style="font-size: 2.2rem; color:#fff; text-shadow:0 0 10px rgba(255,255,255,0.2);">Put your SLOT CALL in Chat!</div>
+                            <div class="winner-announcement-subtitle" style="color:var(--color-primary); font-weight:700; font-size:1.4rem;">Use "!" and "YOUR SLOT CALL + SUPER or NORM" </div>
+                            <div class="winner-announcement-subtitle" style="font-weight:normal; opacity:0.75; margin-top: -0.5rem;">EXAMPLE:"!WAYLANDERS FORGET SUPER", "!SUGAR GATES 1000 NORMAL" </div>
                         `;
                         playWinnerSound();
 
                     } else if (data.type === 'CLAIM_TIMEOUT') {
                         activePhase = 'timeout';
                         winnerScreenOverlay.classList.remove('flash-celebrate');
-                        
+
                         overlayCardContent.innerHTML = `
                             <div class="winner-announcement-title" style="font-size:2.5rem; color:var(--color-danger); text-shadow:0 0 10px var(--color-danger-glow);">TIMES Up! 😢</div>
                             <div class="winner-announcement-subtitle" style="font-size:1.45rem; line-height:1.6; color:#fff; font-weight:bold;">
@@ -2129,7 +2354,7 @@
                         activePhase = 'play';
                         chosenBonusBuy = data.slotName;
                         winnerScreenOverlay.classList.remove('flash-celebrate');
-                        
+
                         // Strip '!' character from display name
                         const slotNameClean = chosenBonusBuy.replace(/^!/, '');
 
@@ -2152,7 +2377,7 @@
 
                     } else if (data.type === 'JACKPOT_WON_CELEBRATE') {
                         activePhase = 'celebrate';
-                        
+
                         overlayCardContent.innerHTML = `
                             <div class="winner-announcement-title" style="font-size:2.5rem; color:var(--color-warning); text-shadow:0 0 15px var(--color-warning-glow);">🏆 JACKPOT WON 🏆</div>
                             <div class="winner-announcement-name" style="font-size: 3.2rem; color: #fff; text-shadow: 0 0 25px var(--color-primary); font-weight: 900; line-height: 1.3; margin: 1rem 0; width: 100%; word-wrap: break-word;">
@@ -2179,7 +2404,7 @@
                     } else if (data.type === 'ROUND_NO_WIN') {
                         activePhase = 'betterluck';
                         winnerScreenOverlay.classList.remove('flash-celebrate');
-                        
+
                         overlayCardContent.innerHTML = `
                             <div class="winner-announcement-title" style="font-size:2.3rem; color:var(--color-danger); text-shadow:0 0 15px rgba(255, 51, 51, 0.4); text-transform: none; letter-spacing: 1px;">GG's better luck next time!</div>
                             
